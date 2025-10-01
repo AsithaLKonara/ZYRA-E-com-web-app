@@ -9,7 +9,7 @@ import { Suspense } from "react"
 import { HeaderSkeleton } from "@/components/ui/loading-skeleton"
 import { InstallPrompt } from "@/components/pwa/install-prompt"
 import { OfflineIndicator } from "@/components/pwa/offline-indicator"
-import { SessionProvider } from "next-auth/react"
+import { AuthProvider } from "@/components/providers/auth-provider"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { CartProvider } from "@/components/providers/cart-provider"
 
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionProvider>
+        <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <ErrorBoundary>
               <CartProvider>
@@ -73,7 +73,7 @@ export default function RootLayout({
               </CartProvider>
             </ErrorBoundary>
           </ThemeProvider>
-        </SessionProvider>
+        </AuthProvider>
       </body>
     </html>
   )
