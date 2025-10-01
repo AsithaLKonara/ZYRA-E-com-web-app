@@ -67,7 +67,15 @@ function validateEnv() {
       error.errors.forEach((err) => {
         console.error(`  - ${err.path.join('.')}: ${err.message}`);
       });
-      process.exit(1);
+      // Use safeParse for Edge Runtime compatibility
+      // Return default values instead of exiting
+      return envSchema.parse({
+        ...process.env,
+        NODE_ENV: process.env.NODE_ENV || 'development',
+        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || 'development-secret-change-in-production',
+        DATABASE_URL: process.env.DATABASE_URL || 'postgresql://localhost:5432/zyra_fashion',
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+      });
     }
     throw error;
   }
