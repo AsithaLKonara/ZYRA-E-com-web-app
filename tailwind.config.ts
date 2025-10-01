@@ -11,6 +11,18 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+        // ZYRA Brand Colors
+        zyra: {
+          rose: '#E91E63',
+          purple: '#9C27B0',
+          gold: '#FFD700',
+          gray: '#F5F5F5',
+          charcoal: '#2C2C2C',
+          'rose-light': '#F48FB1',
+          'rose-dark': '#880E4F',
+          'purple-light': '#CE93D8',
+          'purple-dark': '#4A148C',
+        },
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

@@ -1,9 +1,9 @@
 {
-  "name": "neoshop-ultra",
+  "name": "zyra-fashion",
   "version": "1.0.0",
-  "description": "Ultra-modern e-commerce platform built with Next.js 14, TypeScript, and Tailwind CSS",
+  "description": "Premium women's fashion e-commerce platform built with Next.js 14, TypeScript, and Tailwind CSS",
   "private": true,
-  "author": "NEOSHOP ULTRA Team",
+  "author": "ZYRA Fashion Team",
   "license": "MIT",
   "scripts": {
     "build": "next build",

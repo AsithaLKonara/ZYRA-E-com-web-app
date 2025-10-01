@@ -1,16 +1,16 @@
 {
-  "name": "NEOSHOP ULTRA",
-  "short_name": "NEOSHOP",
-  "description": "Ultra-modern e-commerce platform with cutting-edge technology",
+  "name": "ZYRA - Women's Fashion",
+  "short_name": "ZYRA",
+  "description": "Premium women's fashion boutique - elegant clothing and accessories",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#E91E63",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["shopping", "business", "productivity"],
+  "categories": ["shopping", "fashion", "lifestyle", "women"],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -143,7 +143,7 @@
   ],
   "protocol_handlers": [
     {
-      "protocol": "web+neoshop",
+      "protocol": "web+zyra",
       "url": "/product?id=%s"
     }
   ],

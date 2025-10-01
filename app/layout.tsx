@@ -16,9 +16,40 @@ import { CartProvider } from "@/components/providers/cart-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NEOSHOP ULTRA - Smart E-Commerce Platform",
-  description: "The most customizable and scalable e-commerce platform",
-    generator: 'v0.dev'
+  title: "ZYRA - Premium Women's Fashion | Elegant Clothing & Accessories",
+  description: "Discover ZYRA's curated collection of premium women's fashion. From elegant dresses to everyday essentials, find your perfect style with quality clothing and accessories.",
+  keywords: "women's fashion, women's clothing, dresses, tops, bottoms, fashion accessories, online boutique, premium fashion",
+  authors: [{ name: "ZYRA Fashion Team" }],
+  creator: "ZYRA Fashion",
+  publisher: "ZYRA Fashion",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://zyra-fashion.com",
+    siteName: "ZYRA Fashion",
+    title: "ZYRA - Premium Women's Fashion",
+    description: "Curated collection of premium women's fashion",
+    images: [
+      {
+        url: "/cover.png",
+        width: 1200,
+        height: 630,
+        alt: "ZYRA Fashion",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ZYRA - Premium Women's Fashion",
+    description: "Curated collection of premium women's fashion",
+    images: ["/cover.png"],
+    creator: "@zyra_fashion",
+  },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  generator: 'Next.js'
 }
 
 export default function RootLayout({
