@@ -6,6 +6,7 @@
   "author": "ZYRA Fashion Team",
   "license": "MIT",
   "scripts": {
+    "postinstall": "prisma generate",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
