@@ -55,11 +55,15 @@ export function middleware(request: NextRequest): NextResponse | null {
   });
 
   // Record request metric
-  if (monitoring.getStatus().enabled) {
-    monitoring.recordCounter('requests.total', 1, {
-      method,
-      path: pathname,
-    });
+  try {
+    if (monitoring?.getStatus && monitoring.getStatus().enabled) {
+      monitoring.recordCounter('requests.total', 1, {
+        method,
+        path: pathname,
+      });
+    }
+  } catch (e) {
+    // Silently ignore monitoring errors in Edge Runtime
   }
 
   // Security middleware
@@ -176,10 +180,14 @@ export function middleware(request: NextRequest): NextResponse | null {
   }
 
   // Add monitoring headers
-  if (monitoring.getStatus().enabled) {
-    const duration = Date.now() - startTime;
-    response.headers.set('X-Response-Time', `${duration}ms`);
-    response.headers.set('X-Request-ID', `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  try {
+    if (monitoring?.getStatus && monitoring.getStatus().enabled) {
+      const duration = Date.now() - startTime;
+      response.headers.set('X-Response-Time', `${duration}ms`);
+      response.headers.set('X-Request-ID', `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+    }
+  } catch (e) {
+    // Silently ignore monitoring errors in Edge Runtime
   }
 
   // Log response
@@ -191,12 +199,16 @@ export function middleware(request: NextRequest): NextResponse | null {
   });
 
   // Record response metric
-  if (monitoring.getStatus().enabled) {
-    const duration = Date.now() - startTime;
-    monitoring.recordTimer('requests.duration', duration, {
-      method,
-      path: pathname,
-    });
+  try {
+    if (monitoring?.getStatus && monitoring.getStatus().enabled) {
+      const duration = Date.now() - startTime;
+      monitoring.recordTimer('requests.duration', duration, {
+        method,
+        path: pathname,
+      });
+    }
+  } catch (e) {
+    // Silently ignore monitoring errors in Edge Runtime
   }
 
   return response;
