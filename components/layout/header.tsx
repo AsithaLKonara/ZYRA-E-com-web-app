@@ -17,10 +17,10 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600" />
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            NEOSHOP ULTRA
+        <Link href="/" className="flex items-center space-x-3">
+          <img src="/logo.png" alt="ZYRA" className="h-10 w-auto" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+            ZYRA
           </span>
         </Link>
 
