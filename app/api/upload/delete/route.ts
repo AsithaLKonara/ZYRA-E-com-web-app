@@ -81,5 +81,5 @@ async function deleteFilesHandler(request: NextRequest) {
   }
 }
 
-export const DELETE = withCORS(withErrorHandler(withAuth(deleteFilesHandler)))
+export const DELETE = withErrorHandler(withAuth(deleteFilesHandler))
 
