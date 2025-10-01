@@ -1,0 +1,146 @@
+MIT License
+
+Copyright (c) 2024 NEOSHOP ULTRA
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+This software includes third-party libraries and components. The following
+are the licenses for the major dependencies:
+
+### Next.js
+Copyright (c) 2024 Vercel, Inc.
+Licensed under the MIT License.
+
+### React
+Copyright (c) Meta Platforms, Inc. and affiliates.
+Licensed under the MIT License.
+
+### TypeScript
+Copyright (c) Microsoft Corporation.
+Licensed under the Apache License 2.0.
+
+### Tailwind CSS
+Copyright (c) Tailwind Labs, Inc.
+Licensed under the MIT License.
+
+### Prisma
+Copyright (c) 2024 Prisma Data, Inc.
+Licensed under the Apache License 2.0.
+
+### NextAuth.js
+Copyright (c) 2024 NextAuth.js Contributors.
+Licensed under the ISC License.
+
+### Stripe
+Copyright (c) 2024 Stripe, Inc.
+Licensed under the MIT License.
+
+### Vercel
+Copyright (c) 2024 Vercel, Inc.
+Licensed under the MIT License.
+
+### Resend
+Copyright (c) 2024 Resend, Inc.
+Licensed under the MIT License.
+
+### Sentry
+Copyright (c) 2024 Sentry, Inc.
+Licensed under the BSD 3-Clause License.
+
+### Google Analytics
+Copyright (c) Google LLC.
+Licensed under the Apache License 2.0.
+
+### Redis
+Copyright (c) Redis Ltd.
+Licensed under the Redis Source Available License.
+
+### PostgreSQL
+Copyright (c) The PostgreSQL Global Development Group.
+Licensed under the PostgreSQL License.
+
+---
+
+## Commercial Use
+
+This software is free for commercial use. You may use it in commercial
+projects, modify it for your business needs, and distribute it as part of
+your commercial applications.
+
+## Modification and Distribution
+
+You may modify and distribute this software, including creating derivative
+works, as long as you:
+
+1. Include the original copyright notice and license
+2. Clearly indicate any modifications you made
+3. Maintain the same license terms for derivative works
+
+## Warranty and Liability
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. THE AUTHORS
+AND COPYRIGHT HOLDERS DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Support and Maintenance
+
+This software is provided as-is without any guarantee of support or
+maintenance. However, the development team is committed to:
+
+- Fixing critical bugs and security issues
+- Providing regular updates and improvements
+- Maintaining compatibility with major dependencies
+- Offering community support through GitHub issues
+
+## Contributing
+
+Contributions are welcome! By contributing to this project, you agree that
+your contributions will be licensed under the same MIT License.
+
+## Trademark
+
+"NEOSHOP ULTRA" is a trademark of the project. You may not use this trademark
+without permission for commercial purposes.
+
+## Contact
+
+For questions about this license or the software, please contact:
+
+- **Email**: legal@neoshop-ultra.com
+- **GitHub**: [https://github.com/neoshop-ultra](https://github.com/neoshop-ultra)
+- **Website**: [https://neoshop-ultra.com](https://neoshop-ultra.com)
+
+---
+
+**Last Updated**: January 2024
+**License Version**: 1.0
+
+
+
+

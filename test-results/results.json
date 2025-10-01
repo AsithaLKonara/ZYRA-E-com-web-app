@@ -1,0 +1,280 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\asith\\Documents\\neoshop-ultra\\playwright.config.ts",
+    "rootDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "C:\\Users\\asith\\Documents\\neoshop-ultra\\tests\\global-setup.ts",
+    "globalTeardown": "C:\\Users\\asith\\Documents\\neoshop-ultra\\tests\\global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Microsoft Edge",
+        "name": "Microsoft Edge",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/asith/Documents/neoshop-ultra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Google Chrome",
+        "name": "Google Chrome",
+        "testDir": "C:/Users/asith/Documents/neoshop-ultra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.1",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "env": {
+        "ALLUSERSPROFILE": "C:\\ProgramData",
+        "APPDATA": "C:\\Users\\asith\\AppData\\Roaming",
+        "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_14024_OVXXUKTHUPCSNQFK",
+        "COLOR": "1",
+        "COLORTERM": "truecolor",
+        "CommonProgramFiles": "C:\\Program Files\\Common Files",
+        "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+        "CommonProgramW6432": "C:\\Program Files\\Common Files",
+        "COMPUTERNAME": "DESKTOP-O0DGJDQ",
+        "ComSpec": "C:\\Windows\\system32\\cmd.exe",
+        "CURSOR_TRACE_ID": "30a4877ce3a745308743edee5bb622f7",
+        "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+        "EDITOR": "C:\\Windows\\notepad.exe",
+        "EFC_6096_1262719628": "1",
+        "EFC_6096_1592913036": "1",
+        "EFC_6096_2283032206": "1",
+        "EFC_6096_2775293581": "1",
+        "EFC_6096_3789132940": "1",
+        "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+        "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+        "GIT_ASKPASS": "c:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+        "HOME": "C:\\Users\\asith",
+        "HOMEDRIVE": "C:",
+        "HOMEPATH": "\\Users\\asith",
+        "INIT_CWD": "C:\\Users\\asith\\Documents\\neoshop-ultra",
+        "LANG": "en_US.UTF-8",
+        "LOCALAPPDATA": "C:\\Users\\asith\\AppData\\Local",
+        "LOGONSERVER": "\\\\DESKTOP-O0DGJDQ",
+        "NODE": "C:\\Program Files\\nodejs\\node.exe",
+        "NODE_EXE": "C:\\Program Files\\nodejs\\\\node.exe",
+        "npm_command": "exec",
+        "npm_config_cache": "C:\\Users\\asith\\AppData\\Local\\npm-cache",
+        "npm_config_globalconfig": "C:\\Users\\asith\\AppData\\Roaming\\npm\\etc\\npmrc",
+        "npm_config_global_prefix": "C:\\Users\\asith\\AppData\\Roaming\\npm",
+        "npm_config_init_module": "C:\\Users\\asith\\.npm-init.js",
+        "npm_config_local_prefix": "C:\\Users\\asith\\Documents\\neoshop-ultra",
+        "npm_config_node_gyp": "C:\\Users\\asith\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
+        "npm_config_noproxy": "",
+        "npm_config_npm_version": "10.8.2",
+        "npm_config_prefix": "C:\\Users\\asith\\AppData\\Roaming\\npm",
+        "npm_config_userconfig": "C:\\Users\\asith\\.npmrc",
+        "npm_config_user_agent": "npm/10.8.2 node/v20.16.0 win32 x64 workspaces/false",
+        "npm_execpath": "C:\\Users\\asith\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
+        "npm_lifecycle_event": "npx",
+        "npm_lifecycle_script": "playwright",
+        "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+        "npm_package_json": "C:\\Users\\asith\\Documents\\neoshop-ultra\\package.json",
+        "npm_package_name": "neoshop-ultra",
+        "npm_package_version": "1.0.0",
+        "NPM_PREFIX_JS": "C:\\Program Files\\nodejs\\\\node_modules\\npm\\bin\\npm-prefix.js",
+        "NPM_PREFIX_NPX_CLI_JS": "C:\\Users\\asith\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npx-cli.js",
+        "NPX_CLI_JS": "C:\\Users\\asith\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npx-cli.js",
+        "NUMBER_OF_PROCESSORS": "4",
+        "OneDrive": "C:\\Users\\asith\\OneDrive",
+        "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
+        "OS": "Windows_NT",
+        "Path": "C:\\Users\\asith\\Documents\\neoshop-ultra\\node_modules\\.bin;C:\\Users\\asith\\Documents\\neoshop-ultra\\node_modules\\.bin;C:\\Users\\asith\\Documents\\node_modules\\.bin;C:\\Users\\asith\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\asith\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\Program Files\\Google\\Chrome\\Application;C:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\bin;C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\Bpl;C:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\bin64;C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\Bpl\\Win64;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\dotnet\\;c:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\Program Files\\Git\\cmd;c:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\resources\\app\\codeBin;C:\\Users\\asith\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\;C:\\Users\\asith\\AppData\\Local\\Programs\\Python\\Python312\\;C:\\Users\\asith\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\asith\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\asith\\AppData\\Roaming\\npm;C:\\Users\\asith\\.dotnet\\tools;C:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;",
+        "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL",
+        "PROCESSOR_ARCHITECTURE": "AMD64",
+        "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+        "PROCESSOR_LEVEL": "6",
+        "PROCESSOR_REVISION": "7e05",
+        "ProgramData": "C:\\ProgramData",
+        "ProgramFiles": "C:\\Program Files",
+        "ProgramFiles(x86)": "C:\\Program Files (x86)",
+        "ProgramW6432": "C:\\Program Files",
+        "PROMPT": "$P$G",
+        "PSModulePath": "C:\\Users\\asith\\OneDrive\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules",
+        "PUBLIC": "C:\\Users\\Public",
+        "SESSIONNAME": "Console",
+        "SystemDrive": "C:",
+        "SystemRoot": "C:\\Windows",
+        "TEMP": "C:\\Users\\asith\\AppData\\Local\\Temp",
+        "TERM_PROGRAM": "vscode",
+        "TERM_PROGRAM_VERSION": "1.6.45",
+        "TMP": "C:\\Users\\asith\\AppData\\Local\\Temp",
+        "USERDOMAIN": "DESKTOP-O0DGJDQ",
+        "USERDOMAIN_ROAMINGPROFILE": "DESKTOP-O0DGJDQ",
+        "USERNAME": "asith",
+        "USERPROFILE": "C:\\Users\\asith",
+        "VSCODE_GIT_ASKPASS_EXTRA_ARGS": "",
+        "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+        "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\asith\\AppData\\Local\\Programs\\cursor\\Cursor.exe",
+        "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-c2cdbbdb3c-sock",
+        "VSCODE_INJECTION": "1",
+        "windir": "C:\\Windows",
+        "ZES_ENABLE_SYSMAN": "1",
+        "DATABASE_URL": "file:./test.db",
+        "NEXTAUTH_URL": "http://localhost:3000",
+        "NEXTAUTH_SECRET": "test-secret-key-for-testing-only",
+        "NEXT_PUBLIC_APP_URL": "http://localhost:3000",
+        "NEXT_PUBLIC_APP_NAME": "NEOSHOP ULTRA",
+        "NEXT_PUBLIC_APP_DESCRIPTION": "Ultra-modern e-commerce platform",
+        "ADMIN_EMAIL": "admin@neoshop.com",
+        "ADMIN_PASSWORD": "admin123",
+        "JWT_SECRET": "test-jwt-secret-key-for-testing-must-be-32-chars-minimum",
+        "ENCRYPTION_KEY": "test-encryption-key-32-chars-long",
+        "STRIPE_PUBLISHABLE_KEY": "pk_test_51234567890abcdef",
+        "STRIPE_SECRET_KEY": "sk_test_51234567890abcdef",
+        "STRIPE_WEBHOOK_SECRET": "whsec_test_webhook_secret",
+        "RESEND_API_KEY": "re_test_key",
+        "SMTP_HOST": "localhost",
+        "SMTP_PORT": "587",
+        "SMTP_USER": "test@example.com",
+        "SMTP_PASSWORD": "test_password",
+        "BLOB_READ_WRITE_TOKEN": "test_blob_token",
+        "GOOGLE_ANALYTICS_ID": "GA-TEST-123456",
+        "SENTRY_DSN": "https://test@sentry.io/test",
+        "RATE_LIMIT_MAX": "1000",
+        "RATE_LIMIT_WINDOW": "900000",
+        "CORS_ORIGIN": "http://localhost:3000",
+        "API_VERSION": "v1",
+        "LOG_LEVEL": "debug"
+      }
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "Error: Timed out waiting 120000ms from config.webServer.",
+      "stack": "Error: Timed out waiting 120000ms from config.webServer."
+    }
+  ],
+  "stats": {
+    "startTime": "2025-09-28T23:05:06.033Z",
+    "duration": 120737.174,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
