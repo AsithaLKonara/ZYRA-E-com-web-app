@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "zyra",
   "builds": [
     {
       "src": "package.json",
