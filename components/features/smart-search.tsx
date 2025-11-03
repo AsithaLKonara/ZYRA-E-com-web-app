@@ -10,6 +10,7 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { useLoading } from "@/components/providers/loading-provider"
 import { useRouter } from "next/navigation"
 import { debounce } from "lodash"
+import { clientLogger } from "@/lib/client-logger"
 
 interface SearchSuggestion {
   id: string
@@ -81,7 +82,7 @@ export function SmartSearch() {
         setSuggestions(suggestions.slice(0, 6))
         setShowSuggestions(true)
       } catch (error) {
-        console.error("Search failed:", error)
+        clientLogger.error("Search failed", {}, error instanceof Error ? error : undefined)
         setSuggestions([])
       } finally {
         setIsSearching(false)
@@ -128,7 +129,7 @@ export function SmartSearch() {
 
   const handleImageSearch = async () => {
     await withLoading(new Promise((resolve) => setTimeout(resolve, 1500)))
-    console.log("Image search triggered")
+    clientLogger.info("Image search triggered")
   }
 
   const clearSearch = () => {

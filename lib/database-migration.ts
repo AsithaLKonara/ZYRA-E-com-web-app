@@ -88,9 +88,8 @@ export class DatabaseMigration {
       return migrations;
     } catch (error) {
       logger.error('Failed to get migrations', {
-        error: error.message,
         migrationDir: this.migrationDir,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       return [];
     }
   }
@@ -192,10 +191,8 @@ export class DatabaseMigration {
     } catch (error) {
       logger.error('Migration failed', {
         migrationId,
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       // Record error metric
       monitoring.recordCounter('database.migration.error', 1, { migrationId });
@@ -207,8 +204,7 @@ export class DatabaseMigration {
         } catch (rollbackError) {
           logger.error('Migration rollback failed', {
             migrationId,
-            error: rollbackError.message,
-          });
+          }, rollbackError instanceof Error ? rollbackError : new Error(String(rollbackError)));
         }
       }
       
@@ -244,8 +240,7 @@ export class DatabaseMigration {
     } catch (error) {
       logger.error('Failed to create backup', {
         migrationId,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -319,10 +314,8 @@ export class DatabaseMigration {
     } catch (error) {
       logger.error('Migration rollback failed', {
         migrationId,
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       // Record error metric
       monitoring.recordCounter('database.migration.rollback.error', 1, { migrationId });
@@ -348,8 +341,7 @@ export class DatabaseMigration {
         } catch (error) {
           logger.error('Migration failed, stopping', {
             migrationId: migration.id,
-            error: error.message,
-          });
+          }, error instanceof Error ? error : new Error(String(error)));
           break;
         }
       }
@@ -363,10 +355,7 @@ export class DatabaseMigration {
       return results;
       
     } catch (error) {
-      logger.error('Failed to run pending migrations', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to run pending migrations', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -399,9 +388,7 @@ export class DatabaseMigration {
         lastMigration,
       };
     } catch (error) {
-      logger.error('Failed to get migration status', {
-        error: error.message,
-      });
+      logger.error('Failed to get migration status', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         total: 0,
         completed: 0,
@@ -452,8 +439,7 @@ export class DatabaseMigration {
       logger.error('Failed to create migration', {
         name,
         description,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -511,12 +497,11 @@ export class DatabaseMigration {
     } catch (error) {
       logger.error('Failed to validate migration', {
         migrationId,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       return {
         valid: false,
-        errors: [error.message],
+        errors: [error instanceof Error ? error.message : String(error)],
         warnings: [],
       };
     }

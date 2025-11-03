@@ -33,7 +33,7 @@ export function SessionManager() {
 
       setSessions(data.sessions)
     } catch (error) {
-      logger.error('Error fetching sessions:', error)
+      logger.error('Error fetching sessions:', {}, error instanceof Error ? error : new Error(String(error)))
       setError(error instanceof Error ? error.message : 'Failed to fetch sessions')
     } finally {
       setIsLoading(false)
@@ -56,7 +56,7 @@ export function SessionManager() {
       setSessions(prev => prev.filter(session => session.id !== sessionId))
       logger.info('Session revoked', { sessionId })
     } catch (error) {
-      logger.error('Error revoking session:', error)
+      logger.error('Error revoking session:', {}, error instanceof Error ? error : new Error(String(error)))
       setError(error instanceof Error ? error.message : 'Failed to revoke session')
     }
   }
@@ -81,7 +81,7 @@ export function SessionManager() {
       setSessions([])
       logger.info('All sessions revoked')
     } catch (error) {
-      logger.error('Error revoking all sessions:', error)
+      logger.error('Error revoking all sessions:', {}, error instanceof Error ? error : new Error(String(error)))
       setError(error instanceof Error ? error.message : 'Failed to revoke sessions')
     }
   }

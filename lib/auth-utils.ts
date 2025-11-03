@@ -3,13 +3,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { logger } from './logger';
 import { monitoring } from './monitoring';
+import { PrismaClient, UserRole } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
-// User roles
-export enum UserRole {
-  USER = 'USER',
-  ADMIN = 'ADMIN',
-  MODERATOR = 'MODERATOR',
-}
+// Create Prisma client
+const prisma = new PrismaClient();
 
 // Permission levels
 export enum PermissionLevel {
@@ -21,7 +19,7 @@ export enum PermissionLevel {
 
 // Permission matrix
 const PERMISSIONS: Record<UserRole, PermissionLevel[]> = {
-  [UserRole.USER]: [PermissionLevel.READ],
+  [UserRole.CUSTOMER]: [PermissionLevel.READ],
   [UserRole.MODERATOR]: [PermissionLevel.READ, PermissionLevel.WRITE],
   [UserRole.ADMIN]: [PermissionLevel.READ, PermissionLevel.WRITE, PermissionLevel.DELETE, PermissionLevel.ADMIN],
 };
@@ -49,10 +47,7 @@ export class AuthUtils {
 
       return session.user as SessionUser;
     } catch (error) {
-      logger.error('Failed to get session', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to get session', {}, error instanceof Error ? error : new Error(String(error)));
       return null;
   }
 }
@@ -133,23 +128,20 @@ export class AuthUtils {
 
     // Check specific permissions based on resource and action
     switch (resource) {
-      case 'users':
-        return session.role === UserRole.ADMIN;
-      
       case 'products':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               [UserRole.MODERATOR, UserRole.ADMIN].includes(session.role);
+               session.role === UserRole.MODERATOR;
       
       case 'orders':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               [UserRole.MODERATOR, UserRole.ADMIN].includes(session.role);
+               session.role === UserRole.MODERATOR;
       
       case 'categories':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               [UserRole.MODERATOR, UserRole.ADMIN].includes(session.role);
+               session.role === UserRole.MODERATOR;
       
       case 'reviews':
-        return action === PermissionLevel.READ || session.role === UserRole.ADMIN;
+        return action === PermissionLevel.READ;
       
       default:
         return this.hasPermission(action);
@@ -315,8 +307,8 @@ export class AuthUtils {
 
     monitoring.recordCounter('auth.event', 1, {
       event,
-      userId: context.userId,
-      role: context.role,
+      ...(context.userId && { userId: context.userId }),
+      ...(context.role && { role: context.role }),
     });
   }
 
@@ -344,14 +336,11 @@ export class AuthUtils {
         user: session,
       };
   } catch (error) {
-      logger.error('Session validation failed', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Session validation failed', {}, error instanceof Error ? error : new Error(String(error)));
 
       return {
         valid: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       };
     }
   }
@@ -385,6 +374,231 @@ export class AuthUtils {
     headers.set('x-user-role', user.role);
     
     return headers;
+  }
+
+  // Get user by ID from database
+  static async getUserById(userId: string) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          avatar: true,
+          role: true,
+          isActive: true,
+          emailVerified: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+
+      if (!user) {
+        logger.warn('User not found', { userId });
+        return null;
+      }
+
+      logger.debug('User fetched by ID', { userId });
+      return user;
+    } catch (error) {
+      logger.error('Failed to get user by ID', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+      return null;
+    }
+  }
+
+  // Get user statistics (for a specific user or overall admin stats)
+  static async getUserStats(userId?: string) {
+    try {
+      if (userId) {
+        // Get stats for a specific user
+        const [ordersCount, reviewsCount, wishlistCount] = await Promise.all([
+          prisma.order.count({ where: { userId } }),
+          prisma.review.count({ where: { userId } }),
+          prisma.wishlistItem.count({ where: { userId } }),
+        ]);
+
+        return {
+          ordersCount,
+          reviewsCount,
+          wishlistCount,
+        };
+      } else {
+        // Get overall admin statistics
+        const [
+          totalUsers,
+          activeUsers,
+          totalOrders,
+          totalProducts,
+          totalRevenue,
+        ] = await Promise.all([
+          prisma.user.count(),
+          prisma.user.count({ where: { isActive: true } }),
+          prisma.order.count(),
+          prisma.product.count(),
+          prisma.order.aggregate({
+            _sum: { total: true },
+            where: { status: 'DELIVERED' },
+          }),
+        ]);
+
+        return {
+          totalUsers,
+          activeUsers,
+          totalOrders,
+          totalProducts,
+          totalRevenue: totalRevenue._sum.total || 0,
+        };
+      }
+    } catch (error) {
+      logger.error('Failed to get user stats', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+      return userId ? {
+        ordersCount: 0,
+        reviewsCount: 0,
+        wishlistCount: 0,
+      } : {
+        totalUsers: 0,
+        activeUsers: 0,
+        totalOrders: 0,
+        totalProducts: 0,
+        totalRevenue: 0,
+      };
+    }
+  }
+
+  // Activate user
+  static async activateUser(userId: string): Promise<boolean> {
+    try {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { isActive: true },
+      });
+
+      logger.info('User activated', { userId });
+      monitoring.recordCounter('user.activated', 1, { userId });
+
+      return true;
+    } catch (error) {
+      logger.error('Failed to activate user', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+
+      monitoring.recordCounter('user.activation_failed', 1, { userId });
+      return false;
+    }
+  }
+
+  // Deactivate user
+  static async deactivateUser(userId: string): Promise<boolean> {
+    try {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { isActive: false },
+      });
+
+      logger.info('User deactivated', { userId });
+      monitoring.recordCounter('user.deactivated', 1, { userId });
+
+      return true;
+    } catch (error) {
+      logger.error('Failed to deactivate user', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+
+      monitoring.recordCounter('user.deactivation_failed', 1, { userId });
+      return false;
+    }
+  }
+
+  // Update user profile
+  static async updateUserProfile(userId: string, updates: {
+    name?: string;
+    email?: string;
+    avatar?: string;
+  }): Promise<boolean> {
+    try {
+      await prisma.user.update({
+        where: { id: userId },
+        data: updates,
+      });
+
+      logger.info('User profile updated', { userId, updates: Object.keys(updates) });
+      monitoring.recordCounter('user.profile_updated', 1, { userId });
+
+      return true;
+    } catch (error) {
+      logger.error('Failed to update user profile', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+
+      monitoring.recordCounter('user.profile_update_failed', 1, { userId });
+      return false;
+    }
+  }
+
+  // Change user password
+  static async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<{
+    success: boolean;
+    error?: string;
+  }> {
+    try {
+      // Get user from database to verify current password
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { password: true },
+      });
+
+      if (!user || !user.password) {
+        return {
+          success: false,
+          error: 'User not found or password not set',
+        };
+      }
+
+      // Verify current password
+      const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+
+      if (!isValidPassword) {
+        logger.warn('Invalid current password for password change', { userId });
+        monitoring.recordCounter('user.password_change_invalid', 1, { userId });
+
+        return {
+          success: false,
+          error: 'Current password is incorrect',
+        };
+      }
+
+      // Hash new password
+      const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+      // Update password
+      await prisma.user.update({
+        where: { id: userId },
+        data: { password: hashedPassword },
+      });
+
+      logger.info('Password changed successfully', { userId });
+      monitoring.recordCounter('user.password_changed', 1, { userId });
+
+      return {
+        success: true,
+      };
+    } catch (error) {
+      logger.error('Failed to change password', {
+        userId,
+      }, error instanceof Error ? error : new Error(String(error)));
+
+      monitoring.recordCounter('user.password_change_failed', 1, { userId });
+
+      return {
+        success: false,
+        error: 'Failed to change password',
+      };
+    }
   }
 }
 
@@ -424,5 +638,8 @@ export const logAuthEvent = AuthUtils.logAuthEvent;
 export const validateSession = AuthUtils.validateSession;
 export const getUserFromRequest = AuthUtils.getUserFromRequest;
 export const setUserHeaders = AuthUtils.setUserHeaders;
+
+// Re-export UserRole from Prisma for convenience
+export { UserRole };
 
 export default AuthUtils;

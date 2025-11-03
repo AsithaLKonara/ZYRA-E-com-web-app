@@ -18,8 +18,8 @@ const UserSchema = z.object({
   id: z.string(),
   email: z.string().email(),
   name: z.string().min(1),
-  image: z.string().url().optional(),
-  role: z.enum(['USER', 'ADMIN', 'MODERATOR']),
+  avatar: z.string().url().optional(),
+  role: z.enum(['CUSTOMER', 'ADMIN', 'MODERATOR']),
   isActive: z.boolean(),
   emailVerified: z.date().optional(),
   createdAt: z.date(),
@@ -30,15 +30,15 @@ const CreateUserSchema = z.object({
   email: z.string().email('Invalid email address'),
   name: z.string().min(1, 'Name is required'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
-  role: z.enum(['USER', 'ADMIN', 'MODERATOR']).default('USER'),
+  role: z.enum(['CUSTOMER', 'ADMIN', 'MODERATOR']).default('CUSTOMER'),
   isActive: z.boolean().default(true),
 });
 
 const UpdateUserSchema = z.object({
   name: z.string().min(1).optional(),
   email: z.string().email().optional(),
-  image: z.string().url().optional(),
-  role: z.enum(['USER', 'ADMIN', 'MODERATOR']).optional(),
+  avatar: z.string().url().optional(),
+  role: z.enum(['CUSTOMER', 'ADMIN', 'MODERATOR']).optional(),
   isActive: z.boolean().optional(),
 });
 
@@ -47,7 +47,7 @@ const QuerySchema = z.object({
   page: z.string().transform(Number).default('1'),
   limit: z.string().transform(Number).default('10'),
   search: z.string().optional(),
-  role: z.enum(['USER', 'ADMIN', 'MODERATOR']).optional(),
+  role: z.enum(['CUSTOMER', 'ADMIN', 'MODERATOR']).optional(),
   isActive: z.string().transform(val => val === 'true').optional(),
   sortBy: z.enum(['name', 'email', 'createdAt', 'updatedAt']).default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).default('desc'),
@@ -114,7 +114,7 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
           id: true,
           email: true,
           name: true,
-          image: true,
+          avatar: true,
           role: true,
           isActive: true,
           emailVerified: true,
@@ -174,8 +174,8 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 
   } catch (error) {
     logger.error('Failed to fetch users', {
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 
@@ -240,7 +240,7 @@ const POSTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespo
         id: true,
         email: true,
         name: true,
-        image: true,
+        avatar: true,
         role: true,
         isActive: true,
         emailVerified: true,
@@ -269,8 +269,8 @@ const POSTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespo
 
   } catch (error) {
     logger.error('Failed to create user', {
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 

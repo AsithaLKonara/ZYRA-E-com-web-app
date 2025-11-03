@@ -7,7 +7,7 @@ import { validatePasswordStrength } from '@/lib/security'
 // Change password endpoint
 async function changePasswordHandler(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = rateLimiter.middleware()(request)
+  const rateLimitResponse = rateLimiter.middleware(request)
   if (rateLimitResponse) {
     return rateLimitResponse
   }

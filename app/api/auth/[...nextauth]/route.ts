@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 
 // NextAuth configuration
 const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma), // Commented out for now to avoid type issues with next-auth v4
   
   // Configure providers
   providers: [

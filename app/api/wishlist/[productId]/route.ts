@@ -44,7 +44,7 @@ async function removeFromWishlistHandler(
     })
 
   } catch (error) {
-    logger.error('Error removing from wishlist:', error)
+    logger.error('Error removing from wishlist:', {}, error instanceof Error ? error : new Error(String(error)))
     return NextResponse.json(
       { success: false, error: 'Failed to remove item from wishlist' },
       { status: 500 }
@@ -74,7 +74,7 @@ async function checkWishlistHandler(
     })
 
   } catch (error) {
-    logger.error('Error checking wishlist:', error)
+    logger.error('Error checking wishlist:', {}, error instanceof Error ? error : new Error(String(error)))
     return NextResponse.json(
       { success: false, error: 'Failed to check wishlist' },
       { status: 500 }

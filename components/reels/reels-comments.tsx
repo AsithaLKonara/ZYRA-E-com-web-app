@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Dialog, 
   DialogContent, 
@@ -24,7 +25,8 @@ import {
   Edit,
   Reply,
   X,
-  Loader2
+  Loader2,
+  RefreshCw
 } from 'lucide-react';
 import { 
   DropdownMenu, 
@@ -276,7 +278,7 @@ export function ReelsComments({
         }));
       }
     } catch (error) {
-      console.error('Failed to like comment:', error);
+      clientLogger.error('Failed to like comment', {}, error instanceof Error ? error : undefined);
     }
   }, [userId, reelId]);
 

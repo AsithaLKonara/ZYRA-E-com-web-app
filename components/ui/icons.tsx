@@ -1,5 +1,50 @@
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import { 
+  AlertCircle, ArrowLeft, ArrowRight, Check, CheckCircle, Eye, EyeOff, Lock, LogIn, Mail, User, X, Loader2,
+  Plus, Minus, Search, ShoppingCart, Heart, Share2, MessageCircle, Play, Pause, Volume2, VolumeX, Settings, Menu,
+  ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Star, StarHalf, Filter, SortAsc, SortDesc, Calendar, Clock,
+  MapPin, Phone, Globe, Facebook, Instagram, Twitter, Youtube, Github, Linkedin, ExternalLink, Download, Upload,
+  Edit, Trash2, Copy, Save, RefreshCw, RotateCcw, RotateCw, ZoomIn, ZoomOut, Maximize, Minimize, Grid, List, Layout,
+  Sidebar, MoreHorizontal, MoreVertical, Flag, Bookmark, Tag, Hash, AtSign, DollarSign, CreditCard, Wallet, Package,
+  Truck, Home, Building, Map, Navigation, Compass, Target, Zap, Shield, Key, Fingerprint, Smartphone, Monitor, Tablet,
+  Laptop, Headphones, Camera, Mic, MicOff, Video, VideoOff, Image, File, FileText, Folder, FolderOpen, Archive, Inbox,
+  Send, Reply, Forward, ReplyAll, Trash, ArchiveRestore, Pin, PinOff, Bell, BellOff, BellRing, Moon, Sun, Cloud, CloudRain,
+  CloudSnow, CloudLightning, Wind, Droplets, Thermometer, Umbrella, Sunrise, Sunset, Activity, BarChart3, TrendingUp,
+  TrendingDown, LineChart, PieChart, Euro, PoundSterling, JapaneseYen, IndianRupee, Bitcoin, Receipt, Calculator, Percent,
+  ArrowUp, ArrowDown, ArrowUpDown, ArrowLeftRight, ArrowUpLeft, ArrowUpRight, ArrowDownLeft, ArrowDownRight, Move, MoveUp,
+  MoveDown, MoveLeft, MoveRight, History, Timer, Hourglass, CalendarDays, CalendarCheck, CalendarX, CalendarPlus, CalendarMinus,
+  CalendarRange, CalendarSearch, CalendarHeart, LucideIcon 
+} from 'lucide-react';
+
+// Custom Google icon component
+export const GoogleIcon = ({ className, size = 24, ...props }: { className?: string; size?: number; [key: string]: any }) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+      fill="#4285F4"
+    />
+    <path
+      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+      fill="#34A853"
+    />
+    <path
+      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+      fill="#FBBC05"
+    />
+    <path
+      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+      fill="#EA4335"
+    />
+  </svg>
+);
 
 // Re-export commonly used icons from lucide-react
 export {
@@ -11,6 +56,7 @@ export {
   Eye,
   EyeOff,
   Lock,
+  LogIn,
   Mail,
   User,
   X,
@@ -397,7 +443,7 @@ export const iconMap: Record<IconName, LucideIcon> = {
   'volume-x': VolumeX,
   'settings': Settings,
   'menu': Menu,
-  'close': Close,
+  'close': X,
   'chevron-down': ChevronDown,
   'chevron-up': ChevronUp,
   'chevron-left': ChevronLeft,
@@ -504,19 +550,19 @@ export const iconMap: Record<IconName, LucideIcon> = {
   'trending-down': TrendingDown,
   'line-chart': LineChart,
   'pie-chart': PieChart,
-  'dollar': Dollar,
+  'dollar': DollarSign,
   'euro': Euro,
   'pound-sterling': PoundSterling,
   'yen': JapaneseYen,
   'indian-rupee': IndianRupee,
   'bitcoin': Bitcoin,
-  'card': Card,
-  'wallet-icon': WalletIcon,
+  'card': CreditCard,
+  'wallet-icon': Wallet,
   'receipt': Receipt,
   'calculator': Calculator,
   'percent': Percent,
-  'growth': Growth,
-  'decline': Decline,
+  'growth': TrendingUp,
+  'decline': TrendingDown,
   'arrow-up': ArrowUp,
   'arrow-down': ArrowDown,
   'arrow-up-down': ArrowUpDown,
@@ -530,14 +576,14 @@ export const iconMap: Record<IconName, LucideIcon> = {
   'move-down': MoveDown,
   'move-left': MoveLeft,
   'move-right': MoveRight,
-  'undo': Undo,
-  'redo': Redo,
+  'undo': RotateCcw,
+  'redo': RotateCw,
   'history': History,
-  'time': Time,
+  'time': Clock,
   'timer': Timer,
   'stopwatch': Timer,
   'hourglass': Hourglass,
-  'calendar-icon': CalendarIcon,
+  'calendar-icon': Calendar,
   'calendar-days': CalendarDays,
   'calendar-check': CalendarCheck,
   'calendar-x': CalendarX,
@@ -546,13 +592,13 @@ export const iconMap: Record<IconName, LucideIcon> = {
   'calendar-range': CalendarRange,
   'calendar-search': CalendarSearch,
   'calendar-heart': CalendarHeart,
-  'calendar-star': CalendarStar,
-  'event': Event,
-  'event-icon': EventIcon,
-  'clock-icon': ClockIcon,
-  'timer-icon': TimerIcon,
-  'stopwatch-icon': StopwatchIcon,
-  'hourglass-icon': HourglassIcon,
+  'calendar-star': Star,
+  'event': Calendar,
+  'event-icon': Calendar,
+  'clock-icon': Clock,
+  'timer-icon': Timer,
+  'stopwatch-icon': Timer,
+  'hourglass-icon': Hourglass,
 };
 
 // Dynamic icon component
@@ -569,7 +615,11 @@ export function Icon({ name, size = 24, className = '', color, strokeWidth = 2, 
   const IconComponent = iconMap[name];
   
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
+    // Use clientLogger only if available (component may be used server-side)
+    if (typeof window !== 'undefined') {
+      const { clientLogger } = require('@/lib/client-logger');
+      clientLogger.warn(`Icon "${name}" not found`, { iconName: name });
+    }
     return null;
   }
   
@@ -594,6 +644,7 @@ export const Icons = {
   Eye,
   EyeOff,
   Lock,
+  LogIn,
   Mail,
   User,
   X,
@@ -611,7 +662,7 @@ export const Icons = {
   VolumeX,
   Settings,
   Menu,
-  Close,
+  Close: X,
   ChevronDown,
   ChevronUp,
   ChevronLeft,
@@ -631,6 +682,7 @@ export const Icons = {
   Twitter,
   Youtube,
   Github,
+  Google: GoogleIcon,
   Linkedin,
   ExternalLink,
   Download,
@@ -718,19 +770,19 @@ export const Icons = {
   TrendingDown,
   LineChart,
   PieChart,
-  Dollar,
+  Dollar: DollarSign,
   Euro,
   PoundSterling,
   JapaneseYen,
   IndianRupee,
   Bitcoin,
-  Card,
-  WalletIcon,
+  Card: CreditCard,
+  WalletIcon: Wallet,
   Receipt,
   Calculator,
   Percent,
-  Growth,
-  Decline,
+  Growth: TrendingUp,
+  Decline: TrendingDown,
   ArrowUp,
   ArrowDown,
   ArrowUpDown,
@@ -744,13 +796,13 @@ export const Icons = {
   MoveDown,
   MoveLeft,
   MoveRight,
-  Undo,
-  Redo,
+  Undo: RotateCcw,
+  Redo: RotateCw,
   History,
-  Time,
+  Time: Clock,
   Timer,
   Hourglass,
-  CalendarIcon,
+  CalendarIcon: Calendar,
   CalendarDays,
   CalendarCheck,
   CalendarX,
@@ -759,13 +811,13 @@ export const Icons = {
   CalendarRange,
   CalendarSearch,
   CalendarHeart,
-  CalendarStar,
-  Event,
-  EventIcon,
-  ClockIcon,
-  TimerIcon,
-  StopwatchIcon,
-  HourglassIcon,
+  CalendarStar: Star,
+  Event: Calendar,
+  EventIcon: Calendar,
+  ClockIcon: Clock,
+  TimerIcon: Timer,
+  StopwatchIcon: Timer,
+  HourglassIcon: Hourglass,
 };
 
 export default Icon;

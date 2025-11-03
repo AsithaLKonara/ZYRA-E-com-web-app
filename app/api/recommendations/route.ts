@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
+import { logger } from "@/lib/logger"
 
 const prisma = new PrismaClient()
 
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Recommendations error:", error)
+    logger.error("Recommendations error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({

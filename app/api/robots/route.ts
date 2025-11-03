@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateRobotsTxt } from '@/lib/seo'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Robots.txt generation failed:', error)
+    logger.error('Robots.txt generation failed', {}, error instanceof Error ? error : undefined)
     return NextResponse.json(
       { error: 'Failed to generate robots.txt' },
       { status: 500 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
+import { logger } from "@/lib/logger"
 
 const prisma = new PrismaClient()
 
@@ -145,7 +146,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Advanced search error:", error)
+    logger.error("Advanced search error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({
@@ -183,7 +184,7 @@ async function getSearchSuggestions(query: string) {
       categories: [...new Set(suggestions.map(s => s.category.name))]
     }
   } catch (error) {
-    console.error("Error getting search suggestions:", error)
+    logger.error("Error getting search suggestions", {}, error instanceof Error ? error : undefined)
     return { products: [], brands: [], categories: [] }
   }
 }
@@ -220,7 +221,7 @@ async function getSearchFacets(where: any) {
       ratings: [] // Rating field doesn't exist in Product model
     }
   } catch (error) {
-    console.error("Error getting search facets:", error)
+    logger.error("Error getting search facets", {}, error instanceof Error ? error : undefined)
     return { categories: [], brands: [], priceRange: { min: 0, max: 0 }, ratings: [] }
   }
 }

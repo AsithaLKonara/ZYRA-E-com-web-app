@@ -95,14 +95,14 @@ export class DatabaseMonitor {
     // Start health checks
     this.healthCheckInterval = setInterval(() => {
       this.performHealthCheck().catch(error => {
-        logger.error('Health check failed', { error: error.message });
+        logger.error('Health check failed', {}, error instanceof Error ? error : new Error(String(error)));
       });
     }, DB_MONITORING_CONFIG.healthCheckInterval);
 
     // Start performance checks
     this.performanceCheckInterval = setInterval(() => {
       this.collectPerformanceMetrics().catch(error => {
-        logger.error('Performance check failed', { error: error.message });
+        logger.error('Performance check failed', {}, error instanceof Error ? error : new Error(String(error)));
       });
     }, DB_MONITORING_CONFIG.performanceCheckInterval);
 
@@ -163,7 +163,7 @@ export class DatabaseMonitor {
       // Record health check metric
       monitoring.recordCounter('database.health.check', 1, {
         status,
-        duration: Date.now() - startTime,
+        duration: String(Date.now() - startTime),
       });
 
       logger.debug('Database health check completed', {
@@ -176,9 +176,8 @@ export class DatabaseMonitor {
 
     } catch (error) {
       logger.error('Database health check failed', {
-        error: error.message,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
 
       monitoring.recordCounter('database.health.error', 1);
       return DatabaseHealthStatus.UNHEALTHY;
@@ -280,9 +279,8 @@ export class DatabaseMonitor {
 
     } catch (error) {
       logger.error('Failed to collect performance metrics', {
-        error: error.message,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
 
       monitoring.recordCounter('database.metrics.error', 1);
       throw error;
@@ -307,7 +305,7 @@ export class DatabaseMonitor {
         maxConnections: data[0].max_connections,
       };
     } catch (error) {
-      logger.warn('Failed to get connection info', { error: error.message });
+      logger.error('Failed to get connection info', {}, error instanceof Error ? error : new Error(String(error)));
       return { activeConnections: 0, maxConnections: 100 };
     }
   }
@@ -341,7 +339,7 @@ export class DatabaseMonitor {
         queryThroughput: totalQueries / 60, // queries per minute
       };
     } catch (error) {
-      logger.warn('Failed to get performance info', { error: error.message });
+      logger.error('Failed to get performance info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         averageQueryTime: 0,
         slowQueries: 0,
@@ -386,7 +384,7 @@ export class DatabaseMonitor {
         diskUsage,
       };
     } catch (error) {
-      logger.warn('Failed to get resource info', { error: error.message });
+      logger.error('Failed to get resource info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         memoryUsage: 0,
         cpuUsage: 0,
@@ -425,7 +423,7 @@ export class DatabaseMonitor {
         tableSizes,
       };
     } catch (error) {
-      logger.warn('Failed to get size info', { error: error.message });
+      logger.error('Failed to get size info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         databaseSize: 0,
         tableSizes: [],
@@ -464,7 +462,7 @@ export class DatabaseMonitor {
         unusedIndexes,
       };
     } catch (error) {
-      logger.warn('Failed to get index info', { error: error.message });
+      logger.error('Failed to get index info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         indexUsage: [],
         unusedIndexes: [],
@@ -493,7 +491,7 @@ export class DatabaseMonitor {
         lockWaitTime: data[0].avg_wait_time || 0,
       };
     } catch (error) {
-      logger.warn('Failed to get lock info', { error: error.message });
+      logger.error('Failed to get lock info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         activeLocks: 0,
         lockWaitTime: 0,
@@ -526,7 +524,7 @@ export class DatabaseMonitor {
         replicationStatus: data[0].status || 'unknown',
       };
     } catch (error) {
-      logger.warn('Failed to get replication info', { error: error.message });
+      logger.error('Failed to get replication info', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         replicationLag: 0,
         replicationStatus: 'unknown',
@@ -587,7 +585,7 @@ export class DatabaseMonitor {
 
       // Record alert metric
       monitoring.recordCounter('database.alert.triggered', 1, {
-        alertCount: alerts.length,
+        alertCount: String(alerts.length),
       });
 
       // Here you would implement actual alert sending (email, webhook, etc.)
@@ -595,15 +593,14 @@ export class DatabaseMonitor {
       
     } catch (error) {
       logger.error('Failed to send alert', {
-        error: error.message,
         alerts,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
     }
   }
 
   // Get current metrics
   getCurrentMetrics(): DatabaseMetrics | null {
-    return this.metrics.length > 0 ? this.metrics[this.metrics.length - 1] : null;
+    return this.metrics.length > 0 ? (this.metrics[this.metrics.length - 1] ?? null) : null;
   }
 
   // Get metrics history

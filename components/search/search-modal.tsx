@@ -93,6 +93,7 @@ export function SearchModal({ isOpen, onClose, onSearch }: SearchModalProps) {
       return () => clearTimeout(timer);
     } else {
       setSuggestions([]);
+      return undefined;
     }
   }, [query]);
 

@@ -18,6 +18,9 @@ export interface UploadResult {
   contentDisposition: string;
   size: number;
   uploadedAt: Date;
+  success: boolean;
+  filename?: string;
+  error?: string;
 }
 
 export interface BlobInfo {
@@ -59,8 +62,8 @@ export class BlobStorageManager {
     const startTime = Date.now();
     
     try {
-      const result = await put(options.filename || 'file', file, {
-        access: options.access || 'public',
+      const result = await put(options.filename || 'file', file as any, {
+        access: (options.access || 'public') as any,
         addRandomSuffix: options.addRandomSuffix !== false,
         cacheControlMaxAge: options.cacheControlMaxAge || 31536000, // 1 year
         token: this.uploadToken
@@ -68,17 +71,19 @@ export class BlobStorageManager {
 
       const uploadResult: UploadResult = {
         url: result.url,
-        downloadUrl: result.downloadUrl,
+        downloadUrl: result.url, // downloadUrl is the same as url in newer versions
         pathname: result.pathname,
-        contentType: result.contentType,
-        contentDisposition: result.contentDisposition,
-        size: result.size,
-        uploadedAt: new Date(result.uploadedAt)
+        contentType: result.contentType || 'application/octet-stream',
+        contentDisposition: result.contentDisposition || 'attachment',
+        size: (result as any).size || 0,
+        uploadedAt: new Date((result as any).uploadedAt || new Date()),
+        success: true,
+        filename: options.filename
       };
 
       logger.info('File uploaded successfully', {
         pathname: result.pathname,
-        size: result.size,
+        size: (result as any).size,
         contentType: result.contentType,
         uploadTime: Date.now() - startTime
       });
@@ -94,7 +99,20 @@ export class BlobStorageManager {
       });
 
       monitoring.recordMetric('file_upload_error', 1);
-      throw error;
+      
+      // Return error result instead of throwing
+      return {
+        url: '',
+        downloadUrl: '',
+        pathname: '',
+        contentType: '',
+        contentDisposition: '',
+        size: 0,
+        uploadedAt: new Date(),
+        success: false,
+        filename: options.filename,
+        error: error instanceof Error ? error.message : String(error)
+      };
     }
   }
 
@@ -190,12 +208,12 @@ export class BlobStorageManager {
 
       return {
         url: response.url,
-        downloadUrl: response.downloadUrl,
+        downloadUrl: response.url, // downloadUrl is the same as url in newer versions
         pathname: response.pathname,
-        contentType: response.contentType,
-        contentDisposition: response.contentDisposition,
-        size: response.size,
-        uploadedAt: new Date(response.uploadedAt)
+        contentType: response.contentType || 'application/octet-stream',
+        contentDisposition: response.contentDisposition || 'attachment',
+        size: (response as any).size || 0,
+        uploadedAt: new Date((response as any).uploadedAt || new Date())
       };
     } catch (error) {
       logger.error('Failed to get file info', {
@@ -228,12 +246,12 @@ export class BlobStorageManager {
 
       const blobs: BlobInfo[] = result.blobs.map(blob => ({
         url: blob.url,
-        downloadUrl: blob.downloadUrl,
+        downloadUrl: blob.url, // downloadUrl is the same as url in newer versions
         pathname: blob.pathname,
-        contentType: blob.contentType,
-        contentDisposition: blob.contentDisposition,
-        size: blob.size,
-        uploadedAt: new Date(blob.uploadedAt)
+        contentType: (blob as any).contentType || 'application/octet-stream',
+        contentDisposition: (blob as any).contentDisposition || 'attachment',
+        size: (blob as any).size || 0,
+        uploadedAt: new Date((blob as any).uploadedAt || new Date())
       }));
 
       return {

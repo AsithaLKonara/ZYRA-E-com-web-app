@@ -232,8 +232,8 @@ export function createCorsMiddleware(handler: CorsHandler = corsHandler) {
   };
 }
 
-// CORS wrapper function for API routes
-export function withCORS(handler: CorsHandler = apiCorsHandler) {
+// CORS wrapper function for API routes (decorator version)
+export function withCORSDecorator(handler: CorsHandler = apiCorsHandler) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
 
@@ -256,6 +256,27 @@ export function withCORS(handler: CorsHandler = apiCorsHandler) {
     };
 
     return descriptor;
+  };
+}
+
+// CORS wrapper function for API routes (function version)
+export function withCORS(handler: Function, corsHandler: CorsHandler = apiCorsHandler) {
+  return async (request: NextRequest, ...args: any[]) => {
+    // Handle preflight requests
+    const preflightResponse = corsHandler.middleware(request);
+    if (preflightResponse) {
+      return preflightResponse;
+    }
+
+    // Execute handler
+    const response = await handler(request, ...args);
+
+    // Handle CORS for actual requests
+    if (response instanceof NextResponse) {
+      return corsHandler.handleRequest(request, response);
+    }
+
+    return response;
   };
 }
 

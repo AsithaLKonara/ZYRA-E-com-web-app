@@ -74,7 +74,7 @@ export function InventoryDashboard() {
         throw new Error(result.error || 'Failed to load inventory data')
       }
     } catch (error) {
-      logger.error('Error loading inventory data:', error)
+      logger.error('Error loading inventory data:', {}, error instanceof Error ? error : new Error(String(error)))
       setError(error instanceof Error ? error.message : 'Failed to load inventory data')
     } finally {
       setIsLoading(false)

@@ -131,7 +131,7 @@ export function ProductCard({
         <div className="relative aspect-square overflow-hidden">
           {product.images.length > 0 && !imageError ? (
             <Image
-              src={product.images[0]}
+              src={product.images[0]!}
               alt={product.name}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"

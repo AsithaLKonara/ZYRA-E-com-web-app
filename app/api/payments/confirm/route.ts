@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { stripe } from "@/lib/stripe"
+import { logger } from "@/lib/logger"
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
       paymentIntent: confirmedPaymentIntent
     })
   } catch (error) {
-    console.error("Error confirming payment:", error)
+    logger.error("Error confirming payment", {}, error instanceof Error ? error : undefined)
     return NextResponse.json(
       { error: "Failed to confirm payment" },
       { status: 500 }

@@ -53,13 +53,13 @@ async function processRefundHandler(request: NextRequest) {
     // Check if payment intent exists
     // Note: In a real implementation, you'd check for payment intent
     // For now, we'll just log it
-    console.log('Processing refund for order:', order.id)
+    logger.info('Processing refund for order', { orderId: order.id })
 
     // Process refund with Stripe
     const refundAmount = amount || order.total
     // Note: In a real implementation, you'd create a refund via Stripe
     // For now, we'll just log it
-    console.log('Creating refund:', {
+    logger.info('Creating refund', {
       orderId: order.id,
       amount: refundAmount,
       reason: reason || 'Customer requested refund'
@@ -77,7 +77,7 @@ async function processRefundHandler(request: NextRequest) {
     // Create refund record
     // Note: In a real implementation, you'd create a refund record
     // For now, we'll just log it
-    console.log('Refund record created:', {
+    logger.info('Refund record created', {
       orderId: order.id,
       amount: refundAmount,
       reason: reason || 'Customer requested refund'

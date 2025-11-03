@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
-import { PrismaClient } from "@prisma/client"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { PrismaClient, UserRole } from "@prisma/client"
 import { z } from "zod"
+import { logger } from "@/lib/logger"
 
 const prisma = new PrismaClient()
 
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id || (session.user as any).role !== 'admin') {
+    if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -115,7 +116,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Inventory fetch error:", error)
+    logger.error("Inventory fetch error", {}, error instanceof Error ? error : undefined)
     return NextResponse.json({
       error: "Failed to fetch inventory"
     }, { status: 500 })
@@ -126,7 +127,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id || (session.user as any).role !== 'admin') {
+    if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -167,8 +168,8 @@ export async function PATCH(req: NextRequest) {
     })
 
     // TODO: Create inventory log when InventoryLog model is added to schema
-    // For now, just log to console
-    console.log('Inventory update:', {
+    // For now, log using logger
+    logger.info('Inventory update', {
       productId,
       userId: session.user.id,
       action: action.toUpperCase(),
@@ -186,7 +187,7 @@ export async function PATCH(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Inventory update error:", error)
+    logger.error("Inventory update error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({
@@ -205,7 +206,7 @@ export async function PUT(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id || (session.user as any).role !== 'admin') {
+    if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -250,8 +251,8 @@ export async function PUT(req: NextRequest) {
         })
 
         // TODO: Create inventory log when InventoryLog model is added to schema
-        // For now, just log to console
-        console.log('Bulk inventory update:', {
+        // For now, log using logger
+        logger.info('Bulk inventory update', {
           productId: update.productId,
           userId: session.user.id,
           action: update.action.toUpperCase(),
@@ -288,7 +289,7 @@ export async function PUT(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Bulk inventory update error:", error)
+    logger.error("Bulk inventory update error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({

@@ -3,6 +3,7 @@ import { getToken } from 'next-auth/jwt'
 import { logger } from './logger'
 import { rateLimiter } from './rate-limiter'
 import { config } from './config'
+import { env } from './env'
 
 // Auth middleware for API routes
 export function withAuth(
@@ -19,7 +20,7 @@ export function withAuth(
     try {
       // Apply rate limiting if enabled
       if (options.rateLimit !== false) {
-        const rateLimitResponse = rateLimiter.middleware()(request)
+        const rateLimitResponse = rateLimiter.middleware(request)
         if (rateLimitResponse) {
           return rateLimitResponse
         }
@@ -28,7 +29,7 @@ export function withAuth(
       // Get token from request
       const token = await getToken({ 
         req: request, 
-        secret: config.security.jwtSecret 
+        secret: env.NEXTAUTH_SECRET 
       })
 
       if (!token) {
@@ -87,7 +88,7 @@ export function withAuth(
       return await handler(requestWithUser as any, ...args.slice(1) as any)
 
     } catch (error) {
-      logger.error('Auth middleware error:', error)
+      logger.error('Auth middleware error:', {}, error instanceof Error ? error : new Error(String(error)))
       return NextResponse.json(
         { success: false, error: 'Authentication failed' },
         { status: 500 }
@@ -121,7 +122,7 @@ export function withOptionalAuth(
       // Get token from request
       const token = await getToken({ 
         req: request, 
-        secret: config.security.jwtSecret 
+        secret: env.NEXTAUTH_SECRET 
       })
 
       // Add user info to request if authenticated
@@ -140,7 +141,7 @@ export function withOptionalAuth(
       return await handler(requestWithUser as any, ...args.slice(1))
 
     } catch (error) {
-      logger.error('Optional auth middleware error:', error)
+      logger.error('Optional auth middleware error:', {}, error instanceof Error ? error : new Error(String(error)))
       return await handler(request as any, ...args.slice(1))
     }
   }
@@ -160,19 +161,20 @@ export function withRateLimit(
     try {
       // Apply custom rate limit if provided
       if (customRateLimit) {
-        const customLimiter = new (require('./rate-limiter').RateLimiter)(
-          customRateLimit.windowMs,
-          customRateLimit.max
-        )
-        const rateLimitResponse = customLimiter.middleware()(request)
+        const { RateLimiter: RateLimiterClass } = require('./rate-limiter');
+        const customLimiter = new RateLimiterClass({
+          window: customRateLimit.windowMs,
+          max: customRateLimit.max,
+        });
+        const rateLimitResponse = customLimiter.middleware(request);
         if (rateLimitResponse) {
-          return rateLimitResponse
+          return rateLimitResponse;
         }
       } else {
         // Apply default rate limit
-        const rateLimitResponse = rateLimiter.middleware()(request)
+        const rateLimitResponse = rateLimiter.middleware(request);
         if (rateLimitResponse) {
-          return rateLimitResponse
+          return rateLimitResponse;
         }
       }
 
@@ -180,7 +182,7 @@ export function withRateLimit(
       return await handler(...args)
 
     } catch (error) {
-      logger.error('Rate limit middleware error:', error)
+      logger.error('Rate limit middleware error:', {}, error instanceof Error ? error : new Error(String(error)))
       return NextResponse.json(
         { success: false, error: 'Rate limit check failed' },
         { status: 500 }

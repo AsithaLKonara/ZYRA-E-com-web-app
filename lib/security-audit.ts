@@ -74,7 +74,7 @@ export class SecurityAuditor {
       logger.info(`Security audit completed: ${this.auditResults.length} issues found`)
       return this.auditResults
     } catch (error) {
-      logger.error('Security audit failed:', error)
+      logger.error('Security audit failed:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     } finally {
       this.isRunning = false

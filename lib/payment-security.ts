@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server"
 import { headers } from "next/headers"
+import { logger } from "./logger"
 
 export interface PaymentSecurityConfig {
   enableFraudDetection: boolean
@@ -99,7 +100,7 @@ export class PaymentSecurityManager {
       }
 
     } catch (error) {
-      console.error("Payment security validation error:", error)
+      logger.error("Payment security validation error", {}, error instanceof Error ? error : undefined)
       return {
         isValid: false,
         error: "Security validation failed. Please try again.",
@@ -161,7 +162,7 @@ export class PaymentSecurityManager {
       }
 
     } catch (error) {
-      console.error("Geographic validation error:", error)
+      logger.error("Geographic validation error", {}, error instanceof Error ? error : undefined)
       return {
         isValid: true,
         riskScore: 20
@@ -208,7 +209,7 @@ export class PaymentSecurityManager {
       }
 
     } catch (error) {
-      console.error("Fraud detection error:", error)
+      logger.error("Fraud detection error", {}, error instanceof Error ? error : undefined)
       return {
         isValid: true,
         riskScore: 10
@@ -248,7 +249,7 @@ export class PaymentSecurityManager {
       }
 
     } catch (error) {
-      console.error("IP reputation check error:", error)
+      logger.error("IP reputation check error", {}, error instanceof Error ? error : undefined)
       return {
         isValid: true,
         riskScore: 15
@@ -297,14 +298,14 @@ export class PaymentSecurityManager {
   ): Promise<void> {
     try {
       // In a real implementation, you would log to a security monitoring system
-      console.log("Security Event:", {
+      logger.warn("Security Event", {
         event,
         details,
         riskScore,
         timestamp: new Date().toISOString()
       })
     } catch (error) {
-      console.error("Failed to log security event:", error)
+      logger.error("Failed to log security event", { event }, error instanceof Error ? error : undefined)
     }
   }
 }

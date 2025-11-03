@@ -56,11 +56,11 @@ async function confirmSetupIntentHandler(request: NextRequest) {
     // Confirm setup intent
     // Note: In a real implementation, you'd confirm the setup intent via Stripe
     // For now, we'll just log it
-    console.log('Confirming setup intent:', setupIntentId)
+    logger.debug('Confirming setup intent', { setupIntentId })
 
     // Note: In a real implementation, you'd check the setup intent status
     // For now, we'll just log it
-    console.log('Setup intent status:', 'succeeded')
+    logger.debug('Setup intent status', { setupIntentId, status: 'succeeded' })
     logger.info('Setup intent confirmed', {
       userId: user.id,
       setupIntentId,

@@ -63,7 +63,7 @@ export class CDN {
       
       return url.toString()
     } catch (error) {
-      logger.error('CDN URL generation failed:', error)
+      logger.error('CDN URL generation failed:', {}, error instanceof Error ? error : new Error(String(error)))
       return originalUrl
     }
   }
@@ -124,10 +124,10 @@ export class CDN {
         return true
       }
 
-      logger.warn('CDN purge not configured for provider:', this.provider)
+      logger.warn('CDN purge not configured for provider', { provider: this.provider })
       return false
     } catch (error) {
-      logger.error('CDN cache purge failed:', error)
+      logger.error('CDN cache purge failed:', {}, error instanceof Error ? error : new Error(String(error)))
       return false
     }
   }
@@ -173,10 +173,10 @@ export class CDN {
         return result.Location
       }
 
-      logger.warn('CDN upload not configured for provider:', this.provider)
+      logger.warn('CDN upload not configured for provider', { provider: this.provider })
       return null
     } catch (error) {
-      logger.error('CDN file upload failed:', error)
+      logger.error('CDN file upload failed:', {}, error instanceof Error ? error : new Error(String(error)))
       return null
     }
   }
@@ -212,7 +212,7 @@ export class CDN {
 
       return null
     } catch (error) {
-      logger.error('CDN stats retrieval failed:', error)
+      logger.error('CDN stats retrieval failed:', {}, error instanceof Error ? error : new Error(String(error)))
       return null
     }
   }

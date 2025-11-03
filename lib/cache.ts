@@ -88,7 +88,7 @@ class Cache<T = any> {
     try {
       return JSON.stringify(value);
     } catch (error) {
-      logger.error('Cache serialization failed', { error: error.message });
+      logger.error('Cache serialization failed', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -102,7 +102,7 @@ class Cache<T = any> {
     try {
       return JSON.parse(value);
     } catch (error) {
-      logger.error('Cache deserialization failed', { error: error.message });
+      logger.error('Cache deserialization failed', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }

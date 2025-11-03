@@ -5,6 +5,7 @@ import { usePWA } from './PWAProvider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { X, Download, Smartphone, Monitor } from 'lucide-react'
+import { clientLogger } from '@/lib/client-logger'
 
 export default function InstallPrompt() {
   const { canInstall, installApp, isInstalled, isMobile, isIOS, isAndroid } = usePWA()
@@ -36,7 +37,7 @@ export default function InstallPrompt() {
       await installApp()
       setShowPrompt(false)
     } catch (error) {
-      console.error('Installation failed:', error)
+      clientLogger.error('Installation failed', {}, error instanceof Error ? error : undefined)
     }
   }
 

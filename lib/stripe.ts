@@ -40,7 +40,7 @@ export class StripeService {
 
       return paymentIntent
     } catch (error) {
-      logger.error('Error creating payment intent:', error)
+      logger.error('Error creating payment intent:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -51,7 +51,7 @@ export class StripeService {
       const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
       return paymentIntent
     } catch (error) {
-      logger.error('Error retrieving payment intent:', error)
+      logger.error('Error retrieving payment intent:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -73,7 +73,7 @@ export class StripeService {
 
       return paymentIntent
     } catch (error) {
-      logger.error('Error confirming payment intent:', error)
+      logger.error('Error confirming payment intent:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -98,7 +98,7 @@ export class StripeService {
 
       return customer
     } catch (error) {
-      logger.error('Error creating customer:', error)
+      logger.error('Error creating customer:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -109,7 +109,7 @@ export class StripeService {
       const customer = await stripe.customers.retrieve(customerId)
       return customer
     } catch (error) {
-      logger.error('Error retrieving customer:', error)
+      logger.error('Error retrieving customer:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -129,7 +129,7 @@ export class StripeService {
 
       return customer
     } catch (error) {
-      logger.error('Error updating customer:', error)
+      logger.error('Error updating customer:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -153,7 +153,7 @@ export class StripeService {
 
       return setupIntent
     } catch (error) {
-      logger.error('Error creating setup intent:', error)
+      logger.error('Error creating setup intent:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -168,7 +168,7 @@ export class StripeService {
 
       return paymentMethods
     } catch (error) {
-      logger.error('Error retrieving customer payment methods:', error)
+      logger.error('Error retrieving customer payment methods:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -195,7 +195,7 @@ export class StripeService {
 
       return refund
     } catch (error) {
-      logger.error('Error creating refund:', error)
+      logger.error('Error creating refund:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -219,7 +219,7 @@ export class StripeService {
 
       return webhookEndpoint
     } catch (error) {
-      logger.error('Error creating webhook endpoint:', error)
+      logger.error('Error creating webhook endpoint:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -234,7 +234,7 @@ export class StripeService {
       const event = stripe.webhooks.constructEvent(payload, signature, secret)
       return event
     } catch (error) {
-      logger.error('Error verifying webhook signature:', error)
+      logger.error('Error verifying webhook signature:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -264,7 +264,7 @@ export class StripeService {
 
       return price
     } catch (error) {
-      logger.error('Error creating price:', error)
+      logger.error('Error creating price:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -289,7 +289,7 @@ export class StripeService {
 
       return product
     } catch (error) {
-      logger.error('Error creating product:', error)
+      logger.error('Error creating product:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }

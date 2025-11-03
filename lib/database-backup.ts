@@ -73,8 +73,7 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Failed to create backup directory', {
         dir: this.backupDir,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -82,7 +81,7 @@ export class DatabaseBackup {
   // Generate backup filename
   private generateBackupFilename(type: BackupType, timestamp: Date): string {
     const dateStr = timestamp.toISOString().split('T')[0];
-    const timeStr = timestamp.toISOString().split('T')[1].split('.')[0].replace(/:/g, '-');
+    const timeStr = timestamp.toISOString().split('T')[1]?.split('.')[0]?.replace(/:/g, '-') || '000000';
     const ext = BACKUP_CONFIG.compression ? 'sql.gz' : 'sql';
     
     return `${type}_${dateStr}_${timeStr}.${ext}`;
@@ -186,10 +185,8 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Full database backup failed', {
         filename,
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.backup.full.error', 1);
       throw error;
@@ -289,10 +286,8 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Incremental database backup failed', {
         filename,
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.backup.incremental.error', 1);
       throw error;
@@ -384,10 +379,8 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Schema-only database backup failed', {
         filename,
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.backup.schema.error', 1);
       throw error;
@@ -404,10 +397,9 @@ export class DatabaseBackup {
       const { stdout } = await execAsync(`sha256sum "${filepath}"`);
       return stdout.split(' ')[0];
     } catch (error) {
-      logger.warn('Failed to calculate checksum', {
+      logger.error('Failed to calculate checksum', {
         filepath,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       return 'unknown';
     }
   }
@@ -426,9 +418,7 @@ export class DatabaseBackup {
       
       return result as { name: string; rows: number }[];
     } catch (error) {
-      logger.warn('Failed to get table information', {
-        error: error.message,
-      });
+      logger.error('Failed to get table information', {}, error instanceof Error ? error : new Error(String(error)));
       return [];
     }
   }
@@ -443,9 +433,7 @@ export class DatabaseBackup {
       
       return (result as any)[0].total_rows || 0;
     } catch (error) {
-      logger.warn('Failed to get record count', {
-        error: error.message,
-      });
+      logger.error('Failed to get record count', {}, error instanceof Error ? error : new Error(String(error)));
       return 0;
     }
   }
@@ -456,9 +444,7 @@ export class DatabaseBackup {
       const result = await this.prisma.$queryRaw`SELECT version()`;
       return (result as any)[0].version;
     } catch (error) {
-      logger.warn('Failed to get database version', {
-        error: error.message,
-      });
+      logger.error('Failed to get database version', {}, error instanceof Error ? error : new Error(String(error)));
       return 'unknown';
     }
   }
@@ -476,8 +462,7 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Failed to save backup metadata', {
         id: metadata.id,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
     }
   }
 
@@ -502,14 +487,16 @@ export class DatabaseBackup {
       
       sortedFiles.sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
       
+      if (!sortedFiles[0]) {
+        return null;
+      }
+      
       const latestFile = path.join(this.backupDir, sortedFiles[0].file);
       const content = await fs.readFile(latestFile, 'utf-8');
       
       return JSON.parse(content) as BackupMetadata;
     } catch (error) {
-      logger.warn('Failed to get last backup', {
-        error: error.message,
-      });
+      logger.error('Failed to get last backup', {}, error instanceof Error ? error : new Error(String(error)));
       return null;
     }
   }
@@ -527,22 +514,19 @@ export class DatabaseBackup {
             const content = await fs.readFile(filepath, 'utf-8');
             return JSON.parse(content) as BackupMetadata;
           } catch (error) {
-            logger.warn('Failed to parse backup metadata', {
+            logger.error('Failed to parse backup metadata', {
               file,
-              error: error.message,
-            });
+            }, error instanceof Error ? error : new Error(String(error)));
             return null;
           }
         })
       );
       
-      return backups.filter(Boolean).sort((a, b) => 
+      return backups.filter((b): b is BackupMetadata => b !== null).sort((a, b) => 
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       );
     } catch (error) {
-      logger.error('Failed to list backups', {
-        error: error.message,
-      });
+      logger.error('Failed to list backups', {}, error instanceof Error ? error : new Error(String(error)));
       return [];
     }
   }
@@ -577,10 +561,9 @@ export class DatabaseBackup {
             type: backup.type,
           });
         } catch (error) {
-          logger.warn('Failed to delete old backup', {
+          logger.error('Failed to delete old backup', {
             id: backup.id,
-            error: error.message,
-          });
+          }, error instanceof Error ? error : new Error(String(error)));
         }
       }
       
@@ -593,9 +576,7 @@ export class DatabaseBackup {
       
       return deletedCount;
     } catch (error) {
-      logger.error('Failed to cleanup old backups', {
-        error: error.message,
-      });
+      logger.error('Failed to cleanup old backups', {}, error instanceof Error ? error : new Error(String(error)));
       return 0;
     }
   }
@@ -642,9 +623,7 @@ export class DatabaseBackup {
     } catch (error) {
       logger.error('Database restore failed', {
         backupId,
-        error: error.message,
-        stack: error.stack,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.backup.restore.error', 1);
       throw error;

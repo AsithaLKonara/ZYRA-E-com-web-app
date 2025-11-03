@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Play, 
   Pause, 
@@ -327,7 +328,9 @@ export function EnhancedVideoPlayer({
   // Auto-play when component mounts
   useEffect(() => {
     if (videoRef.current && autoPlay && isPlaying) {
-      videoRef.current.play().catch(console.error);
+      videoRef.current.play().catch((error) => {
+        clientLogger.error('Video play failed', {}, error instanceof Error ? error : undefined);
+      });
     }
   }, [autoPlay, isPlaying]);
 
@@ -335,7 +338,7 @@ export function EnhancedVideoPlayer({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && autoPlay) {
+        if (entry && entry.isIntersecting && autoPlay) {
           handlePlay();
         } else {
           handlePause();

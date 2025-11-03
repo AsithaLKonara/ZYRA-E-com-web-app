@@ -37,7 +37,7 @@ const defaultConfig: RateLimitConfig = {
 };
 
 // Rate limiter class
-class RateLimiter {
+export class RateLimiter {
   private config: RateLimitConfig;
   private store: RateLimitStore;
 

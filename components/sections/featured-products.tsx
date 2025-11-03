@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { ProductGridSkeleton } from "@/components/ui/loading-skeleton"
 import { useLoading } from "@/components/providers/loading-provider"
 import { getProducts } from "@/lib/api"
+import { clientLogger } from "@/lib/client-logger"
 
 interface Product {
   id: string
@@ -36,7 +37,7 @@ export function FeaturedProducts() {
         const data = await withLoading(getProducts({ featured: true, limit: 8 }))
         setProducts(data)
       } catch (error) {
-        console.error("Failed to fetch products:", error)
+        clientLogger.error("Failed to fetch products", {}, error instanceof Error ? error : undefined)
       } finally {
         setLoading(false)
       }
@@ -54,7 +55,7 @@ export function FeaturedProducts() {
       new Promise((resolve) => setTimeout(resolve, 1000)), // Simulate API call
     )
     // Add to cart logic here
-    console.log("Added to cart:", productId)
+    clientLogger.info("Added to cart", { productId })
   }
 
   if (loading) {

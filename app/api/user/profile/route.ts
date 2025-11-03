@@ -6,7 +6,7 @@ import { rateLimiter } from '@/lib/rate-limiter'
 // Get user profile
 async function getProfileHandler(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = rateLimiter.middleware()(request)
+  const rateLimitResponse = rateLimiter.middleware(request)
   if (rateLimitResponse) {
     return rateLimitResponse
   }
@@ -43,7 +43,7 @@ async function getProfileHandler(request: NextRequest) {
 // Update user profile
 async function updateProfileHandler(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = rateLimiter.middleware()(request)
+  const rateLimitResponse = rateLimiter.middleware(request)
   if (rateLimitResponse) {
     return rateLimitResponse
   }

@@ -162,10 +162,10 @@ export class DatabaseConnection {
         { level: 'info', emit: 'event' },
         { level: 'warn', emit: 'event' },
       ],
-    });
+    } as any);
 
     // Set up query logging
-    this.prisma.$on('query', (e) => {
+    (this.prisma as any).$on('query', (e: any) => {
       const duration = e.duration;
       dbPerformanceMonitor.recordQuery(duration, true);
       
@@ -177,13 +177,13 @@ export class DatabaseConnection {
       });
     });
 
-    this.prisma.$on('error', (e) => {
+    (this.prisma as any).$on('error', (e: any) => {
       dbPerformanceMonitor.recordQuery(0, false);
       
       logger.error('Database error', {
         message: e.message,
         target: e.target,
-      });
+      }, e instanceof Error ? e : undefined);
     });
   }
 
@@ -195,10 +195,7 @@ export class DatabaseConnection {
       logger.info('Database connected successfully');
       monitoring.recordCounter('database.connection.success', 1);
     } catch (error) {
-      logger.error('Database connection failed', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Database connection failed', {}, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.connection.error', 1);
       throw error;
@@ -213,10 +210,7 @@ export class DatabaseConnection {
       logger.info('Database disconnected successfully');
       monitoring.recordCounter('database.disconnection.success', 1);
     } catch (error) {
-      logger.error('Database disconnection failed', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Database disconnection failed', {}, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.disconnection.error', 1);
       throw error;
@@ -251,7 +245,7 @@ export class DatabaseConnection {
       return {
         healthy: false,
         latency,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       };
     }
   }
@@ -281,7 +275,7 @@ export class DatabaseOptimizer {
       try {
         const indexName = index.name;
         const fields = index.fields.join(', ');
-        const unique = index.unique ? 'UNIQUE' : '';
+        const unique = (index as any).unique ? 'UNIQUE' : '';
         
         const sql = `CREATE ${unique} INDEX IF NOT EXISTS ${indexName} ON ${tableName} (${fields})`;
         
@@ -291,7 +285,7 @@ export class DatabaseOptimizer {
           table: tableName,
           index: indexName,
           fields: index.fields,
-          unique: index.unique,
+          unique: (index as any).unique,
         });
         
         monitoring.recordCounter('database.index.created', 1, {
@@ -302,8 +296,7 @@ export class DatabaseOptimizer {
         logger.error(`Failed to create index: ${index.name}`, {
           table: tableName,
           index: index.name,
-          error: error.message,
-        });
+        }, error instanceof Error ? error : new Error(String(error)));
         
         monitoring.recordCounter('database.index.error', 1, {
           table: tableName,
@@ -369,9 +362,7 @@ export class DatabaseOptimizer {
         lastAnalyzed: new Date(),
       };
     } catch (error) {
-      logger.error(`Failed to analyze table: ${tableName}`, {
-        error: error.message,
-      });
+      logger.error(`Failed to analyze table: ${tableName}`, {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -397,10 +388,7 @@ export class DatabaseOptimizer {
       logger.info('Database optimization completed successfully');
       monitoring.recordCounter('database.optimization.success', 1);
     } catch (error) {
-      logger.error('Database optimization failed', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Database optimization failed', {}, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.optimization.error', 1);
       throw error;

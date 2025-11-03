@@ -4,6 +4,7 @@ import React from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AlertCircle, RefreshCw } from "lucide-react"
+import { clientLogger } from "@/lib/client-logger"
 
 interface ErrorBoundaryState {
   hasError: boolean
@@ -26,7 +27,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("ErrorBoundary caught an error:", error, errorInfo)
+    clientLogger.error("ErrorBoundary caught an error", { errorInfo: errorInfo.componentStack }, error)
   }
 
   resetError = () => {
@@ -91,7 +92,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 // Hook for functional components
 export function useErrorHandler() {
   return (error: Error, errorInfo?: React.ErrorInfo) => {
-    console.error("Error caught by useErrorHandler:", error, errorInfo)
+    clientLogger.error("Error caught by useErrorHandler", { errorInfo: errorInfo?.componentStack }, error)
     // You could also send this to an error reporting service
   }
 }

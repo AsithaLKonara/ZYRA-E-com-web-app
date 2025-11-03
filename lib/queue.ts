@@ -96,7 +96,7 @@ Object.values(queues).forEach(queue => {
 
   // Error handling
   queue.on('error', (error) => {
-    logger.error('Queue error', { error: error.message, stack: error.stack });
+    logger.error('Queue error', {}, error instanceof Error ? error : new Error(String(error)));
     monitoring.recordMetric('queue_error', 1);
   });
 
@@ -115,9 +115,8 @@ Object.values(queues).forEach(queue => {
     logger.error('Job failed', { 
       jobId: job.id, 
       jobType: job.name,
-      error: error.message,
       attempts: job.attemptsMade
-    });
+    }, error instanceof Error ? error : new Error(String(error)));
     monitoring.recordMetric('job_failed', 1, { job_type: job.name });
   });
 

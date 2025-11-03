@@ -50,7 +50,7 @@ export function useAuth(): UseAuthReturn {
       // Refresh the session
       window.location.reload()
     } catch (error) {
-      logger.error('Sign in error:', error)
+      logger.error('Sign in error:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -65,7 +65,7 @@ export function useAuth(): UseAuthReturn {
       router.push('/')
       window.location.reload()
     } catch (error) {
-      logger.error('Sign out error:', error)
+      logger.error('Sign out error:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }
@@ -89,7 +89,7 @@ export function useAuth(): UseAuthReturn {
       // Refresh the session
       window.location.reload()
     } catch (error) {
-      logger.error('Profile update error:', error)
+      logger.error('Profile update error:', {}, error instanceof Error ? error : new Error(String(error)))
       throw error
     }
   }

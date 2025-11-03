@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProductGridSkeleton } from "@/components/ui/loading-skeleton"
 import { useLoading } from "@/components/providers/loading-provider"
 import { getRecommendations } from "@/lib/api"
+import { clientLogger } from "@/lib/client-logger"
 
 interface RecommendedProduct {
   id: string
@@ -41,7 +42,7 @@ export function AIRecommendations() {
         const data = await withLoading(getRecommendations())
         setRecommendations(data)
       } catch (error) {
-        console.error("Failed to fetch recommendations:", error)
+        clientLogger.error("Failed to fetch recommendations", {}, error instanceof Error ? error : undefined)
       } finally {
         setLoading(false)
       }
@@ -52,7 +53,7 @@ export function AIRecommendations() {
 
   const addToCart = async (productId: string) => {
     await withLoading(new Promise((resolve) => setTimeout(resolve, 800)))
-    console.log("Added to cart:", productId)
+    clientLogger.info("Added to cart", { productId })
   }
 
   const RecommendationCard = ({ product }: { product: RecommendedProduct }) => (

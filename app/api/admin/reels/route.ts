@@ -90,33 +90,34 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/reels - Create new admin reel
 export async function POST(request: NextRequest) {
   try {
+    // Check admin authentication
+    const { requireAdmin } = await import('@/lib/auth-utils')
+    const currentUser = await requireAdmin().catch(() => null)
+    
+    if (!currentUser) {
+      return NextResponse.json(
+        { error: 'Admin authentication required' },
+        { status: 401 }
+      )
+    }
+
     const formData = await request.formData()
     const title = formData.get('title') as string
     const description = formData.get('description') as string
     const videoFile = formData.get('video') as File
     const productIds = formData.get('productIds') as string
     const hashtags = formData.get('hashtags') as string
-    const adminId = formData.get('adminId') as string
 
     // Validate required fields
-    if (!title || !videoFile || !adminId) {
+    if (!title || !videoFile) {
       return NextResponse.json(
-        { error: 'Title, video file, and adminId are required' },
+        { error: 'Title and video file are required' },
         { status: 400 }
       )
     }
 
-    // Validate admin user
-    const admin = await db.user.findFirst({
-      where: { id: adminId, role: 'ADMIN' }
-    })
-
-    if (!admin) {
-      return NextResponse.json(
-        { error: 'Admin user not found' },
-        { status: 404 }
-      )
-    }
+    // Use authenticated admin ID
+    const adminId = currentUser.id
 
     // Create temporary file path
     const tempDir = join(config.video.storagePath, 'temp')

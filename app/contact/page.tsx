@@ -46,7 +46,7 @@ export default function ContactPage() {
         toast.error(data.error || 'Failed to send message')
       }
     } catch (error) {
-      logger.error('Contact form error:', error)
+      logger.error('Contact form error:', {}, error instanceof Error ? error : new Error(String(error)))
       toast.error('Failed to send message. Please try again.')
     } finally {
       setIsSubmitting(false)

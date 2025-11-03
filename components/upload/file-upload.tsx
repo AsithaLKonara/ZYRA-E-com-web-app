@@ -187,7 +187,7 @@ export function FileUpload({
       }
 
     } catch (error) {
-      logger.error('File upload error:', error)
+      logger.error('File upload error:', {}, error instanceof Error ? error : new Error(String(error)))
       const errorMessage = error instanceof Error ? error.message : 'Upload failed'
       toast.error(errorMessage)
       onUploadError?.(errorMessage)

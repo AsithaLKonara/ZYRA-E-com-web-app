@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { ProductCard } from '@/components/products/product-card';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Search, 
   Filter, 
@@ -136,7 +137,7 @@ export default function CategoryPage() {
         router.push('/404');
       }
     } catch (error) {
-      console.error('Failed to fetch category:', error);
+      clientLogger.error('Failed to fetch category', {}, error instanceof Error ? error : undefined);
       router.push('/404');
     }
   };

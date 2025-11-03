@@ -44,7 +44,7 @@ const TAX_RATE = 0.08; // 8% tax rate
 const FREE_SHIPPING_THRESHOLD = 50; // Free shipping over $50
 const SHIPPING_COST = 9.99; // Standard shipping cost
 
-export const useCart = create<CartState>()(
+const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
@@ -197,9 +197,9 @@ export const useCart = create<CartState>()(
   )
 );
 
-// Custom hook for easier usage
+// Custom hook for easier usage with toast notifications
 export const useCartActions = () => {
-  const { addItem, removeItem, updateQuantity, clearCart, toggleCart, openCart, closeCart } = useCart();
+  const { addItem, removeItem, updateQuantity, clearCart, toggleCart, openCart, closeCart } = useCartStore();
   const { toast } = useToast();
 
   const handleAddItem = async (productId: string, quantity: number = 1) => {
@@ -256,12 +256,22 @@ export const useCartActions = () => {
 
   return {
     addItem: handleAddItem,
+    addToCart: handleAddItem, // Alias for backward compatibility
     removeItem: handleRemoveItem,
     updateQuantity: handleUpdateQuantity,
     clearCart: handleClearCart,
     toggleCart,
     openCart,
     closeCart,
+  };
+};
+
+// Export a wrapper that adds the addToCart alias
+export const useCart = () => {
+  const store = useCartStore();
+  return {
+    ...store,
+    addToCart: store.addItem, // Alias for backward compatibility
   };
 };
 

@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
+import { clientLogger } from "@/lib/client-logger"
 import { 
   ArrowLeft, 
   Save, 
@@ -19,6 +20,7 @@ import {
   Image as ImageIcon
 } from "lucide-react"
 import Link from "next/link"
+import { UserRole } from "@prisma/client"
 
 export default function NewProductPage() {
   const { user, isAuthenticated, isLoading } = useAuth()
@@ -106,10 +108,10 @@ export default function NewProductPage() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
-      console.log("Product created:", { ...formData, images, tags })
+      clientLogger.info("Product created", { ...formData, images, tags })
       // Redirect to products list
     } catch (error) {
-      console.error("Error creating product:", error)
+      clientLogger.error("Error creating product", {}, error instanceof Error ? error : undefined)
     } finally {
       setIsSaving(false)
     }
@@ -123,7 +125,7 @@ export default function NewProductPage() {
     )
   }
 
-  if (!isAuthenticated || user?.role !== "admin") {
+  if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-md">

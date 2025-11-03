@@ -114,8 +114,8 @@ export default function CategoriesPage() {
 
   const handleSortChange = (value: string) => {
     const [newSortBy, newSortOrder] = value.split('-');
-    setSortBy(newSortBy);
-    setSortOrder(newSortOrder);
+    if (newSortBy) setSortBy(newSortBy);
+    if (newSortOrder) setSortOrder(newSortOrder);
     setPagination(prev => ({ ...prev, page: 1 }));
   };
 

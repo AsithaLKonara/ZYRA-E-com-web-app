@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { clientLogger } from '@/lib/client-logger'
 import { 
   Dialog, 
   DialogContent, 
@@ -111,7 +112,7 @@ export default function AdminReelsPage() {
         setReels(data.data || [])
       }
     } catch (error) {
-      console.error('Failed to load reels:', error)
+      clientLogger.error('Failed to load reels', {}, error instanceof Error ? error : undefined)
     } finally {
       setLoading(false)
     }
@@ -143,7 +144,7 @@ export default function AdminReelsPage() {
       formData.append('video', uploadForm.video)
       formData.append('productIds', uploadForm.productIds)
       formData.append('hashtags', uploadForm.hashtags)
-      formData.append('adminId', 'admin-user-id') // TODO: Get from auth
+      // Get admin ID from session/auth - for now we'll handle it on the server side
 
       const response = await fetch('/api/admin/reels', {
         method: 'POST',
@@ -167,7 +168,7 @@ export default function AdminReelsPage() {
         alert(`Upload failed: ${data.error}`)
       }
     } catch (error) {
-      console.error('Upload failed:', error)
+      clientLogger.error('Upload failed', {}, error instanceof Error ? error : undefined)
       alert('Upload failed. Please try again.')
     } finally {
       setUploading(false)
@@ -189,7 +190,7 @@ export default function AdminReelsPage() {
         ))
       }
     } catch (error) {
-      console.error('Failed to toggle featured:', error)
+      clientLogger.error('Failed to toggle featured', {}, error instanceof Error ? error : undefined)
     }
   }
 
@@ -205,7 +206,7 @@ export default function AdminReelsPage() {
         setReels(prev => prev.filter(reel => reel.id !== reelId))
       }
     } catch (error) {
-      console.error('Failed to delete reel:', error)
+      clientLogger.error('Failed to delete reel', {}, error instanceof Error ? error : undefined)
     }
   }
 

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserRole } from '@prisma/client';
 import { logger } from './logger';
 import { monitoring } from './monitoring';
 import bcrypt from 'bcryptjs';
@@ -128,10 +128,8 @@ export class DatabaseSeeding {
       
     } catch (error) {
       logger.error('Database seeding failed', {
-        error: error.message,
-        stack: error.stack,
         duration: Date.now() - startTime,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       
       monitoring.recordCounter('database.seeding.error', 1);
       throw error;
@@ -148,8 +146,7 @@ export class DatabaseSeeding {
       await this.prisma.orderItem.deleteMany();
       await this.prisma.order.deleteMany();
       await this.prisma.cartItem.deleteMany();
-      await this.prisma.cart.deleteMany();
-      await this.prisma.wishlist.deleteMany();
+      await this.prisma.wishlistItem.deleteMany();
       await this.prisma.product.deleteMany();
       await this.prisma.category.deleteMany();
       await this.prisma.user.deleteMany();
@@ -157,10 +154,7 @@ export class DatabaseSeeding {
       logger.info('Existing data cleared successfully');
       
     } catch (error) {
-      logger.error('Failed to clear existing data', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to clear existing data', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -173,8 +167,13 @@ export class DatabaseSeeding {
       const usersData = await this.loadSeedData<SeedUser>('users');
       const hashedUsers = await Promise.all(
         usersData.map(async (user) => ({
-          ...user,
+          id: user.id,
+          email: user.email,
+          name: user.name,
           password: await bcrypt.hash(user.password, 12),
+          role: (user.role === 'USER' ? UserRole.CUSTOMER : user.role as UserRole) as UserRole,
+          emailVerified: user.emailVerified ? new Date() : null,
+          isActive: user.isActive,
           createdAt: new Date(user.createdAt),
           updatedAt: new Date(user.updatedAt),
         }))
@@ -196,10 +195,7 @@ export class DatabaseSeeding {
       monitoring.recordCounter('database.seeding.users', hashedUsers.length);
       
     } catch (error) {
-      logger.error('Failed to seed users', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to seed users', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -232,10 +228,7 @@ export class DatabaseSeeding {
       monitoring.recordCounter('database.seeding.categories', processedCategories.length);
       
     } catch (error) {
-      logger.error('Failed to seed categories', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to seed categories', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -247,7 +240,18 @@ export class DatabaseSeeding {
       
       const productsData = await this.loadSeedData<SeedProduct>('products');
       const processedProducts = productsData.map(product => ({
-        ...product,
+        id: product.id,
+        name: product.name,
+        slug: product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        sku: `SKU-${product.id.toUpperCase()}`,
+        description: product.description,
+        price: product.price,
+        categoryId: product.categoryId,
+        images: product.images,
+        tags: product.tags,
+        stock: product.stockQuantity,
+        isActive: product.inStock,
+        isFeatured: false,
         createdAt: new Date(product.createdAt),
         updatedAt: new Date(product.updatedAt),
       }));
@@ -268,10 +272,7 @@ export class DatabaseSeeding {
       monitoring.recordCounter('database.seeding.products', processedProducts.length);
       
     } catch (error) {
-      logger.error('Failed to seed products', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to seed products', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -304,10 +305,7 @@ export class DatabaseSeeding {
       monitoring.recordCounter('database.seeding.orders', processedOrders.length);
       
     } catch (error) {
-      logger.error('Failed to seed orders', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to seed orders', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -340,10 +338,7 @@ export class DatabaseSeeding {
       monitoring.recordCounter('database.seeding.reviews', processedReviews.length);
       
     } catch (error) {
-      logger.error('Failed to seed reviews', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to seed reviews', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -368,8 +363,7 @@ export class DatabaseSeeding {
     } catch (error) {
       logger.error('Failed to load seed data', {
         dataType,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -402,10 +396,7 @@ export class DatabaseSeeding {
       logger.info('Sample seed data generated successfully');
       
     } catch (error) {
-      logger.error('Failed to generate sample data', {
-        error: error.message,
-        stack: error.stack,
-      });
+      logger.error('Failed to generate sample data', {}, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -420,7 +411,7 @@ export class DatabaseSeeding {
       const email = `user${i + 1}@example.com`;
       const name = `User ${i + 1}`;
       const password = 'password123'; // This will be hashed during seeding
-      const role = roles[Math.floor(Math.random() * roles.length)];
+      const role = roles[Math.floor(Math.random() * roles.length)] as 'USER' | 'ADMIN' | 'MODERATOR';
       const emailVerified = Math.random() > 0.1; // 90% verified
       const isActive = Math.random() > 0.05; // 95% active
       const now = new Date();
@@ -613,8 +604,7 @@ export class DatabaseSeeding {
     } catch (error) {
       logger.error('Failed to save seed data', {
         dataType,
-        error: error.message,
-      });
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   }
@@ -646,9 +636,7 @@ export class DatabaseSeeding {
         total: users + categories + products + orders + reviews,
       };
     } catch (error) {
-      logger.error('Failed to get seeding status', {
-        error: error.message,
-      });
+      logger.error('Failed to get seeding status', {}, error instanceof Error ? error : new Error(String(error)));
       return {
         users: 0,
         categories: 0,

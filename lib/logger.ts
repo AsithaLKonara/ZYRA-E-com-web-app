@@ -189,6 +189,11 @@ class Logger {
     this.info(`Business: ${event}`, context, requestId, userId);
   }
 
+  // Payment logging
+  payment(message: string, context?: Record<string, any>, requestId?: string, userId?: string): void {
+    this.info(`Payment: ${message}`, context, requestId, userId);
+  }
+
   // Set log level
   setLevel(level: LogLevel): void {
     this.level = level;

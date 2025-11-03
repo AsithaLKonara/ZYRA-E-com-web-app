@@ -6,7 +6,7 @@ import { rateLimiter } from '@/lib/rate-limiter'
 // Deactivate user account endpoint
 async function deactivateHandler(request: NextRequest) {
   // Apply rate limiting
-  const rateLimitResponse = rateLimiter.middleware()(request)
+  const rateLimitResponse = rateLimiter.middleware(request)
   if (rateLimitResponse) {
     return rateLimitResponse
   }

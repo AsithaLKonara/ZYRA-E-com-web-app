@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ProductRating } from './product-rating';
 import { Star, MessageSquare, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
+import { clientLogger } from '@/lib/client-logger';
 
 interface Review {
   id: string;
@@ -90,7 +91,7 @@ export function ProductReviewsSection({
       setNewReview({ rating: 0, title: '', comment: '' });
       setShowReviewForm(false);
     } catch (error) {
-      console.error('Failed to submit review:', error);
+      clientLogger.error('Failed to submit review', {}, error instanceof Error ? error : undefined);
     } finally {
       setIsSubmitting(false);
     }
@@ -98,7 +99,7 @@ export function ProductReviewsSection({
 
   const handleHelpful = async (reviewId: string) => {
     // TODO: Implement helpful vote
-    console.log('Mark as helpful:', reviewId);
+    clientLogger.debug('Mark as helpful', { reviewId });
   };
 
   return (

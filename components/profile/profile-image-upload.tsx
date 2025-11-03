@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import { Camera, Upload, X } from "lucide-react"
 import { useAuth } from "@/hooks/useAuth"
+import { clientLogger } from "@/lib/client-logger"
 
 interface ProfileImageUploadProps {
   onImageChange?: (imageUrl: string) => void
@@ -49,14 +50,14 @@ export function ProfileImageUpload({ onImageChange, className }: ProfileImageUpl
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       // In a real app, you would upload to your server here
-      console.log('Image uploaded successfully')
+      clientLogger.info('Image uploaded successfully')
       
       // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
     } catch (error) {
-      console.error('Upload failed:', error)
+      clientLogger.error('Upload failed', {}, error instanceof Error ? error : undefined)
       alert('Upload failed. Please try again.')
     } finally {
       setIsUploading(false)

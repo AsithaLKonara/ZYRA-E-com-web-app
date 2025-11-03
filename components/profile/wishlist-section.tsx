@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ProductCard } from '@/components/products/product-card';
-import { useWishlist } from '@/hooks/use-wishlist';
+import { useWishlist, WishlistItem } from '@/hooks/use-wishlist';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Heart,
   ShoppingCart,
@@ -18,32 +19,6 @@ import {
   Trash2,
   Eye
 } from 'lucide-react';
-
-interface WishlistItem {
-  id: string;
-  productId: string;
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    originalPrice?: number;
-    images: string[];
-    inStock: boolean;
-    stockQuantity: number;
-    tags: string[];
-    category: {
-      id: string;
-      name: string;
-      slug: string;
-    };
-    reviews?: {
-      averageRating: number;
-      totalReviews: number;
-    };
-  };
-  addedAt: string;
-}
 
 interface WishlistSectionProps {
   userId: string;
@@ -67,7 +42,10 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
 
   const handleSortChange = (value: string) => {
     if (value.includes('-desc')) {
-      setSortBy(value.split('-')[0]);
+      const sortByValue = value.split('-')[0];
+      if (sortByValue) {
+        setSortBy(sortByValue);
+      }
       setSortOrder('desc');
     } else {
       setSortBy(value);
@@ -80,7 +58,7 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
     try {
       await removeItem(productId);
     } catch (error) {
-      console.error('Failed to remove item from wishlist:', error);
+      clientLogger.error('Failed to remove item from wishlist', { productId }, error instanceof Error ? error : undefined);
     } finally {
       setIsRemoving(null);
     }
@@ -91,7 +69,7 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
       try {
         await removeItem(productId);
       } catch (error) {
-        console.error(`Failed to remove item ${productId}:`, error);
+        clientLogger.error(`Failed to remove item ${productId}`, { productId }, error instanceof Error ? error : undefined);
       }
     }
     setSelectedItems([]);
@@ -140,8 +118,9 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
     }
   });
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+  const formatDate = (date: Date | string) => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    return dateObj.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -215,14 +194,6 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
               </div>
             )}
 
-            {/* Sale Badge */}
-            {item.product.originalPrice && item.product.originalPrice > item.product.price && (
-              <div className="absolute bottom-4 left-4">
-                <Badge variant="secondary" className="bg-red-500 text-white">
-                  Sale
-                </Badge>
-              </div>
-            )}
           </div>
         </CardHeader>
 
@@ -245,34 +216,14 @@ export function WishlistSection({ userId, className = "" }: WishlistSectionProps
               )}
             </div>
 
-            <p className="text-sm text-gray-600 line-clamp-2">
-              {item.product.description}
-            </p>
-
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-gray-900">
-                  ${item.product.price.toFixed(2)}
-                </span>
-                {item.product.originalPrice && item.product.originalPrice > item.product.price && (
-                  <span className="text-sm text-gray-500 line-through">
-                    ${item.product.originalPrice.toFixed(2)}
-                  </span>
-                )}
-              </div>
-              
-              <Badge variant="outline" className="text-xs">
-                {item.product.category.name}
-              </Badge>
+              <span className="font-bold text-gray-900">
+                ${item.product.price.toFixed(2)}
+              </span>
             </div>
 
             <div className="flex items-center justify-between text-xs text-gray-500">
               <span>Added {formatDate(item.addedAt)}</span>
-              {item.product.reviews && item.product.reviews.totalReviews > 0 && (
-                <span>
-                  ⭐ {item.product.reviews.averageRating.toFixed(1)} ({item.product.reviews.totalReviews})
-                </span>
-              )}
             </div>
 
             <div className="flex gap-2 pt-2">

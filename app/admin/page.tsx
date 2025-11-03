@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   BarChart3, 
   Users, 
@@ -69,7 +70,7 @@ export default function AdminDashboard() {
         setStats(data);
       }
     } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
+      clientLogger.error('Failed to fetch dashboard data', {}, error instanceof Error ? error : undefined);
       toast({
         title: 'Error',
         description: 'Failed to load dashboard data',

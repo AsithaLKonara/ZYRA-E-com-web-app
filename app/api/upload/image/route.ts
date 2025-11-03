@@ -49,15 +49,7 @@ async function uploadImageHandler(request: NextRequest) {
     // Upload original image
     const uploadResult = await uploadFile(imageBuffer, {
       filename: file.name,
-      purpose: purpose as any,
-      category: 'image',
-      userId: user.id,
-      metadata: {
-        originalSize: file.size,
-        width: metadata.width,
-        height: metadata.height,
-        format: metadata.format,
-      },
+      contentType: file.type,
     })
 
     if (!uploadResult.success) {
@@ -84,7 +76,7 @@ async function uploadImageHandler(request: NextRequest) {
         const responsiveSizes = await generateResponsiveSizes(imageBuffer, 'responsive')
         result.responsive = responsiveSizes
       } catch (error) {
-        logger.error('Error generating responsive sizes:', error)
+        logger.error('Error generating responsive sizes:', { error: error instanceof Error ? error.message : String(error) })
       }
     }
 
@@ -101,14 +93,7 @@ async function uploadImageHandler(request: NextRequest) {
         if (thumbnailResult.success) {
           const thumbnailUpload = await uploadFile(thumbnailResult.data!, {
             filename: `thumb-${file.name}`,
-            purpose: purpose as any,
-            category: 'image',
-            userId: user.id,
-            metadata: {
-              type: 'thumbnail',
-              width: thumbnailResult.width,
-              height: thumbnailResult.height,
-            },
+            contentType: 'image/webp',
           })
 
           if (thumbnailUpload.success) {
@@ -123,7 +108,7 @@ async function uploadImageHandler(request: NextRequest) {
           }
         }
       } catch (error) {
-        logger.error('Error creating thumbnail:', error)
+        logger.error('Error creating thumbnail:', { error: error instanceof Error ? error.message : String(error) })
       }
     }
 
@@ -145,7 +130,7 @@ async function uploadImageHandler(request: NextRequest) {
     })
 
   } catch (error) {
-    logger.error('Image upload error:', error)
+    logger.error('Image upload error:', { error: error instanceof Error ? error.message : String(error) })
     return NextResponse.json(
       { success: false, error: 'Image upload failed' },
       { status: 500 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { clientLogger } from '@/lib/client-logger'
 
 interface PWAContextType {
   isOnline: boolean
@@ -107,7 +108,7 @@ export default function PWAProvider({ children }: PWAProviderProps) {
             }
           })
         } catch (error) {
-          console.error('Service Worker registration failed:', error)
+          clientLogger.error('Service Worker registration failed', {}, error instanceof Error ? error : undefined)
         }
       }
     }
@@ -134,12 +135,12 @@ export default function PWAProvider({ children }: PWAProviderProps) {
   const installApp = async () => {
     if (installPrompt) {
       const result = await installPrompt.prompt()
-      console.log('Install prompt result:', result)
+      clientLogger.debug('Install prompt result', { outcome: result.outcome })
       
       if (result.outcome === 'accepted') {
-        console.log('App installed successfully')
+        clientLogger.info('App installed successfully')
       } else {
-        console.log('App installation declined')
+        clientLogger.info('App installation declined')
       }
       
       setInstallPrompt(null)

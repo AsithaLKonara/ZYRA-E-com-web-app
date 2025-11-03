@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
+import { logger } from "@/lib/logger"
 
 const prisma = new PrismaClient()
 
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Review creation error:", error)
+    logger.error("Review creation error", { error: error instanceof Error ? error.message : String(error) }, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({
@@ -192,7 +193,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Reviews fetch error:", error)
+    logger.error("Reviews fetch error", { error: error instanceof Error ? error.message : String(error) }, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({
@@ -221,12 +222,12 @@ async function updateProductRating(productId: string) {
 
     // Note: Product model doesn't have rating and reviewCount fields
     // In a real implementation, you'd update the product's aggregated rating
-    console.log('Product rating updated:', {
+    logger.info('Product rating updated', {
       productId,
       averageRating: Math.round(averageRating * 10) / 10,
       reviewCount: reviews.length
     })
   } catch (error) {
-    console.error("Error updating product rating:", error)
+    logger.error("Error updating product rating", { productId }, error instanceof Error ? error : undefined)
   }
 }

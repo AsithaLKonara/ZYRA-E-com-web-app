@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { clientLogger } from "@/lib/client-logger"
 import { 
   Package, 
   Search, 
@@ -189,17 +190,17 @@ export default function OrdersPage() {
   })
 
   const handleReorder = (orderId: string) => {
-    console.log(`Reorder order ${orderId}`)
+    clientLogger.info('Reorder order', { orderId })
     // Implement reorder functionality
   }
 
   const handleTrackOrder = (orderId: string) => {
-    console.log(`Track order ${orderId}`)
+    clientLogger.info('Track order', { orderId })
     // Implement tracking functionality
   }
 
   const handleDownloadInvoice = (orderId: string) => {
-    console.log(`Download invoice for order ${orderId}`)
+    clientLogger.info('Download invoice for order', { orderId })
     // Implement invoice download
   }
 

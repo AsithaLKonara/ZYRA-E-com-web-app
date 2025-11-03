@@ -179,7 +179,7 @@ export class Analytics {
         logger.info('Analytics event tracked:', eventData)
       }
     } catch (error) {
-      logger.error('Analytics tracking failed:', error)
+      logger.error('Analytics tracking failed:', {}, error instanceof Error ? error : new Error(String(error)))
     }
   }
 
@@ -198,7 +198,7 @@ export class Analytics {
         logger.info(`Flushed ${events.length} analytics events`)
       }
     } catch (error) {
-      logger.error('Analytics flush failed:', error)
+      logger.error('Analytics flush failed:', {}, error instanceof Error ? error : new Error(String(error)))
       // Re-add events to queue for retry
       this.eventQueue.unshift(...this.eventQueue)
     }
@@ -217,7 +217,7 @@ export class Analytics {
           body: JSON.stringify({ events }),
         })
       } catch (error) {
-        logger.error('Custom analytics endpoint failed:', error)
+        logger.error('Custom analytics endpoint failed:', {}, error instanceof Error ? error : new Error(String(error)))
       }
     }
 
@@ -249,12 +249,11 @@ export class Analytics {
     if (typeof window !== 'undefined') {
       localStorage.setItem('user_id', userId)
     }
-    monitoring.setUser(userId)
   }
 
   // Set user properties
   setUserProperties(properties: Record<string, any>) {
-    monitoring.setUser(this.userId || '', properties)
+    // User properties will be included in trackEvent calls via userId
   }
 
   // Track page view

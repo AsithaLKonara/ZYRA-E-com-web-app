@@ -56,6 +56,13 @@ export class MonitoringService {
   }
 
   /**
+   * Record a gauge metric (alias for recordMetric)
+   */
+  recordGauge(name: string, value: number, tags?: Record<string, string>): void {
+    this.recordMetric(name, value, tags);
+  }
+
+  /**
    * Record a metric
    */
   recordMetric(name: string, value: number, tags?: Record<string, string>): void {
@@ -227,7 +234,7 @@ export class MonitoringService {
     // - Discord webhooks
     // - SMS services
     
-    console.log('🚨 ALERT:', alert);
+    logger.error('Alert triggered', { alert });
   }
 
   /**
@@ -387,6 +394,28 @@ export class MonitoringService {
     this.metrics.clear();
     this.performanceData = [];
     logger.info('All metrics reset');
+  }
+
+  /**
+   * Track an event (for analytics integration)
+   */
+  trackEvent(data: {
+    event: string;
+    properties?: Record<string, any>;
+    userId?: string;
+    sessionId?: string;
+  }): void {
+    // Record as a metric with all properties as tags
+    const tags: Record<string, string> = {
+      event: data.event,
+      ...(data.userId && { userId: data.userId }),
+      ...(data.sessionId && { sessionId: data.sessionId }),
+      ...(data.properties && Object.fromEntries(
+        Object.entries(data.properties).map(([k, v]) => [k, String(v)])
+      )),
+    };
+    
+    this.recordCounter('analytics.event', 1, tags);
   }
 }
 

@@ -3,6 +3,7 @@ import { promisify } from 'util';
 import { readFile, unlink, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { tmpdir } from 'os';
+import { logger } from './logger';
 
 export interface VideoProcessingOptions {
   inputPath: string;
@@ -380,7 +381,7 @@ export class VideoProcessor {
       try {
         await unlinkAsync(file);
       } catch (error) {
-        console.warn(`Failed to delete temporary file ${file}:`, error);
+        logger.warn(`Failed to delete temporary file`, { file }, error instanceof Error ? error : undefined);
       }
     }
   }

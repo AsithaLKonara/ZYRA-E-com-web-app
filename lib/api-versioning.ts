@@ -54,7 +54,7 @@ class ApiVersioning {
     // Check for version in path: /api/v1/...
     const versionMatch = pathname.match(/^\/api\/(v\d+)\//);
     if (versionMatch) {
-      return versionMatch[1];
+      return versionMatch[1]!;
     }
 
     // Check for version in query parameter: /api/...?version=v1
@@ -74,7 +74,7 @@ class ApiVersioning {
     if (acceptHeader) {
       const versionMatch = acceptHeader.match(/version=([^;]+)/);
       if (versionMatch) {
-        return versionMatch[1];
+        return versionMatch[1]!;
       }
     }
 
@@ -106,14 +106,14 @@ class ApiVersioning {
   // Get supported versions
   getSupportedVersions(): string[] {
     return Object.keys(this.versions).filter(version => 
-      this.versions[version].supported
+      this.versions[version]?.supported
     );
   }
 
   // Get deprecated versions
   getDeprecatedVersions(): string[] {
     return Object.keys(this.versions).filter(version => 
-      this.versions[version].deprecated
+      this.versions[version]?.deprecated
     );
   }
 
@@ -264,8 +264,11 @@ export const createApiVersioning = (versions: Record<string, ApiVersion>, defaul
 };
 
 // API versioning middleware
-export function withApiVersioning(handler: (request: NextRequest) => Promise<NextResponse>, versioning: ApiVersioning = apiVersioning) {
-  return async function (request: NextRequest): Promise<NextResponse> {
+export function withApiVersioning(
+  handler: (request: NextRequest, ...args: any[]) => Promise<NextResponse>, 
+  versioning: ApiVersioning = apiVersioning
+) {
+  return async function (request: NextRequest, ...args: any[]): Promise<NextResponse> {
     // Handle version
     const { version, response } = versioning.handleVersion(request);
     
@@ -274,7 +277,7 @@ export function withApiVersioning(handler: (request: NextRequest) => Promise<Nex
     }
 
     // Execute original handler with version context
-    const result = await handler(request);
+    const result = await handler(request, ...args);
 
     // Add version headers to response
     if (result instanceof NextResponse) {

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   User, 
   Mail, 
@@ -125,7 +126,7 @@ export default function ProfilePage() {
         });
       }
     } catch (error) {
-      console.error('Failed to fetch profile:', error);
+      clientLogger.error('Failed to fetch profile', {}, error instanceof Error ? error : undefined);
     } finally {
       setIsLoading(false);
     }
@@ -139,20 +140,24 @@ export default function ProfilePage() {
         setOrders(ordersData.slice(0, 5)); // Show only recent orders
       }
     } catch (error) {
-      console.error('Failed to fetch orders:', error);
+      clientLogger.error('Failed to fetch orders', {}, error instanceof Error ? error : undefined);
     }
   };
 
   const handleInputChange = (field: string, value: any) => {
     if (field.includes('.')) {
       const [parent, child] = field.split('.');
-      setFormData(prev => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent as keyof typeof prev],
-          [child]: value,
-        },
-      }));
+      setFormData(prev => {
+        const parentKey = parent as keyof typeof prev;
+        const parentData = (prev[parentKey] as any) || {};
+        return {
+          ...prev,
+          [parentKey]: {
+            ...parentData,
+            [child as any]: value,
+          },
+        };
+      });
     } else {
       setFormData(prev => ({
         ...prev,

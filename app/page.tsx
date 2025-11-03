@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ProductCard } from '@/components/products/product-card';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   ArrowRight, 
   Star, 
@@ -70,7 +71,7 @@ export default function HomePage() {
           setCategories(categoriesData.categories || []);
         }
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        clientLogger.error('Failed to fetch data', {}, error instanceof Error ? error : undefined);
       } finally {
         setIsLoading(false);
       }

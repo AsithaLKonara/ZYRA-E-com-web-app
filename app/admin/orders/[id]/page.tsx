@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { clientLogger } from "@/lib/client-logger"
 import { 
   ArrowLeft, 
   Package, 
@@ -19,6 +20,7 @@ import {
   AlertCircle
 } from "lucide-react"
 import Link from "next/link"
+import { UserRole } from "@prisma/client"
 
 // Mock order data
 const mockOrder = {
@@ -104,7 +106,7 @@ export default function AdminOrderDetailPage() {
         await new Promise(resolve => setTimeout(resolve, 1000))
         setOrder(mockOrder)
       } catch (error) {
-        console.error("Error fetching order:", error)
+        clientLogger.error("Error fetching order", {}, error instanceof Error ? error : undefined)
       } finally {
         setIsLoadingOrder(false)
       }
@@ -122,7 +124,7 @@ export default function AdminOrderDetailPage() {
       await new Promise(resolve => setTimeout(resolve, 1000))
       setOrder(prev => ({ ...prev, status: newStatus }))
     } catch (error) {
-      console.error("Error updating order status:", error)
+      clientLogger.error("Error updating order status", {}, error instanceof Error ? error : undefined)
     } finally {
       setIsUpdating(false)
     }
@@ -136,7 +138,7 @@ export default function AdminOrderDetailPage() {
     )
   }
 
-  if (!isAuthenticated || user?.role !== "admin") {
+  if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-md">

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { clientLogger } from "@/lib/client-logger"
 import { 
   Plus, 
   Search, 
@@ -19,6 +20,7 @@ import {
 import { Product } from "@/lib/types/product"
 import { getProducts } from "@/lib/api/products"
 import Link from "next/link"
+import { UserRole } from "@prisma/client"
 
 export default function AdminProductsPage() {
   const { user, isAuthenticated, isLoading } = useAuth()
@@ -36,7 +38,7 @@ export default function AdminProductsPage() {
         setProducts(result.products)
         setFilteredProducts(result.products)
       } catch (error) {
-        console.error("Error fetching products:", error)
+        clientLogger.error("Error fetching products", {}, error instanceof Error ? error : undefined)
       } finally {
         setIsLoadingProducts(false)
       }
@@ -74,14 +76,14 @@ export default function AdminProductsPage() {
   const handleDelete = async (productId: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
       // Implement delete functionality
-      console.log("Delete product:", productId)
+      clientLogger.info("Delete product", { productId })
       setProducts(prev => prev.filter(p => p.id !== productId))
     }
   }
 
   const handleToggleStatus = async (productId: string, field: "inStock" | "isNew" | "isFeatured") => {
     // Implement toggle functionality
-    console.log(`Toggle ${field} for product:`, productId)
+    clientLogger.info(`Toggle ${field} for product`, { productId, field })
     setProducts(prev => 
       prev.map(p => 
         p.id === productId 
@@ -99,7 +101,7 @@ export default function AdminProductsPage() {
     )
   }
 
-  if (!isAuthenticated || user?.role !== "admin") {
+  if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-md">

@@ -5,6 +5,7 @@ import { VideoPlayer } from './video-player'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { clientLogger } from '@/lib/client-logger'
 
 interface Reel {
   id: string
@@ -82,7 +83,7 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
         setPage(pageNum)
       }
     } catch (error) {
-      console.error('Failed to load reels:', error)
+      clientLogger.error('Failed to load reels', {}, error instanceof Error ? error : undefined)
     } finally {
       setLoading(false)
     }
@@ -140,6 +141,7 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
   // Handle touch/swipe
   const handleTouchStart = useCallback((event: React.TouchEvent) => {
     const touch = event.touches[0]
+    if (!touch) return;
     const startY = touch.clientY
     
     const handleTouchMove = (e: TouchEvent) => {
@@ -148,6 +150,7 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
     
     const handleTouchEnd = (e: TouchEvent) => {
       const touch = e.changedTouches[0]
+      if (!touch) return;
       const endY = touch.clientY
       const diff = startY - endY
       
@@ -214,13 +217,13 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
         }))
       }
     } catch (error) {
-      console.error('Failed to like reel:', error)
+      clientLogger.error('Failed to like reel', {}, error instanceof Error ? error : undefined)
     }
   }, [userId])
 
   const handleComment = useCallback((reelId: string) => {
     // TODO: Open comment modal
-    console.log('Open comments for reel:', reelId)
+    clientLogger.debug('Open comments for reel', { reelId })
   }, [])
 
   const handleShare = useCallback(async (reelId: string) => {
@@ -258,7 +261,7 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
         await navigator.clipboard.writeText(window.location.href)
       }
     } catch (error) {
-      console.error('Failed to share reel:', error)
+      clientLogger.error('Failed to share reel', {}, error instanceof Error ? error : undefined)
     }
   }, [userId])
 
@@ -275,7 +278,7 @@ export function ReelsFeed({ userId, featured, className }: ReelsFeedProps) {
         })
       })
     } catch (error) {
-      console.error('Failed to track view:', error)
+      clientLogger.error('Failed to track view', {}, error instanceof Error ? error : undefined)
     }
   }, [userId])
 

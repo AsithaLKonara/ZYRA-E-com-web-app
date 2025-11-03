@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Camera, Save, X } from "lucide-react"
 import { useAuth } from "@/hooks/useAuth"
+import { clientLogger } from "@/lib/client-logger"
 
 const profileSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -69,10 +70,10 @@ export function ProfileEditForm() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log("Profile updated:", data)
+      clientLogger.info("Profile updated", { userId: user?.id })
       setIsEditing(false)
     } catch (error) {
-      console.error("Error updating profile:", error)
+      clientLogger.error("Error updating profile", {}, error instanceof Error ? error : undefined)
     } finally {
       setIsLoading(false)
     }
@@ -85,7 +86,7 @@ export function ProfileEditForm() {
 
   const handleImageUpload = () => {
     // Implement image upload functionality
-    console.log("Upload profile image")
+    clientLogger.debug("Upload profile image", { userId: user?.id })
   }
 
   return (

@@ -56,7 +56,7 @@ async function cancelPaymentHandler(request: NextRequest) {
     // Cancel payment intent with Stripe
     // Note: In a real implementation, you'd cancel the payment intent
     // For now, we'll just log it
-    console.log('Payment intent cancelled:', paymentIntentId)
+    logger.info('Payment intent cancelled', { paymentIntentId })
 
     // Update order status
     await db.order.update({

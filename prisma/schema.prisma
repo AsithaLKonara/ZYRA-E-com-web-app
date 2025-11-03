@@ -200,6 +200,7 @@ model VerificationToken {
 
 enum UserRole {
   ADMIN
+  MODERATOR
   CUSTOMER
 }
 

@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { CreditCard, Plus, Trash2, Edit, Check } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
+import { clientLogger } from "@/lib/client-logger"
 
 interface PaymentMethod {
   id: string
@@ -48,7 +49,7 @@ export function PaymentMethods({ className }: PaymentMethodsProps) {
         throw new Error(data.error || "Failed to fetch payment methods")
       }
     } catch (error) {
-      console.error("Error fetching payment methods:", error)
+      clientLogger.error("Error fetching payment methods", {}, error instanceof Error ? error : undefined)
       toast({
         title: "Error",
         description: "Failed to load payment methods",

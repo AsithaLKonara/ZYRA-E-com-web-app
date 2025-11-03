@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useToast } from './use-toast';
 
-interface WishlistItem {
+export interface WishlistItem {
   id: string;
   productId: string;
   product: {
@@ -32,7 +32,7 @@ interface WishlistState {
   itemCount: number;
 }
 
-export const useWishlist = create<WishlistState>()(
+const useWishlistStore = create<WishlistState>()(
   persist(
     (set, get) => ({
       items: [],
@@ -114,9 +114,19 @@ export const useWishlist = create<WishlistState>()(
   )
 );
 
+// Export a wrapper that adds the addToWishlist and removeFromWishlist aliases
+export const useWishlist = () => {
+  const store = useWishlistStore();
+  return {
+    ...store,
+    addToWishlist: store.addItem, // Alias for backward compatibility
+    removeFromWishlist: store.removeItem, // Alias for backward compatibility
+  };
+};
+
 // Custom hook for easier usage
 export const useWishlistActions = () => {
-  const { addItem, removeItem, clearWishlist, isInWishlist } = useWishlist();
+  const { addItem, removeItem, clearWishlist, isInWishlist } = useWishlistStore();
   const { toast } = useToast();
 
   const handleAddItem = async (productId: string) => {

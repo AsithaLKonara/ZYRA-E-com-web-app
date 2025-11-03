@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Heart, 
   ShoppingCart, 
@@ -53,12 +54,17 @@ interface Product {
     reviews: Array<{
       id: string;
       user: {
+        id: string;
         name: string;
         avatar?: string;
       };
       rating: number;
+      title?: string;
       comment: string;
       createdAt: string;
+      helpful: number;
+      verified: boolean;
+      images?: string[];
     }>;
   };
   specifications: Array<{
@@ -108,7 +114,7 @@ export default function ProductDetailPage() {
         router.push('/404');
       }
     } catch (error) {
-      console.error('Failed to fetch product:', error);
+      clientLogger.error('Failed to fetch product', {}, error instanceof Error ? error : undefined);
       router.push('/404');
     } finally {
       setIsLoading(false);
@@ -427,8 +433,39 @@ export default function ProductDetailPage() {
                 averageRating={product.reviews.averageRating}
                 totalReviews={product.reviews.totalReviews}
                 onReviewSubmit={async (review) => {
-                  // TODO: Implement review submission
-                  console.log('Submit review:', review);
+                  try {
+                    const response = await fetch('/api/reviews', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        productId: product.id,
+                        rating: review.rating,
+                        title: review.title || '',
+                        comment: review.comment,
+                      }),
+                    });
+                    
+                    if (response.ok) {
+                      const data = await response.json();
+                      clientLogger.info('Review submitted successfully', { productId: product.id, reviewId: data.data?.id });
+                      toast({
+                        title: 'Review Submitted',
+                        description: 'Thank you for your review!',
+                      });
+                      // Refresh product data to show new review
+                      fetchProduct();
+                    } else {
+                      const error = await response.json();
+                      throw new Error(error.error || 'Failed to submit review');
+                    }
+                  } catch (error) {
+                    clientLogger.error('Failed to submit review', {}, error instanceof Error ? error : undefined);
+                    toast({
+                      title: 'Error',
+                      description: error instanceof Error ? error.message : 'Failed to submit review',
+                      variant: 'destructive',
+                    });
+                  }
                 }}
               />
             </TabsContent>

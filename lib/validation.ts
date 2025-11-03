@@ -135,7 +135,7 @@ export function validateInput<T>(schema: z.ZodSchema<T>, data: unknown): {
       logger.warn('Validation error:', { errors, data })
       return { success: false, errors }
     }
-    logger.error('Validation error:', error)
+    logger.error('Validation error:', {}, error instanceof Error ? error : new Error(String(error)))
     return { success: false, errors: ['Unknown validation error'] }
   }
 }
@@ -158,7 +158,7 @@ export function validateAndSanitizeInput<T>(schema: z.ZodSchema<T>, data: unknow
       logger.warn('Validation error:', { errors, data })
       return { success: false, errors }
     }
-    logger.error('Validation error:', error)
+    logger.error('Validation error:', {}, error instanceof Error ? error : new Error(String(error)))
     return { success: false, errors: ['Unknown validation error'] }
   }
 }

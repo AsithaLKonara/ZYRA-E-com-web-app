@@ -127,7 +127,7 @@ export function CartItem({
           <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
             {item.product.images.length > 0 ? (
               <Image
-                src={item.product.images[0]}
+                src={item.product.images[0]!}
                 alt={item.product.name}
                 fill
                 className="object-cover"

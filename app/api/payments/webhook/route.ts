@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
 import { paymentSecurity } from "@/lib/payment-security"
 import { headers } from "next/headers"
+import { logger } from "@/lib/logger"
 
 export async function POST(request: NextRequest) {
   const body = await request.text()
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
       process.env.STRIPE_WEBHOOK_SECRET!
     )
   } catch (err) {
-    console.error("Webhook signature verification failed:", err)
+    logger.error("Webhook signature verification failed", {}, err instanceof Error ? err : undefined)
     return NextResponse.json(
       { error: "Invalid signature" },
       { status: 400 }
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntent = event.data.object
-        console.log("Payment succeeded:", paymentIntent.id)
+        logger.info("Payment succeeded", { paymentIntentId: paymentIntent.id })
         
         // Update order status in database
         // await updateOrderStatus(paymentIntent.metadata.orderId, "paid")
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
 
       case "payment_intent.payment_failed":
         const failedPayment = event.data.object
-        console.log("Payment failed:", failedPayment.id)
+        logger.warn("Payment failed", { paymentIntentId: failedPayment.id })
         
         // Update order status in database
         // await updateOrderStatus(failedPayment.metadata.orderId, "payment_failed")
@@ -57,31 +58,31 @@ export async function POST(request: NextRequest) {
 
       case "payment_method.attached":
         const paymentMethod = event.data.object
-        console.log("Payment method attached:", paymentMethod.id)
+        logger.info("Payment method attached", { paymentMethodId: paymentMethod.id })
         break
 
       case "customer.subscription.created":
         const subscription = event.data.object
-        console.log("Subscription created:", subscription.id)
+        logger.info("Subscription created", { subscriptionId: subscription.id })
         break
 
       case "customer.subscription.updated":
         const updatedSubscription = event.data.object
-        console.log("Subscription updated:", updatedSubscription.id)
+        logger.info("Subscription updated", { subscriptionId: updatedSubscription.id })
         break
 
       case "customer.subscription.deleted":
         const deletedSubscription = event.data.object
-        console.log("Subscription deleted:", deletedSubscription.id)
+        logger.info("Subscription deleted", { subscriptionId: deletedSubscription.id })
         break
 
       default:
-        console.log(`Unhandled event type: ${event.type}`)
+        logger.info(`Unhandled event type: ${event.type}`, { eventType: event.type })
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error("Error processing webhook:", error)
+    logger.error("Error processing webhook", {}, error instanceof Error ? error : undefined)
     return NextResponse.json(
       { error: "Webhook processing failed" },
       { status: 500 }

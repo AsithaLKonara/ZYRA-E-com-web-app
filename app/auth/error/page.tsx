@@ -34,7 +34,7 @@ export default function AuthErrorPage() {
         <Card>
           <CardHeader className="space-y-1 text-center">
             <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
-              <Icons.alertCircle className="w-6 h-6 text-red-600" />
+              <Icons.AlertCircle className="w-6 h-6 text-red-600" />
             </div>
             <CardTitle className="text-2xl font-bold">
               Authentication Error
@@ -45,7 +45,7 @@ export default function AuthErrorPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <Alert variant="destructive">
-              <Icons.alertCircle className="h-4 w-4" />
+              <Icons.AlertCircle className="h-4 w-4" />
               <AlertDescription>
                 {errorMessage}
               </AlertDescription>
@@ -57,7 +57,7 @@ export default function AuthErrorPage() {
                 variant="outline"
                 className="w-full"
               >
-                <Icons.arrowLeft className="mr-2 h-4 w-4" />
+                <Icons.ArrowLeft className="mr-2 h-4 w-4" />
                 Go back
               </Button>
 
@@ -65,7 +65,7 @@ export default function AuthErrorPage() {
                 onClick={() => window.location.href = '/auth/signin'}
                 className="w-full"
               >
-                <Icons.logIn className="mr-2 h-4 w-4" />
+                <Icons.LogIn className="mr-2 h-4 w-4" />
                 Try signing in again
               </Button>
             </div>

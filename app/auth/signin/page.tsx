@@ -125,7 +125,7 @@ export default function SignInPage() {
                 onClick={() => handleOAuthSignIn('google')}
                 disabled={isLoading}
               >
-                <Icons.google className="mr-2 h-4 w-4" />
+                <Icons.Google className="mr-2 h-4 w-4" />
                 Continue with Google
               </Button>
               
@@ -135,7 +135,7 @@ export default function SignInPage() {
                 onClick={() => handleOAuthSignIn('github')}
                 disabled={isLoading}
               >
-                <Icons.github className="mr-2 h-4 w-4" />
+                <Icons.Github className="mr-2 h-4 w-4" />
                 Continue with GitHub
               </Button>
             </div>
@@ -193,7 +193,7 @@ export default function SignInPage() {
                 className="w-full"
                 disabled={isLoading}
               >
-                {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Sign in
               </Button>
             </form>

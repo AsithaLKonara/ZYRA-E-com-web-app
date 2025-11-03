@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   User, 
   Settings, 
@@ -44,7 +45,7 @@ export function UserMenu({ user }: UserMenuProps) {
     try {
       await signOut({ callbackUrl: '/' });
     } catch (error) {
-      console.error('Sign out failed:', error);
+      clientLogger.error('Sign out failed', {}, error instanceof Error ? error : undefined);
     } finally {
       setIsLoading(false);
     }

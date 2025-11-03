@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   CheckCircle, 
   ArrowRight, 
@@ -66,7 +67,7 @@ export default function CheckoutSuccessPage() {
         setOrder(orderData);
       }
     } catch (error) {
-      console.error('Failed to fetch order:', error);
+      clientLogger.error('Failed to fetch order', {}, error instanceof Error ? error : undefined);
     } finally {
       setIsLoading(false);
     }

@@ -29,8 +29,8 @@ const UserSchema = z.object({
 const UpdateUserSchema = z.object({
   name: z.string().min(1).optional(),
   email: z.string().email().optional(),
-  image: z.string().url().optional(),
-  role: z.enum(['USER', 'ADMIN', 'MODERATOR']).optional(),
+  avatar: z.string().url().optional(),
+  role: z.enum(['CUSTOMER', 'ADMIN', 'MODERATOR']).optional(),
   isActive: z.boolean().optional(),
 });
 
@@ -80,7 +80,7 @@ const GETHandler = asyncHandler(async (request: NextRequest, { params }: { param
         id: true,
         email: true,
         name: true,
-        image: true,
+        avatar: true,
         role: true,
         isActive: true,
         emailVerified: true,
@@ -116,8 +116,8 @@ const GETHandler = asyncHandler(async (request: NextRequest, { params }: { param
   } catch (error) {
     logger.error('Failed to fetch user', {
       id,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 
@@ -189,7 +189,7 @@ const PUTHandler = asyncHandler(async (request: NextRequest, { params }: { param
         id: true,
         email: true,
         name: true,
-        image: true,
+        avatar: true,
         role: true,
         isActive: true,
         emailVerified: true,
@@ -219,8 +219,8 @@ const PUTHandler = asyncHandler(async (request: NextRequest, { params }: { param
   } catch (error) {
     logger.error('Failed to update user', {
       id,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 
@@ -295,8 +295,8 @@ const DELETEHandler = asyncHandler(async (request: NextRequest, { params }: { pa
   } catch (error) {
     logger.error('Failed to delete user', {
       id,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 
@@ -389,8 +389,8 @@ const PATCHHandler = asyncHandler(async (request: NextRequest, { params }: { par
   } catch (error) {
     logger.error('Failed to change user password', {
       id,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       duration: Date.now() - startTime,
     });
 

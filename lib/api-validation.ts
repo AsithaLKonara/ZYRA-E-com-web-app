@@ -67,7 +67,7 @@ export function createValidationMiddleware<T>(
 
         return handler(req, validationResult.data!)
       } catch (error) {
-        logger.error('Validation middleware error:', error)
+        logger.error('Validation middleware error:', {}, error instanceof Error ? error : new Error(String(error)))
         return NextResponse.json(
           {
             success: false,
@@ -158,7 +158,7 @@ export function validateFileUpload(options: {
       ;(req as any).validatedFiles = files
       return null // Continue to handler
     } catch (error) {
-      logger.error('File upload validation error:', error)
+      logger.error('File upload validation error:', {}, error instanceof Error ? error : new Error(String(error)))
       return NextResponse.json(
         {
           success: false,
@@ -182,7 +182,7 @@ export function validateRateLimit(options: {
       // For now, it's a placeholder that always allows requests
       return null
     } catch (error) {
-      logger.error('Rate limit validation error:', error)
+      logger.error('Rate limit validation error:', {}, error instanceof Error ? error : new Error(String(error)))
       return NextResponse.json(
         {
           success: false,

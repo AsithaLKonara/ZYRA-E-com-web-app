@@ -74,7 +74,7 @@ export function ProductImageZoom({
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = images[currentIndex];
+    link.href = images[currentIndex]!;
     link.download = `${productName}-${currentIndex + 1}.jpg`;
     link.click();
   };
@@ -229,7 +229,7 @@ export function ProductImageZoom({
             }}
           >
             <Image
-              src={images[currentIndex]}
+              src={images[currentIndex]!}
               alt={`${productName} ${currentIndex + 1}`}
               width={800}
               height={800}

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, ArrowRight, Truck, Shield, RefreshCw } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { useRouter } from 'next/navigation';
+import { clientLogger } from '@/lib/client-logger';
 
 interface CartSummaryProps {
   className?: string;
@@ -42,9 +43,9 @@ export function CartSummary({
       // TODO: Implement promo code logic
       await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
       // For now, just show a message
-      console.log('Promo code applied:', promoCode);
+      clientLogger.info('Promo code applied', { promoCode });
     } catch (error) {
-      console.error('Failed to apply promo code:', error);
+      clientLogger.error('Failed to apply promo code', { promoCode }, error instanceof Error ? error : undefined);
     } finally {
       setIsApplyingPromo(false);
     }

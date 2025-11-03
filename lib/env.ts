@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { logger } from './logger';
 
 // Environment validation schema
 const envSchema = z.object({
@@ -27,6 +28,7 @@ const envSchema = z.object({
 
   // File Storage
   BLOB_READ_WRITE_TOKEN: z.string().optional(),
+  VIDEO_STORAGE_PATH: z.string().optional(),
 
   // Monitoring & Analytics
   SENTRY_DSN: z.string().url().optional(),
@@ -63,9 +65,11 @@ function validateEnv() {
     return envSchema.parse(process.env);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('❌ Environment validation failed:');
-      error.errors.forEach((err) => {
-        console.error(`  - ${err.path.join('.')}: ${err.message}`);
+      logger.error('Environment validation failed', {
+        errors: error.errors.map((err) => ({
+          path: err.path.join('.'),
+          message: err.message
+        }))
       });
       // Use safeParse for Edge Runtime compatibility
       // Return default values instead of exiting

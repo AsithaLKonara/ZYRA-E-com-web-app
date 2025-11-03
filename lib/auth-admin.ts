@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { UserRole } from "@prisma/client"
 
 export async function requireAdmin(request: NextRequest) {
   const session = await getServerSession(authOptions)
@@ -12,7 +13,7 @@ export async function requireAdmin(request: NextRequest) {
     }
   }
 
-  if (session.user.role !== "admin") {
+  if (session.user.role !== UserRole.ADMIN) {
     return {
       error: "Forbidden - Admin access required",
       status: 403
@@ -26,7 +27,7 @@ export async function requireAdmin(request: NextRequest) {
 }
 
 export function isAdmin(user: any): boolean {
-  return user?.role === "admin"
+  return user?.role === UserRole.ADMIN
 }
 
 export function requireAdminClient() {

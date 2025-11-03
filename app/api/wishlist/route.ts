@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
+import { logger } from "@/lib/logger"
 
 const prisma = new PrismaClient()
 
@@ -61,7 +62,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Wishlist fetch error:", error)
+    logger.error("Wishlist fetch error", {}, error instanceof Error ? error : undefined)
     return NextResponse.json({
       error: "Failed to fetch wishlist"
     }, { status: 500 })
@@ -129,7 +130,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Wishlist add error:", error)
+    logger.error("Wishlist add error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({
@@ -175,7 +176,7 @@ export async function DELETE(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Wishlist remove error:", error)
+    logger.error("Wishlist remove error", {}, error instanceof Error ? error : undefined)
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({

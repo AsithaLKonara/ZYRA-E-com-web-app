@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
           <Card>
             <CardHeader className="space-y-1 text-center">
               <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <Icons.check className="w-6 h-6 text-green-600" />
+                <Icons.Check className="w-6 h-6 text-green-600" />
               </div>
               <CardTitle className="text-2xl font-bold">
                 Check your email
@@ -151,7 +151,7 @@ export default function ForgotPasswordPage() {
                 className="w-full"
                 disabled={isLoading}
               >
-                {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Send reset email
               </Button>
             </form>

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { WifiOff, RefreshCw, Home, ShoppingCart, Heart, User } from 'lucide-react'
 import Link from 'next/link'
+import { clientLogger } from '@/lib/client-logger'
 
 export default function OfflinePage() {
   const { isOnline } = usePWA()
@@ -61,7 +62,7 @@ export default function OfflinePage() {
         }))
       }
     } catch (error) {
-      console.error('Error loading cached data:', error)
+      clientLogger.error('Error loading cached data', {}, error instanceof Error ? error : undefined)
     }
   }
 

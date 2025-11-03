@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/database'
 import { generateSitemapData } from '@/lib/seo'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -58,7 +59,7 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Sitemap generation failed:', error)
+    logger.error('Sitemap generation failed', {}, error instanceof Error ? error : undefined)
     return NextResponse.json(
       { error: 'Failed to generate sitemap' },
       { status: 500 }

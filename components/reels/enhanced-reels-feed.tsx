@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { EnhancedVideoPlayer } from './enhanced-video-player';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Loader2, 
   ChevronUp, 
@@ -190,6 +191,7 @@ export function EnhancedReelsFeed({
   // Advanced touch handling with gesture recognition
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     const touch = e.touches[0];
+    if (!touch) return;
     touchState.current = {
       startY: touch.clientY,
       startTime: Date.now(),
@@ -204,6 +206,7 @@ export function EnhancedReelsFeed({
     
     e.preventDefault();
     const touch = e.touches[0];
+    if (!touch) return;
     const currentTime = Date.now();
     const deltaY = touch.clientY - touchState.current.startY;
     const deltaTime = currentTime - touchState.current.startTime;
@@ -229,6 +232,7 @@ export function EnhancedReelsFeed({
     if (!touchState.current.isDragging) return;
     
     const touch = e.changedTouches[0];
+    if (!touch) return;
     const deltaY = touch.clientY - touchState.current.startY;
     const velocity = touchState.current.velocity;
     const threshold = 50;
@@ -330,13 +334,13 @@ export function EnhancedReelsFeed({
         }));
       }
     } catch (error) {
-      console.error('Failed to like reel:', error);
+      clientLogger.error('Failed to like reel', {}, error instanceof Error ? error : undefined);
     }
   }, [userId]);
 
   const handleComment = useCallback((reelId: string) => {
     // TODO: Open comment modal
-    console.log('Open comments for reel:', reelId);
+    clientLogger.debug('Open comments for reel', { reelId });
   }, []);
 
   const handleShare = useCallback(async (reelId: string) => {
@@ -372,7 +376,7 @@ export function EnhancedReelsFeed({
         await navigator.clipboard.writeText(window.location.href);
       }
     } catch (error) {
-      console.error('Failed to share reel:', error);
+      clientLogger.error('Failed to share reel', {}, error instanceof Error ? error : undefined);
     }
   }, [userId]);
 
@@ -389,7 +393,7 @@ export function EnhancedReelsFeed({
         })
       });
     } catch (error) {
-      console.error('Failed to track view:', error);
+      clientLogger.error('Failed to track view', {}, error instanceof Error ? error : undefined);
     }
   }, [userId]);
 

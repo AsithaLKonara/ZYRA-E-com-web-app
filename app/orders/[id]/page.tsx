@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { clientLogger } from "@/lib/client-logger"
 import { 
   Package, 
   Truck, 
@@ -95,7 +96,7 @@ export default function OrderDetailPage() {
         await new Promise(resolve => setTimeout(resolve, 1000))
         setOrder(mockOrder)
       } catch (error) {
-        console.error("Error fetching order:", error)
+        clientLogger.error("Error fetching order", {}, error instanceof Error ? error : undefined)
       } finally {
         setIsLoadingOrder(false)
       }
@@ -160,12 +161,12 @@ export default function OrderDetailPage() {
   }
 
   const handleReorder = () => {
-    console.log("Reorder items")
+    clientLogger.info("Reorder items", { orderId: order.id })
     // Implement reorder functionality
   }
 
   const handleDownloadInvoice = () => {
-    console.log("Download invoice")
+    clientLogger.info("Download invoice", { orderId: order.id })
     // Implement invoice download
   }
 

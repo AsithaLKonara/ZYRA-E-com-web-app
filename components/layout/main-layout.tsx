@@ -174,8 +174,14 @@ export function MainLayout({ children }: MainLayoutProps) {
               {/* User Menu */}
               {status === 'loading' ? (
                 <div className="h-8 w-8 rounded-full bg-gray-200 animate-pulse" />
-              ) : session ? (
-                <UserMenu user={session.user} />
+              ) : session && session.user && session.user.name && session.user.email && session.user.role ? (
+                <UserMenu user={{
+                  id: session.user.id,
+                  name: session.user.name,
+                  email: session.user.email,
+                  image: session.user.image || undefined,
+                  role: session.user.role,
+                }} />
               ) : (
                 <div className="flex items-center space-x-2">
                   <Button

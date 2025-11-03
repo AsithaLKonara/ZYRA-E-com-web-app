@@ -18,6 +18,7 @@ import {
   DollarSign
 } from "lucide-react"
 import Link from "next/link"
+import { UserRole } from "@prisma/client"
 
 // Mock order data
 const mockOrders = [
@@ -194,7 +195,7 @@ export default function AdminOrdersPage() {
     )
   }
 
-  if (!isAuthenticated || user?.role !== "admin") {
+  if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-md">

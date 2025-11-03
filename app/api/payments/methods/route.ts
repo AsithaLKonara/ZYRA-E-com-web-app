@@ -89,7 +89,7 @@ async function removePaymentMethodHandler(request: NextRequest) {
 
     // Detach payment method from customer
     // Note: In a real implementation, you'd detach the payment method via Stripe
-    console.log('Payment method removed:', paymentMethodId)
+    logger.debug('Payment method removed', { paymentMethodId })
 
     logger.info('Payment method removed', {
       userId: user.id,
@@ -126,7 +126,7 @@ async function setDefaultPaymentMethodHandler(request: NextRequest) {
 
     // Set default payment method
     // Note: In a real implementation, you'd set the default payment method via Stripe
-    console.log('Default payment method set:', paymentMethodId)
+    logger.info('Default payment method set', { paymentMethodId })
 
     logger.info('Default payment method set', {
       userId: user.id,

@@ -91,7 +91,7 @@ const POSTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespo
 
     // Check if payment already exists (mock implementation)
     // Note: In a real implementation, you would have a Payment model in your database
-    console.log('Checking for existing payment for order:', paymentData.orderId);
+    logger.debug('Checking for existing payment for order', { orderId: paymentData.orderId });
 
     // Create Stripe payment intent
     const paymentIntent = await stripe.paymentIntents.create({
@@ -121,7 +121,7 @@ const POSTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespo
         returnUrl: paymentData.returnUrl,
       },
     };
-    console.log('Created payment record:', payment);
+    logger.debug('Created payment record', { paymentId: payment.id, orderId: payment.orderId });
 
     // Record success metric
     monitoring.recordCounter('payments.create.success', 1);
@@ -184,7 +184,7 @@ const PUTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 
     // Get payment (mock implementation)
     // Note: In a real implementation, you would have a Payment model in your database
-    console.log('Looking for payment with ID:', paymentId);
+    logger.debug('Looking for payment with ID', { paymentId });
     
     // Mock payment object - in real implementation, this would come from database
     const payment = {
@@ -208,7 +208,7 @@ const PUTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 
     if (paymentIntent.status === 'succeeded') {
       // Update payment status (mock implementation)
-      console.log('Payment succeeded, updating payment status:', paymentId);
+      logger.info('Payment succeeded, updating payment status', { paymentId });
 
       // Update order status
       await prisma.order.update({
@@ -236,7 +236,7 @@ const PUTHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
       });
     } else {
       // Update payment status to failed (mock implementation)
-      console.log('Payment failed, updating payment status:', paymentId);
+      logger.warn('Payment failed, updating payment status', { paymentId });
 
       // Record failure metric
       monitoring.recordCounter('payments.confirm.failed', 1);
@@ -290,7 +290,7 @@ const PATCHHandler = asyncHandler(async (request: NextRequest): Promise<NextResp
 
     // Get payment (mock implementation)
     // Note: In a real implementation, you would have a Payment model in your database
-    console.log('Looking for payment to refund:', refundData.paymentId);
+    logger.debug('Looking for payment to refund', { paymentId: refundData.paymentId });
     
     // Mock payment object - in real implementation, this would come from database
     const payment = {
@@ -322,7 +322,7 @@ const PATCHHandler = asyncHandler(async (request: NextRequest): Promise<NextResp
     });
 
     // Update payment status (mock implementation)
-    console.log('Payment refunded, updating payment status:', payment.id);
+    logger.info('Payment refunded, updating payment status', { paymentId: payment.id });
 
     // Update order status
     await prisma.order.update({
@@ -393,7 +393,7 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 
     // Get payment (mock implementation)
     // Note: In a real implementation, you would have a Payment model in your database
-    console.log('Looking for payment status:', paymentId);
+    logger.debug('Looking for payment status', { paymentId });
     
     // Mock payment object - in real implementation, this would come from database
     const payment = {

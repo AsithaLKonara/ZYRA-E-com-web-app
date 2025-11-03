@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ProductCard } from '@/components/products/product-card';
+import { clientLogger } from '@/lib/client-logger';
 import { 
   Search, 
   Filter, 
@@ -132,7 +133,7 @@ export default function ProductsPage() {
         }));
       }
     } catch (error) {
-      console.error('Failed to fetch products:', error);
+      clientLogger.error('Failed to fetch products', {}, error instanceof Error ? error : undefined);
     } finally {
       setIsLoading(false);
     }
@@ -146,7 +147,7 @@ export default function ProductsPage() {
         setCategories(data.categories || []);
       }
     } catch (error) {
-      console.error('Failed to fetch categories:', error);
+      clientLogger.error('Failed to fetch categories', {}, error instanceof Error ? error : undefined);
     }
   };
 

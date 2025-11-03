@@ -125,14 +125,19 @@ export default function CheckoutPage() {
 
   const handleInputChange = (field: string, value: any) => {
     if (field.includes('.')) {
-      const [parent, child] = field.split('.');
-      setFormData(prev => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent as keyof CheckoutForm],
-          [child]: value,
-        },
-      }));
+      const parts = field.split('.');
+      const parent = parts[0]!;
+      const child = parts[1]!;
+      setFormData(prev => {
+        const parentData = (prev as any)[parent];
+        return {
+          ...prev,
+          [parent]: {
+            ...(parentData || {}),
+            [child]: value,
+          },
+        };
+      });
     } else {
       setFormData(prev => ({
         ...prev,
