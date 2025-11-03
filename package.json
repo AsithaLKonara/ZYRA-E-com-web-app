@@ -17,6 +17,8 @@
     "db:migrate:deploy": "tsx scripts/database-migrate.ts deploy",
     "db:studio": "prisma studio",
     "db:seed": "tsx scripts/database-seed.ts",
+    "db:seed:comprehensive": "tsx scripts/seed-comprehensive.ts",
+    "db:seed:clear": "tsx scripts/seed-comprehensive.ts --clear",
     "db:reset": "prisma migrate reset --force",
     "db:setup": "tsx scripts/database-setup.ts",
     "db:migrate:run": "tsx scripts/database-migrate.ts migrate",
