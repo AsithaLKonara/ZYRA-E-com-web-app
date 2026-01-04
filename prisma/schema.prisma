@@ -1,0 +1,375 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  avatar        String?
+  password      String? // For email/password auth
+  emailVerified DateTime?
+  role          UserRole  @default(CUSTOMER)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+  orders   Order[]
+  reviews  Review[]
+  wishlist WishlistItem[]
+  cart     CartItem[]
+
+  // Admin Reels Relations
+  adminReels       AdminReel[]
+  reelInteractions ReelInteraction[]
+  reelComments     ReelComment[]
+
+  // Payment Relations
+  payments Payment[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String?
+  price         Float
+  originalPrice Float?
+  sku           String   @unique
+  stock         Int      @default(0)
+  images        String[] // JSON array of image URLs
+  tags          String[] // JSON array of tags
+  isActive      Boolean  @default(true)
+  isFeatured    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  orderItems    OrderItem[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+  cartItems     CartItem[]
+
+  // Admin Reels Relations
+  reelProducts ReelProduct[]
+  socialPosts  SocialPost[]
+
+  @@map("products")
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING)
+  total       Float
+  subtotal    Float
+  tax         Float
+  shipping    Float
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  items           OrderItem[]
+  payments        Payment[]
+  shippingAddress Json
+  billingAddress  Json
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id       String @id @default(cuid())
+  quantity Int
+  price    Float
+
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("reviews")
+}
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("wishlist_items")
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  orderId               String
+  userId                String
+  amount                Float
+  currency              String        @default("usd")
+  status                PaymentStatus @default(PENDING)
+  paymentMethod         String
+  stripePaymentIntentId String?       @unique
+  stripeChargeId        String?
+  refundId              String?
+  metadata              Json?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([orderId])
+  @@index([userId])
+  @@index([stripePaymentIntentId])
+  @@map("payments")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+// Admin Reels System Models
+model AdminReel {
+  id            String     @id @default(cuid())
+  title         String
+  description   String?
+  videoUrl      String
+  thumbnailUrl  String?
+  duration      Int? // Duration in seconds
+  fileSize      Int? // File size in bytes
+  status        ReelStatus @default(PROCESSING)
+  featured      Boolean    @default(false)
+  trendingScore Float      @default(0)
+  viewCount     Int        @default(0)
+  likeCount     Int        @default(0)
+  commentCount  Int        @default(0)
+  shareCount    Int        @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  publishedAt   DateTime?
+
+  adminId String
+  admin   User   @relation(fields: [adminId], references: [id])
+
+  // Relations
+  interactions ReelInteraction[]
+  comments     ReelComment[]
+  products     ReelProduct[]
+  hashtags     ReelHashtag[]
+
+  @@map("admin_reels")
+}
+
+model ReelInteraction {
+  id              String              @id @default(cuid())
+  interactionType ReelInteractionType
+  createdAt       DateTime            @default(now())
+
+  reelId String
+  reel   AdminReel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+  userId String
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([reelId, userId, interactionType])
+  @@map("reel_interactions")
+}
+
+model ReelComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reelId String
+  reel   AdminReel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+  userId String
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reel_comments")
+}
+
+model ReelProduct {
+  id        String   @id @default(cuid())
+  positionX Float // X position as percentage (0-1)
+  positionY Float // Y position as percentage (0-1)
+  createdAt DateTime @default(now())
+
+  reelId    String
+  reel      AdminReel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([reelId, productId])
+  @@map("reel_products")
+}
+
+model ReelHashtag {
+  id        String   @id @default(cuid())
+  hashtag   String
+  createdAt DateTime @default(now())
+
+  reelId String
+  reel   AdminReel @relation(fields: [reelId], references: [id], onDelete: Cascade)
+
+  @@unique([reelId, hashtag])
+  @@map("reel_hashtags")
+}
+
+// Social Media Integration Models
+model SocialPost {
+  id          String       @id @default(cuid())
+  productId   String?
+  mediaUrl    String
+  igMediaId   String?
+  pagePostId  String?
+  status      SocialStatus @default(PENDING)
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  product Product? @relation(fields: [productId], references: [id])
+
+  @@map("social_posts")
+}
+
+// Enums
+enum ReelStatus {
+  PROCESSING
+  PUBLISHED
+  ARCHIVED
+  DELETED
+}
+
+enum ReelInteractionType {
+  VIEW
+  LIKE
+  SHARE
+  COMMENT
+}
+
+enum SocialStatus {
+  PENDING
+  PUBLISHED
+  FAILED
+  CANCELLED
+}
