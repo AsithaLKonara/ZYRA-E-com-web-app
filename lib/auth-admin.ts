@@ -1,11 +1,11 @@
 import { NextRequest } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { UserRole } from "@prisma/client"
 
 export async function requireAdmin(request: NextRequest) {
   const session = await getServerSession(authOptions)
-  
+
   if (!session?.user) {
     return {
       error: "Unauthorized",

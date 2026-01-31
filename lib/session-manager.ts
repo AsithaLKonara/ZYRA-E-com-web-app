@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { logger } from './logger';
 import { monitoring } from './monitoring';
 import { db as prisma } from './database';
@@ -30,7 +30,7 @@ export class SessionManager {
   static async getCurrentSession(request?: NextRequest): Promise<SessionInfo | null> {
     try {
       const session = await getServerSession(authOptions);
-      
+
       if (!session?.user) {
         return null;
       }
@@ -104,7 +104,7 @@ export class SessionManager {
   }> {
     try {
       const session = await this.getCurrentSession();
-      
+
       if (!session) {
         return {
           valid: false,
@@ -149,7 +149,7 @@ export class SessionManager {
   static async refreshSession(sessionId: string): Promise<SessionInfo | null> {
     try {
       const validation = await this.validateSession(sessionId);
-      
+
       if (!validation.valid) {
         logger.warn('Cannot refresh invalid session', {
           sessionId,
@@ -188,7 +188,7 @@ export class SessionManager {
     try {
       // In a real implementation, you would store sessions in a database
       // and mark them as invalid. For now, we'll just log it.
-      
+
       logger.info('Session invalidated', {
         sessionId,
       });
@@ -216,7 +216,7 @@ export class SessionManager {
     try {
       // In a real implementation, you would query session data from database
       // For now, we'll return mock data
-      
+
       return {
         activeSessions: 0,
         totalSessions: 0,
@@ -227,7 +227,7 @@ export class SessionManager {
       logger.error('Failed to get session statistics', {
         error: error instanceof Error ? error.message : String(error),
       });
-      
+
       return {
         activeSessions: 0,
         totalSessions: 0,
@@ -242,12 +242,12 @@ export class SessionManager {
     try {
       // In a real implementation, you would clean up expired sessions from database
       // For now, we'll just log it
-      
+
       logger.info('Expired sessions cleanup completed');
-      
+
       // Record cleanup
       monitoring.recordCounter('auth.session.cleanup', 1);
-      
+
       return 0;
     } catch (error) {
       logger.error('Session cleanup failed', {
@@ -262,7 +262,7 @@ export class SessionManager {
     try {
       // In a real implementation, you would query user's sessions from database
       // For now, we'll return empty array
-      
+
       return [];
     } catch (error) {
       logger.error('Failed to get user sessions', {
@@ -314,7 +314,7 @@ export class SessionManager {
     try {
       // In a real implementation, you would query session by ID from database
       // For now, we'll return null
-      
+
       return null;
     } catch (error) {
       logger.error('Failed to get session by ID', {
@@ -330,7 +330,7 @@ export class SessionManager {
     try {
       // In a real implementation, you would update session activity in database
       // For now, we'll just log it
-      
+
       logger.debug('Session activity updated', {
         sessionId,
       });

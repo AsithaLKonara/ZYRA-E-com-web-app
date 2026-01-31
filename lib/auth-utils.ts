@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { logger } from './logger';
 import { monitoring } from './monitoring';
 import { UserRole } from '@prisma/client';
@@ -38,7 +38,7 @@ export class AuthUtils {
   static async getSession(): Promise<SessionUser | null> {
     try {
       const session = await getServerSession(authOptions);
-      
+
       if (!session?.user) {
         return null;
       }
@@ -47,16 +47,16 @@ export class AuthUtils {
     } catch (error) {
       logger.error('Failed to get session', {}, error instanceof Error ? error : new Error(String(error)));
       return null;
+    }
   }
-}
 
-// Check if user is authenticated
+  // Check if user is authenticated
   static async isAuthenticated(): Promise<boolean> {
     const session = await this.getSession();
     return !!session;
-}
+  }
 
-// Check if user has specific role
+  // Check if user has specific role
   static async hasRole(role: UserRole): Promise<boolean> {
     const session = await this.getSession();
     return session?.role === role;
@@ -71,16 +71,16 @@ export class AuthUtils {
   // Check if user has permission
   static async hasPermission(permission: PermissionLevel): Promise<boolean> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return false;
     }
 
     const userPermissions = PERMISSIONS[session.role] || [];
     return userPermissions.includes(permission);
-}
+  }
 
-// Check if user is admin
+  // Check if user is admin
   static async isAdmin(): Promise<boolean> {
     return this.hasRole(UserRole.ADMIN);
   }
@@ -114,7 +114,7 @@ export class AuthUtils {
     action: PermissionLevel
   ): Promise<boolean> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return false;
     }
@@ -128,19 +128,19 @@ export class AuthUtils {
     switch (resource) {
       case 'products':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               session.role === UserRole.MODERATOR;
-      
+          session.role === UserRole.MODERATOR;
+
       case 'orders':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               session.role === UserRole.MODERATOR;
-      
+          session.role === UserRole.MODERATOR;
+
       case 'categories':
         return [PermissionLevel.READ, PermissionLevel.WRITE].includes(action) &&
-               session.role === UserRole.MODERATOR;
-      
+          session.role === UserRole.MODERATOR;
+
       case 'reviews':
         return action === PermissionLevel.READ;
-      
+
       default:
         return this.hasPermission(action);
     }
@@ -149,7 +149,7 @@ export class AuthUtils {
   // Require authentication middleware
   static async requireAuth(): Promise<SessionUser> {
     const session = await this.getSession();
-    
+
     if (!session) {
       throw new Error('Authentication required');
     }
@@ -160,7 +160,7 @@ export class AuthUtils {
   // Require specific role middleware
   static async requireRole(role: UserRole): Promise<SessionUser> {
     const session = await this.requireAuth();
-    
+
     if (session.role !== role) {
       throw new Error(`Role ${role} required`);
     }
@@ -171,7 +171,7 @@ export class AuthUtils {
   // Require any of the specified roles middleware
   static async requireAnyRole(roles: UserRole[]): Promise<SessionUser> {
     const session = await this.requireAuth();
-    
+
     if (!roles.includes(session.role)) {
       throw new Error(`One of the following roles required: ${roles.join(', ')}`);
     }
@@ -182,7 +182,7 @@ export class AuthUtils {
   // Require permission middleware
   static async requirePermission(permission: PermissionLevel): Promise<SessionUser> {
     const session = await this.requireAuth();
-    
+
     if (!(await this.hasPermission(permission))) {
       throw new Error(`Permission ${permission} required`);
     }
@@ -203,7 +203,7 @@ export class AuthUtils {
   // Check if user can access user resource
   static async canAccessUser(targetUserId: string): Promise<boolean> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return false;
     }
@@ -220,7 +220,7 @@ export class AuthUtils {
   // Check if user can modify user resource
   static async canModifyUser(targetUserId: string): Promise<boolean> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return false;
     }
@@ -237,7 +237,7 @@ export class AuthUtils {
   // Check if user can delete user resource
   static async canDeleteUser(targetUserId: string): Promise<boolean> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return false;
     }
@@ -249,7 +249,7 @@ export class AuthUtils {
   // Get user permissions
   static async getUserPermissions(): Promise<PermissionLevel[]> {
     const session = await this.getSession();
-    
+
     if (!session) {
       return [];
     }
@@ -266,7 +266,7 @@ export class AuthUtils {
   // Require email verification
   static async requireEmailVerification(): Promise<SessionUser> {
     const session = await this.requireAuth();
-    
+
     if (!session.emailVerified) {
       throw new Error('Email verification required');
     }
@@ -282,7 +282,7 @@ export class AuthUtils {
     isAuthenticated: boolean;
   }> {
     const session = await this.getSession();
-    
+
     return {
       userId: session?.id,
       email: session?.email,
@@ -297,7 +297,7 @@ export class AuthUtils {
     details: Record<string, any> = {}
   ): Promise<void> {
     const context = await this.getAuthContext();
-    
+
     logger.info(`Auth event: ${event}`, {
       ...context,
       ...details,
@@ -318,7 +318,7 @@ export class AuthUtils {
   }> {
     try {
       const session = await this.getSession();
-      
+
       if (!session) {
         return {
           valid: false,
@@ -328,12 +328,12 @@ export class AuthUtils {
 
       // Additional validation can be added here
       // For example, check if user is still active in database
-      
+
       return {
         valid: true,
         user: session,
       };
-  } catch (error) {
+    } catch (error) {
       logger.error('Session validation failed', {}, error instanceof Error ? error : new Error(String(error)));
 
       return {
@@ -366,11 +366,11 @@ export class AuthUtils {
     user: SessionUser
   ): Headers {
     const headers = new Headers(request.headers);
-    
+
     headers.set('x-user-id', user.id);
     headers.set('x-user-email', user.email);
     headers.set('x-user-role', user.role);
-    
+
     return headers;
   }
 
