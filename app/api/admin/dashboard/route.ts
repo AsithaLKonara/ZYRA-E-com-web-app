@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { errorHandler, asyncHandler, AuthorizationError } from '@/lib/error-handler';
 import { logger } from '@/lib/logger';

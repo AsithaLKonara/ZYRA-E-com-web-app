@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser, isAdmin, getUserById, activateUser, deactivateUser } from '@/lib/auth-utils'
 import { withCORS, withErrorHandler } from '@/lib/cors'

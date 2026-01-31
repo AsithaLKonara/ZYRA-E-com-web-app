@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
 import { logger } from './logger'
+import { database } from './env'
 
 // Database connection configuration
 const databaseConfig = {
@@ -18,15 +19,18 @@ const databaseConfig = {
 // Create Prisma client with production optimizations
 // Uses adapter pattern for Prisma 7.2.0 compatibility
 const createPrismaClient = () => {
-  const connectionString = process.env.DATABASE_URL
-  
-  if (!connectionString) {
+  const connectionString = database.url
+
+  if (!connectionString && process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
     throw new Error('DATABASE_URL environment variable is required')
   }
 
+  // During build or if missing, use a dummy connection string if not strictly required
+  const effectiveConnectionString = connectionString || 'postgresql://localhost:5432/placeholder'
+
   // Create connection pool
   const pool = new Pool({
-    connectionString,
+    connectionString: effectiveConnectionString,
     max: databaseConfig.connectionLimit,
     idleTimeoutMillis: databaseConfig.idleTimeoutMillis,
   })
@@ -88,12 +92,12 @@ export const checkDatabaseHealth = async (): Promise<{
   }
 }> => {
   const startTime = Date.now()
-  
+
   try {
     // Test database connection
     const result = await prisma.$queryRaw`SELECT version() as version, 
       (SELECT count(*) FROM pg_stat_activity WHERE state = 'active') as active_connections`
-    
+
     const responseTime = Date.now() - startTime
     const version = (result as any)[0]?.version || 'Unknown'
     const connections = (result as any)[0]?.active_connections || 0
@@ -166,13 +170,13 @@ export const getDatabasePerformance = async () => {
 export const performDatabaseMaintenance = async () => {
   try {
     logger.info('Starting database maintenance...')
-    
+
     // Analyze tables for query optimization
     await prisma.$executeRaw`ANALYZE`
-    
+
     // Update table statistics
     await prisma.$executeRaw`UPDATE pg_stat_user_tables SET n_tup_ins = 0, n_tup_upd = 0, n_tup_del = 0`
-    
+
     // Clean up old sessions
     const deletedSessions = await prisma.session.deleteMany({
       where: {
@@ -181,9 +185,9 @@ export const performDatabaseMaintenance = async () => {
         }
       }
     })
-    
+
     logger.info(`Database maintenance completed. Deleted ${deletedSessions.count} old sessions.`)
-    
+
     return {
       success: true,
       deletedSessions: deletedSessions.count,
