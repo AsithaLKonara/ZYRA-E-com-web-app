@@ -117,7 +117,7 @@ export default function WishlistPage() {
     if (navigator.share) {
       navigator.share({
         title: 'My Wishlist',
-        text: 'Check out my wishlist on NEOSHOP ULTRA',
+        text: 'Check out my wishlist on ZYRA Fashion',
         url: window.location.href
       })
     } else {

@@ -1,6 +1,6 @@
-# NEOSHOP ULTRA - Changelog
+# ZYRA Fashion - Changelog
 
-All notable changes to NEOSHOP ULTRA will be documented in this file.
+All notable changes to ZYRA Fashion will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -563,7 +563,7 @@ This release enhances the admin dashboard with advanced analytics, improved user
 This release introduces Stripe payment processing with support for multiple payment methods, secure payment flows, and comprehensive payment management features.
 
 ### Version 1.0.0 - Initial Release
-This is the first stable release of NEOSHOP ULTRA, featuring a complete e-commerce platform with modern technologies and comprehensive functionality.
+This is the first stable release of ZYRA Fashion, featuring a complete e-commerce platform with modern technologies and comprehensive functionality.
 
 ---
 
@@ -610,9 +610,9 @@ This is the first stable release of NEOSHOP ULTRA, featuring a complete e-commer
 ## Support
 
 For upgrade assistance and support:
-- **Email**: support@neoshop-ultra.com
-- **Documentation**: [https://docs.neoshop-ultra.com](https://docs.neoshop-ultra.com)
-- **GitHub**: [https://github.com/neoshop-ultra/issues](https://github.com/neoshop-ultra/issues)
+- **Email**: support@zyra-ultra.com
+- **Documentation**: [https://docs.zyra-ultra.com](https://docs.zyra-ultra.com)
+- **GitHub**: [https://github.com/zyra-ultra/issues](https://github.com/zyra-ultra/issues)
 
 ---
 

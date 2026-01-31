@@ -14,7 +14,7 @@ async function globalSetup(config: FullConfig) {
     
     // Check if the application is running
     const title = await page.title()
-    if (!title.includes('NEOSHOP ULTRA')) {
+    if (!title.includes('ZYRA Fashion')) {
       throw new Error('Application not ready or incorrect title')
     }
     

@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We, as members, contributors, and leaders of the NEOSHOP ULTRA community, pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+We, as members, contributors, and leaders of the ZYRA Fashion community, pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
 
@@ -104,8 +104,8 @@ Community leaders have the right and responsibility to:
 If you experience or witness unacceptable behavior, or have any other concerns, please report it by contacting the project team. All reports will be handled with discretion and confidentiality.
 
 **Contact Information:**
-- **Email**: conduct@neoshop-ultra.com
-- **GitHub**: [Create a private issue](https://github.com/neoshop-ultra/neoshop-ultra/issues/new)
+- **Email**: conduct@zyra-ultra.com
+- **GitHub**: [Create a private issue](https://github.com/zyra-ultra/zyra-ultra/issues/new)
 - **Discord**: DM a moderator or admin
 - **In-person**: Speak with an event organizer or community leader
 
@@ -223,17 +223,17 @@ We take responsibility for our actions and their impact on the community.
 
 ### Getting Help
 
-- **Community Forum**: [https://community.neoshop-ultra.com](https://community.neoshop-ultra.com)
-- **GitHub Discussions**: [https://github.com/neoshop-ultra/neoshop-ultra/discussions](https://github.com/neoshop-ultra/neoshop-ultra/discussions)
-- **Discord Server**: [https://discord.gg/neoshop-ultra](https://discord.gg/neoshop-ultra)
-- **Email Support**: support@neoshop-ultra.com
+- **Community Forum**: [https://community.zyra-ultra.com](https://community.zyra-ultra.com)
+- **GitHub Discussions**: [https://github.com/zyra-ultra/zyra-ultra/discussions](https://github.com/zyra-ultra/zyra-ultra/discussions)
+- **Discord Server**: [https://discord.gg/zyra-ultra](https://discord.gg/zyra-ultra)
+- **Email Support**: support@zyra-ultra.com
 
 ### Learning Resources
 
 - **Contributing Guide**: [CONTRIBUTING.md](./CONTRIBUTING.md)
-- **Documentation**: [https://docs.neoshop-ultra.com](https://docs.neoshop-ultra.com)
-- **Tutorials**: [https://tutorials.neoshop-ultra.com](https://tutorials.neoshop-ultra.com)
-- **Video Guides**: [https://youtube.com/neoshop-ultra](https://youtube.com/neoshop-ultra)
+- **Documentation**: [https://docs.zyra-ultra.com](https://docs.zyra-ultra.com)
+- **Tutorials**: [https://tutorials.zyra-ultra.com](https://tutorials.zyra-ultra.com)
+- **Video Guides**: [https://youtube.com/zyra-ultra](https://youtube.com/zyra-ultra)
 
 ### External Resources
 
@@ -270,9 +270,9 @@ We thank these communities for their work in creating inclusive and welcoming en
 
 For questions about this Code of Conduct:
 
-- **Email**: conduct@neoshop-ultra.com
-- **GitHub**: [Create an issue](https://github.com/neoshop-ultra/neoshop-ultra/issues/new)
-- **Community Forum**: [https://community.neoshop-ultra.com](https://community.neoshop-ultra.com)
+- **Email**: conduct@zyra-ultra.com
+- **GitHub**: [Create an issue](https://github.com/zyra-ultra/zyra-ultra/issues/new)
+- **Community Forum**: [https://community.zyra-ultra.com](https://community.zyra-ultra.com)
 
 ---
 

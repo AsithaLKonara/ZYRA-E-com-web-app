@@ -61,7 +61,7 @@ export class EmailService {
       }
     }
 
-    this.fromEmail = process.env.FROM_EMAIL || 'noreply@neoshop-ultra.com';
+    this.fromEmail = process.env.FROM_EMAIL || 'noreply@zyra-ultra.com';
     
     // Initialize default templates
     this.initializeTemplates();

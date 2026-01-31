@@ -13,7 +13,7 @@ export function Footer() {
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600" />
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                NEOSHOP ULTRA
+                ZYRA Fashion
               </span>
             </div>
             <p className="text-muted-foreground">
@@ -78,7 +78,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>support@neoshop.com</span>
+                <span>support@zyra.com</span>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">© 2024 NEOSHOP ULTRA. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2024 ZYRA Fashion. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground">
               Privacy Policy

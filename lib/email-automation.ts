@@ -244,7 +244,7 @@ export class EmailAutomationService {
 
       const result = await emailService.sendTemplateEmail('WELCOME', {
         to: { email: user.email, name: user.name || undefined },
-        subject: 'Welcome to NEOSHOP ULTRA!',
+        subject: 'Welcome to ZYRA Fashion!',
         templateData: {
           name: user.name,
           shopUrl: process.env.NEXTAUTH_URL + '/products',

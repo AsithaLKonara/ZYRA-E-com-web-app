@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Maintenance Guide
+# ZYRA Fashion - Maintenance Guide
 
 ## Overview
 
-This comprehensive maintenance guide provides detailed information for maintaining and updating NEOSHOP ULTRA, including regular maintenance tasks, updates, backups, monitoring, and troubleshooting.
+This comprehensive maintenance guide provides detailed information for maintaining and updating ZYRA Fashion, including regular maintenance tasks, updates, backups, monitoring, and troubleshooting.
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@ df -h | grep -E "(Filesystem|/dev/)" | awk '{if($5+0 > 80) print "Disk usage war
 free -h | grep -E "(Mem|Swap)" | awk '{if($3+0 > 80) print "Memory usage warning: " $0}'
 
 # Check log files for errors
-tail -n 100 /var/log/neoshop-ultra/error.log | grep -i error | wc -l
+tail -n 100 /var/log/zyra-ultra/error.log | grep -i error | wc -l
 
 echo "Daily health check completed"
 ```
@@ -55,19 +55,19 @@ echo "Daily health check completed"
 # log-monitor.sh
 
 # Check for critical errors
-grep -i "error\|critical\|fatal" /var/log/neoshop-ultra/app.log | tail -20
+grep -i "error\|critical\|fatal" /var/log/zyra-ultra/app.log | tail -20
 
 # Check for failed login attempts
-grep -i "authentication failed" /var/log/neoshop-ultra/auth.log | tail -10
+grep -i "authentication failed" /var/log/zyra-ultra/auth.log | tail -10
 
 # Check for payment failures
-grep -i "payment failed" /var/log/neoshop-ultra/payment.log | tail -10
+grep -i "payment failed" /var/log/zyra-ultra/payment.log | tail -10
 
 # Check for database errors
-grep -i "database error" /var/log/neoshop-ultra/db.log | tail -10
+grep -i "database error" /var/log/zyra-ultra/db.log | tail -10
 
 # Archive old logs
-find /var/log/neoshop-ultra -name "*.log" -mtime +30 -exec gzip {} \;
+find /var/log/zyra-ultra -name "*.log" -mtime +30 -exec gzip {} \;
 ```
 
 ### Weekly Tasks
@@ -96,7 +96,7 @@ echo "=== System Resources ===" >> /tmp/performance-report.txt
 top -bn1 | head -20 >> /tmp/performance-report.txt
 
 # Send report
-mail -s "Weekly Performance Report" admin@neoshop-ultra.com < /tmp/performance-report.txt
+mail -s "Weekly Performance Report" admin@zyra-ultra.com < /tmp/performance-report.txt
 ```
 
 #### Security Audit
@@ -107,11 +107,11 @@ mail -s "Weekly Performance Report" admin@neoshop-ultra.com < /tmp/performance-r
 
 # Check for failed login attempts
 echo "=== Failed Login Attempts ===" > /tmp/security-audit.txt
-grep -i "authentication failed" /var/log/neoshop-ultra/auth.log | wc -l >> /tmp/security-audit.txt
+grep -i "authentication failed" /var/log/zyra-ultra/auth.log | wc -l >> /tmp/security-audit.txt
 
 # Check for suspicious activity
 echo "=== Suspicious Activity ===" >> /tmp/security-audit.txt
-grep -i "suspicious\|attack\|hack" /var/log/neoshop-ultra/security.log | tail -10 >> /tmp/security-audit.txt
+grep -i "suspicious\|attack\|hack" /var/log/zyra-ultra/security.log | tail -10 >> /tmp/security-audit.txt
 
 # Check for outdated dependencies
 echo "=== Dependency Audit ===" >> /tmp/security-audit.txt
@@ -119,10 +119,10 @@ npm audit >> /tmp/security-audit.txt
 
 # Check for SSL certificate expiry
 echo "=== SSL Certificate Status ===" >> /tmp/security-audit.txt
-openssl s_client -connect neoshop-ultra.com:443 -servername neoshop-ultra.com 2>/dev/null | openssl x509 -noout -dates >> /tmp/security-audit.txt
+openssl s_client -connect zyra-ultra.com:443 -servername zyra-ultra.com 2>/dev/null | openssl x509 -noout -dates >> /tmp/security-audit.txt
 
 # Send security report
-mail -s "Weekly Security Audit" security@neoshop-ultra.com < /tmp/security-audit.txt
+mail -s "Weekly Security Audit" security@zyra-ultra.com < /tmp/security-audit.txt
 ```
 
 ### Monthly Tasks
@@ -145,7 +145,7 @@ DELETE FROM audit_logs WHERE created_at < NOW() - INTERVAL '90 days';
 
 -- Vacuum and reindex
 VACUUM ANALYZE;
-REINDEX DATABASE neoshop_ultra;
+REINDEX DATABASE zyra_ultra;
 ```
 
 #### System Updates
@@ -167,7 +167,7 @@ npm audit fix
 docker-compose pull
 
 # Restart services
-sudo systemctl restart neoshop-ultra
+sudo systemctl restart zyra-ultra
 sudo systemctl restart postgresql
 sudo systemctl restart redis
 
@@ -185,10 +185,10 @@ echo "Monthly updates completed"
 # minor-update.sh
 
 # Backup current version
-cp -r /opt/neoshop-ultra /opt/neoshop-ultra.backup.$(date +%Y%m%d)
+cp -r /opt/zyra-ultra /opt/zyra-ultra.backup.$(date +%Y%m%d)
 
 # Pull latest changes
-cd /opt/neoshop-ultra
+cd /opt/zyra-ultra
 git pull origin main
 
 # Install dependencies
@@ -198,7 +198,7 @@ npm install
 npx prisma migrate deploy
 
 # Restart application
-sudo systemctl restart neoshop-ultra
+sudo systemctl restart zyra-ultra
 
 # Verify update
 curl -f http://localhost:3000/api/health
@@ -219,7 +219,7 @@ echo "Minor update completed"
 echo "Maintenance mode enabled" > /var/www/html/maintenance.html
 
 # Pull latest changes
-cd /opt/neoshop-ultra
+cd /opt/zyra-ultra
 git pull origin main
 
 # Install dependencies
@@ -232,7 +232,7 @@ npx prisma migrate deploy
 # Edit .env.local with new variables
 
 # Restart all services
-sudo systemctl restart neoshop-ultra
+sudo systemctl restart zyra-ultra
 sudo systemctl restart postgresql
 sudo systemctl restart redis
 
@@ -343,7 +343,7 @@ migrateData()
 #!/bin/bash
 # backup-full.sh
 
-BACKUP_DIR="/backups/neoshop-ultra"
+BACKUP_DIR="/backups/zyra-ultra"
 DATE=$(date +%Y%m%d_%H%M%S)
 BACKUP_PATH="$BACKUP_DIR/full-backup-$DATE"
 
@@ -354,13 +354,13 @@ mkdir -p $BACKUP_PATH
 pg_dump $DATABASE_URL > $BACKUP_PATH/database.sql
 
 # Backup application files
-tar -czf $BACKUP_PATH/application.tar.gz /opt/neoshop-ultra
+tar -czf $BACKUP_PATH/application.tar.gz /opt/zyra-ultra
 
 # Backup configuration files
-tar -czf $BACKUP_PATH/config.tar.gz /etc/neoshop-ultra
+tar -czf $BACKUP_PATH/config.tar.gz /etc/zyra-ultra
 
 # Backup logs
-tar -czf $BACKUP_PATH/logs.tar.gz /var/log/neoshop-ultra
+tar -czf $BACKUP_PATH/logs.tar.gz /var/log/zyra-ultra
 
 # Backup uploaded files
 tar -czf $BACKUP_PATH/uploads.tar.gz /var/www/uploads
@@ -446,7 +446,7 @@ fi
 tar -xzf $BACKUP_FILE
 
 # Stop services
-sudo systemctl stop neoshop-ultra
+sudo systemctl stop zyra-ultra
 sudo systemctl stop postgresql
 
 # Restore database
@@ -463,7 +463,7 @@ tar -xzf uploads.tar.gz -C /
 
 # Start services
 sudo systemctl start postgresql
-sudo systemctl start neoshop-ultra
+sudo systemctl start zyra-ultra
 
 echo "Full system recovery completed"
 ```
@@ -482,13 +482,13 @@ if [ -z "$BACKUP_FILE" ]; then
 fi
 
 # Stop application
-sudo systemctl stop neoshop-ultra
+sudo systemctl stop zyra-ultra
 
 # Restore database
 gunzip -c $BACKUP_FILE | psql $DATABASE_URL
 
 # Start application
-sudo systemctl start neoshop-ultra
+sudo systemctl start zyra-ultra
 
 echo "Database recovery completed"
 ```
@@ -628,7 +628,7 @@ ANALYZE;
 VACUUM ANALYZE;
 
 -- Reindex tables
-REINDEX DATABASE neoshop_ultra;
+REINDEX DATABASE zyra_ultra;
 
 -- Check for bloat
 SELECT 
@@ -689,7 +689,7 @@ grep "Failed password" /var/log/auth.log | tail -10
 grep -i "suspicious\|attack\|hack" /var/log/syslog | tail -10
 
 # Check SSL certificate
-openssl s_client -connect neoshop-ultra.com:443 -servername neoshop-ultra.com 2>/dev/null | openssl x509 -noout -dates
+openssl s_client -connect zyra-ultra.com:443 -servername zyra-ultra.com 2>/dev/null | openssl x509 -noout -dates
 
 echo "System security check completed"
 ```
@@ -897,7 +897,7 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 # Restart services if needed
-sudo systemctl restart neoshop-ultra
+sudo systemctl restart zyra-ultra
 sudo systemctl restart postgresql
 sudo systemctl restart redis
 
@@ -940,10 +940,10 @@ echo "Disk cleanup completed"
 ping -c 4 8.8.8.8
 
 # Check DNS resolution
-nslookup neoshop-ultra.com
+nslookup zyra-ultra.com
 
 # Check SSL certificate
-openssl s_client -connect neoshop-ultra.com:443 -servername neoshop-ultra.com 2>/dev/null | openssl x509 -noout -dates
+openssl s_client -connect zyra-ultra.com:443 -servername zyra-ultra.com 2>/dev/null | openssl x509 -noout -dates
 
 # Check firewall status
 sudo ufw status
@@ -1185,7 +1185,7 @@ psql $DATABASE_URL -c "SELECT query, calls, total_time, mean_time FROM pg_stat_s
 
 # Check application logs
 echo "Recent Errors:"
-tail -20 /var/log/neoshop-ultra/error.log
+tail -20 /var/log/zyra-ultra/error.log
 
 echo "Performance troubleshooting completed"
 ```
@@ -1202,15 +1202,15 @@ echo "=== Error Analysis ==="
 
 # Count errors by type
 echo "Error Types:"
-grep -i "error" /var/log/neoshop-ultra/app.log | awk '{print $4}' | sort | uniq -c | sort -nr
+grep -i "error" /var/log/zyra-ultra/app.log | awk '{print $4}' | sort | uniq -c | sort -nr
 
 # Find most common errors
 echo "Most Common Errors:"
-grep -i "error" /var/log/neoshop-ultra/app.log | awk -F'"' '{print $2}' | sort | uniq -c | sort -nr | head -10
+grep -i "error" /var/log/zyra-ultra/app.log | awk -F'"' '{print $2}' | sort | uniq -c | sort -nr | head -10
 
 # Find errors by time
 echo "Errors by Hour:"
-grep -i "error" /var/log/neoshop-ultra/app.log | awk '{print $3}' | cut -d: -f1 | sort | uniq -c | sort -nr
+grep -i "error" /var/log/zyra-ultra/app.log | awk '{print $3}' | cut -d: -f1 | sort | uniq -c | sort -nr
 
 echo "Error analysis completed"
 ```
@@ -1225,15 +1225,15 @@ echo "=== Performance Analysis ==="
 
 # Analyze response times
 echo "Response Times:"
-grep "response time" /var/log/neoshop-ultra/app.log | awk '{print $NF}' | sort -n | tail -10
+grep "response time" /var/log/zyra-ultra/app.log | awk '{print $NF}' | sort -n | tail -10
 
 # Find slow endpoints
 echo "Slow Endpoints:"
-grep "slow" /var/log/neoshop-ultra/app.log | awk '{print $7}' | sort | uniq -c | sort -nr
+grep "slow" /var/log/zyra-ultra/app.log | awk '{print $7}' | sort | uniq -c | sort -nr
 
 # Analyze database queries
 echo "Database Query Times:"
-grep "query time" /var/log/neoshop-ultra/db.log | awk '{print $NF}' | sort -n | tail -10
+grep "query time" /var/log/zyra-ultra/db.log | awk '{print $NF}' | sort -n | tail -10
 
 echo "Performance analysis completed"
 ```
@@ -1289,7 +1289,7 @@ echo "Performance analysis completed"
 **Last Updated**: January 2024  
 **Version**: 1.0
 
-This maintenance guide provides comprehensive procedures for maintaining NEOSHOP ULTRA. Regular maintenance ensures optimal performance, security, and reliability of your e-commerce platform. 🔧
+This maintenance guide provides comprehensive procedures for maintaining ZYRA Fashion. Regular maintenance ensures optimal performance, security, and reliability of your e-commerce platform. 🔧
 
 
 

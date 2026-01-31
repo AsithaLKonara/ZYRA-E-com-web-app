@@ -191,10 +191,10 @@ export const apiCorsHandler = new CorsHandler({
     
     // Allow specific domains
     const allowedDomains = [
-      'https://neoshop-ultra.vercel.app',
-      'https://www.neoshop-ultra.vercel.app',
-      'https://neoshop-ultra.com',
-      'https://www.neoshop-ultra.com',
+      'https://zyra-ultra.vercel.app',
+      'https://www.zyra-ultra.vercel.app',
+      'https://zyra-ultra.com',
+      'https://www.zyra-ultra.com',
     ];
     
     return allowedDomains.includes(origin);

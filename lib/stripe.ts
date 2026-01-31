@@ -6,7 +6,7 @@ import { logger } from './logger'
 const stripeConfig = {
   apiVersion: '2024-06-20' as const,
   appInfo: {
-    name: 'NEOSHOP ULTRA',
+    name: 'ZYRA Fashion',
     version: '1.0.0',
   },
 }

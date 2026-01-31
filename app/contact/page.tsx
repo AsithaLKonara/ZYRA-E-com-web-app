@@ -75,7 +75,7 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-blue-500" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-gray-600">support@neoshop-ultra.com</p>
+                    <p className="text-gray-600">support@zyra-ultra.com</p>
                   </div>
                 </div>
 

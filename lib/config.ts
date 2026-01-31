@@ -2,7 +2,7 @@ import { env, isDevelopment, isProduction, isTest } from './env';
 
 // Application configuration
 export const appConfig = {
-  name: 'NEOSHOP ULTRA',
+  name: 'ZYRA Fashion',
   version: '1.0.0',
   description: 'Ultra-modern e-commerce platform built with Next.js 14, TypeScript, and Tailwind CSS',
   url: env.NEXTAUTH_URL,
@@ -42,7 +42,7 @@ export const cacheConfig = {
   redisUrl: env.REDIS_URL,
   defaultTtl: 3600, // 1 hour
   maxTtl: 86400, // 24 hours
-  keyPrefix: 'neoshop:',
+  keyPrefix: 'zyra:',
   compression: true,
 } as const;
 

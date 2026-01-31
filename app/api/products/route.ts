@@ -42,54 +42,93 @@ const QuerySchema = z.object({
 const mockProducts = [
   {
     id: '1',
-    name: 'Premium Wireless Headphones',
-    description: 'High-quality wireless headphones with noise cancellation',
-    price: 299.99,
-    category: 'Electronics',
-    images: ['https://example.com/headphones1.jpg'],
+    name: 'Elegant Rose Pink Maxi Dress',
+    description: 'Stunning floor-length maxi dress in signature rose pink, perfect for special occasions. Features flowing silhouette and premium silk blend fabric.',
+    price: 189.99,
+    category: 'Dresses',
+    images: ['https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&h=800&fit=crop'],
     inStock: true,
-    stockQuantity: 50,
-    tags: ['wireless', 'noise-cancellation', 'premium'],
+    stockQuantity: 25,
+    tags: ['maxi', 'formal', 'silk', 'rose-pink', 'elegant'],
     createdAt: new Date('2024-01-15'),
     updatedAt: new Date('2024-01-15'),
   },
   {
     id: '2',
-    name: 'Smart Fitness Watch',
-    description: 'Advanced fitness tracking with heart rate monitoring',
-    price: 199.99,
-    category: 'Electronics',
-    images: ['https://example.com/watch1.jpg'],
+    name: 'Classic White Silk Blouse',
+    description: 'Timeless silk blouse with elegant draping. Perfect for both professional and casual settings.',
+    price: 79.99,
+    category: 'Tops',
+    images: ['https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&h=800&fit=crop'],
     inStock: true,
-    stockQuantity: 30,
-    tags: ['fitness', 'smartwatch', 'health'],
+    stockQuantity: 45,
+    tags: ['blouse', 'silk', 'classic', 'versatile'],
     createdAt: new Date('2024-01-20'),
     updatedAt: new Date('2024-01-20'),
   },
   {
     id: '3',
-    name: 'Organic Cotton T-Shirt',
-    description: 'Comfortable and sustainable cotton t-shirt',
-    price: 29.99,
-    category: 'Clothing',
-    images: ['https://example.com/tshirt1.jpg'],
+    name: 'High-Waisted Black Trousers',
+    description: 'Sophisticated high-waisted trousers with tailored fit. Essential wardrobe staple for the modern woman.',
+    price: 89.99,
+    category: 'Bottoms',
+    images: ['https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&h=800&fit=crop'],
     inStock: true,
-    stockQuantity: 100,
-    tags: ['organic', 'cotton', 'sustainable'],
+    stockQuantity: 60,
+    tags: ['trousers', 'high-waisted', 'tailored', 'professional'],
     createdAt: new Date('2024-01-25'),
     updatedAt: new Date('2024-01-25'),
+  },
+  {
+    id: '4',
+    name: 'Purple Velvet Evening Gown',
+    description: 'Luxurious velvet evening gown in deep purple. Features elegant neckline and flowing skirt.',
+    price: 299.99,
+    category: 'Dresses',
+    images: ['https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&h=800&fit=crop'],
+    inStock: true,
+    stockQuantity: 15,
+    tags: ['evening', 'velvet', 'purple', 'luxury', 'formal'],
+    createdAt: new Date('2024-02-01'),
+    updatedAt: new Date('2024-02-01'),
+  },
+  {
+    id: '5',
+    name: 'Gold Statement Necklace',
+    description: 'Elegant gold-plated statement necklace. Perfect accessory to elevate any outfit.',
+    price: 129.99,
+    category: 'Accessories',
+    images: ['https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&h=800&fit=crop'],
+    inStock: true,
+    stockQuantity: 30,
+    tags: ['jewelry', 'gold', 'statement', 'elegant'],
+    createdAt: new Date('2024-02-05'),
+    updatedAt: new Date('2024-02-05'),
+  },
+  {
+    id: '6',
+    name: 'Beige Cashmere Sweater',
+    description: 'Luxuriously soft cashmere sweater in neutral beige. Perfect for layering or wearing alone.',
+    price: 159.99,
+    category: 'Tops',
+    images: ['https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=800&fit=crop'],
+    inStock: true,
+    stockQuantity: 35,
+    tags: ['sweater', 'cashmere', 'luxury', 'neutral'],
+    createdAt: new Date('2024-02-10'),
+    updatedAt: new Date('2024-02-10'),
   },
 ];
 
 // Get all products
 const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextResponse> => {
   const startTime = Date.now();
-  
+
   try {
     // Parse query parameters
     const { searchParams } = request.nextUrl;
     const query = QuerySchema.parse(Object.fromEntries(searchParams));
-    
+
     logger.info('Fetching products', {
       query,
       path: request.nextUrl.pathname,
@@ -105,14 +144,14 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 
     // Apply filters
     if (query.category) {
-      filteredProducts = filteredProducts.filter(p => 
+      filteredProducts = filteredProducts.filter(p =>
         p.category.toLowerCase() === query.category!.toLowerCase()
       );
     }
 
     if (query.search) {
       const searchTerm = query.search.toLowerCase();
-      filteredProducts = filteredProducts.filter(p => 
+      filteredProducts = filteredProducts.filter(p =>
         p.name.toLowerCase().includes(searchTerm) ||
         p.description?.toLowerCase().includes(searchTerm) ||
         p.tags?.some(tag => tag.toLowerCase().includes(searchTerm))
@@ -135,7 +174,7 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
     filteredProducts.sort((a, b) => {
       const aValue = a[query.sortBy];
       const bValue = b[query.sortBy];
-      
+
       if (query.sortOrder === 'asc') {
         return aValue > bValue ? 1 : -1;
       } else {
@@ -204,12 +243,12 @@ const GETHandler = asyncHandler(async (request: NextRequest): Promise<NextRespon
 // Create new product
 const POSTHandler = asyncHandler(async (request: NextRequest): Promise<NextResponse> => {
   const startTime = Date.now();
-  
+
   try {
     // Parse request body
     const body = await request.json();
     const productData = CreateProductSchema.parse(body);
-    
+
     logger.info('Creating new product', {
       name: productData.name,
       category: productData.category,

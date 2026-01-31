@@ -13,7 +13,7 @@ async function setupDatabase() {
     logger.info('Database connection established')
 
     // Create database if it doesn't exist (PostgreSQL)
-    const dbName = process.env.DATABASE_NAME || 'neoshop_ultra'
+    const dbName = process.env.DATABASE_NAME || 'zyra_ultra'
     const dbHost = process.env.DATABASE_HOST || 'localhost'
     const dbPort = process.env.DATABASE_PORT || '5432'
     const dbUser = process.env.DATABASE_USER || 'postgres'

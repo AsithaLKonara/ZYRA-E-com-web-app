@@ -4,7 +4,7 @@ import { writeFileSync } from 'fs'
 import { join } from 'path'
 
 const envTemplate = `# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
 
 # NextAuth Configuration
 NEXTAUTH_URL="http://localhost:3000"
@@ -15,7 +15,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NODE_ENV="development"
 
 # Admin Configuration
-ADMIN_EMAIL="admin@neoshop.com"
+ADMIN_EMAIL="admin@zyra.com"
 ADMIN_PASSWORD="admin123!@#"
 
 # Security Configuration
@@ -29,8 +29,8 @@ STRIPE_WEBHOOK_SECRET="whsec_your_webhook_secret"
 
 # Email Configuration
 RESEND_API_KEY="re_your_resend_api_key"
-EMAIL_FROM="noreply@neoshop.com"
-EMAIL_FROM_NAME="NEOSHOP ULTRA"
+EMAIL_FROM="noreply@zyra.com"
+EMAIL_FROM_NAME="ZYRA Fashion"
 
 # File Storage Configuration
 BLOB_READ_WRITE_TOKEN="your_vercel_blob_token"
@@ -59,7 +59,7 @@ CLOUDFLARE_ZONE_ID="your_zone_id"
 
 async function setupEnvironment() {
   try {
-    console.log('🚀 Setting up NEOSHOP ULTRA environment...')
+    console.log('🚀 Setting up ZYRA Fashion environment...')
     
     // Create .env.local file
     writeFileSync('.env.local', envTemplate)

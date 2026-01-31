@@ -45,7 +45,7 @@ class DatabaseSeeding {
     // Test customer
     const customerPassword = await bcrypt.hash('password123', 12)
     const customerUser = {
-      email: 'customer@neoshop.com',
+      email: 'customer@zyra.com',
       name: 'Test Customer',
       password: customerPassword,
       role: 'CUSTOMER',

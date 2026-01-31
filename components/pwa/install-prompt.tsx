@@ -50,7 +50,7 @@ export function InstallPrompt() {
     <Card className="fixed bottom-4 right-4 z-50 w-80 shadow-lg" data-testid="install-prompt">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Install NEOSHOP ULTRA</CardTitle>
+          <CardTitle className="text-lg">Install ZYRA Fashion</CardTitle>
           <Button variant="ghost" size="icon" onClick={handleDismiss}>
             <X className="h-4 w-4" />
           </Button>

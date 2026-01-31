@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - User Guide
+# ZYRA Fashion - User Guide
 
 ## Overview
 
-This comprehensive user guide will help you navigate and use NEOSHOP ULTRA effectively. Whether you're a customer shopping for products or an admin managing the store, this guide covers all the essential features and functionalities.
+This comprehensive user guide will help you navigate and use ZYRA Fashion effectively. Whether you're a customer shopping for products or an admin managing the store, this guide covers all the essential features and functionalities.
 
 ## Table of Contents
 
@@ -426,7 +426,7 @@ This comprehensive user guide will help you navigate and use NEOSHOP ULTRA effec
 - **Community forum**: Help from other users
 
 #### Contact Information
-- **Support email**: support@neoshop-ultra.com
+- **Support email**: support@zyra-ultra.com
 - **Phone number**: +1 (555) 123-4567
 - **Business hours**: Monday-Friday, 9 AM - 6 PM EST
 - **Response time**: Within 24 hours for email, immediate for chat
@@ -437,7 +437,7 @@ This comprehensive user guide will help you navigate and use NEOSHOP ULTRA effec
 - **User experience**: Share feedback on usability
 - **Improvement ideas**: Help improve the platform
 
-This comprehensive user guide ensures that all users can effectively navigate and use NEOSHOP ULTRA to its full potential, whether they're customers shopping for products or admins managing the store.
+This comprehensive user guide ensures that all users can effectively navigate and use ZYRA Fashion to its full potential, whether they're customers shopping for products or admins managing the store.
 
 
 

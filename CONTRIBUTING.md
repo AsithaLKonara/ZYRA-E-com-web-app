@@ -1,6 +1,6 @@
-# Contributing to NEOSHOP ULTRA
+# Contributing to ZYRA Fashion
 
-Thank you for your interest in contributing to NEOSHOP ULTRA! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to ZYRA Fashion! This document provides guidelines and information for contributors.
 
 ## Table of Contents
 
@@ -41,7 +41,7 @@ We are committed to providing a welcoming and inspiring community for all. We pl
 
 ### Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at conduct@neoshop-ultra.com. All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at conduct@zyra-ultra.com. All complaints will be reviewed and investigated promptly and fairly.
 
 ## Getting Started
 
@@ -62,13 +62,13 @@ Before contributing, ensure you have:
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/your-username/neoshop-ultra.git
-   cd neoshop-ultra
+   git clone https://github.com/your-username/zyra-ultra.git
+   cd zyra-ultra
    ```
 
 3. **Add upstream remote**:
    ```bash
-   git remote add upstream https://github.com/neoshop-ultra/neoshop-ultra.git
+   git remote add upstream https://github.com/zyra-ultra/zyra-ultra.git
    ```
 
 ## Development Setup
@@ -83,7 +83,7 @@ Before contributing, ensure you have:
 2. **Configure environment variables**:
    ```bash
    # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+   DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
 
    # NextAuth.js
    NEXTAUTH_SECRET="your-secret-key-here"
@@ -105,7 +105,7 @@ Before contributing, ensure you have:
 
    # Resend Email
    RESEND_API_KEY="re_your-resend-api-key"
-   RESEND_FROM_EMAIL="noreply@neoshop-ultra.com"
+   RESEND_FROM_EMAIL="noreply@zyra-ultra.com"
 
    # Redis (optional)
    REDIS_URL="redis://localhost:6379"
@@ -119,7 +119,7 @@ Before contributing, ensure you have:
 
 1. **Create PostgreSQL database**:
    ```sql
-   CREATE DATABASE neoshop_ultra;
+   CREATE DATABASE zyra_ultra;
    ```
 
 2. **Run database migrations**:
@@ -588,7 +588,7 @@ What actually happened
 - OS: [e.g., Windows 10, macOS 12, Ubuntu 20.04]
 - Browser: [e.g., Chrome 96, Firefox 95, Safari 15]
 - Node.js Version: [e.g., 18.17.0]
-- NEOSHOP ULTRA Version: [e.g., 1.4.0]
+- ZYRA Fashion Version: [e.g., 1.4.0]
 
 ## Error Messages
 ```
@@ -663,10 +663,10 @@ Contributors are recognized through:
 
 ### Useful Links
 
-- **Documentation**: [https://docs.neoshop-ultra.com](https://docs.neoshop-ultra.com)
-- **API Reference**: [https://api.neoshop-ultra.com](https://api.neoshop-ultra.com)
-- **Design System**: [https://design.neoshop-ultra.com](https://design.neoshop-ultra.com)
-- **Community Forum**: [https://community.neoshop-ultra.com](https://community.neoshop-ultra.com)
+- **Documentation**: [https://docs.zyra-ultra.com](https://docs.zyra-ultra.com)
+- **API Reference**: [https://api.zyra-ultra.com](https://api.zyra-ultra.com)
+- **Design System**: [https://design.zyra-ultra.com](https://design.zyra-ultra.com)
+- **Community Forum**: [https://community.zyra-ultra.com](https://community.zyra-ultra.com)
 
 ### Development Tools
 
@@ -687,14 +687,14 @@ Contributors are recognized through:
 
 For questions about contributing:
 
-- **Email**: contributors@neoshop-ultra.com
-- **GitHub**: [https://github.com/neoshop-ultra](https://github.com/neoshop-ultra)
-- **Discord**: [https://discord.gg/neoshop-ultra](https://discord.gg/neoshop-ultra)
-- **Twitter**: [@neoshop_ultra](https://twitter.com/neoshop_ultra)
+- **Email**: contributors@zyra-ultra.com
+- **GitHub**: [https://github.com/zyra-ultra](https://github.com/zyra-ultra)
+- **Discord**: [https://discord.gg/zyra-ultra](https://discord.gg/zyra-ultra)
+- **Twitter**: [@zyra_ultra](https://twitter.com/zyra_ultra)
 
 ---
 
-Thank you for contributing to NEOSHOP ULTRA! Your contributions help make this project better for everyone.
+Thank you for contributing to ZYRA Fashion! Your contributions help make this project better for everyone.
 
 **Happy coding! 🚀**
 

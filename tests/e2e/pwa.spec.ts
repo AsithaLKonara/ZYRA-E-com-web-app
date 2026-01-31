@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test'
 
-test.describe('PWA Testing - NEOSHOP ULTRA', () => {
+test.describe('PWA Testing - ZYRA Fashion', () => {
   let page: Page
 
   test.beforeEach(async ({ page: testPage }) => {
@@ -78,7 +78,7 @@ test.describe('PWA Testing - NEOSHOP ULTRA', () => {
       expect(manifest).toHaveProperty('icons')
       
       // Check manifest values
-      expect(manifest.name).toBe('NEOSHOP ULTRA')
+      expect(manifest.name).toBe('ZYRA Fashion')
       expect(manifest.short_name).toBe('NEOSHOP')
       expect(manifest.start_url).toBe('/')
       expect(manifest.display).toBe('standalone')

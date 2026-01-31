@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Troubleshooting Guide
+# ZYRA Fashion - Troubleshooting Guide
 
 ## Overview
 
-This comprehensive troubleshooting guide helps you diagnose and resolve common issues with NEOSHOP ULTRA. It covers installation problems, runtime errors, configuration issues, and performance problems.
+This comprehensive troubleshooting guide helps you diagnose and resolve common issues with ZYRA Fashion. It covers installation problems, runtime errors, configuration issues, and performance problems.
 
 ## Table of Contents
 
@@ -146,7 +146,7 @@ nvm use node
 **Solution**:
 ```bash
 # Clone with SSH instead of HTTPS
-git clone git@github.com:neoshop-ultra/neoshop-ultra.git
+git clone git@github.com:zyra-ultra/zyra-ultra.git
 
 # Or configure Git credentials
 git config --global user.name "Your Name"
@@ -210,13 +210,13 @@ grep -P '[^\x00-\x7F]' .env.local
 **Solution**:
 ```bash
 # Correct format
-DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
 
 # Check connection
 psql $DATABASE_URL -c "SELECT 1;"
 
 # Test with different formats
-DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra?sslmode=require"
+DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra?sslmode=require"
 ```
 
 #### Problem: Database Permissions
@@ -229,7 +229,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra?sslmod
 **Solution**:
 ```sql
 -- Grant permissions to user
-GRANT ALL PRIVILEGES ON DATABASE neoshop_ultra TO username;
+GRANT ALL PRIVILEGES ON DATABASE zyra_ultra TO username;
 GRANT ALL PRIVILEGES ON SCHEMA public TO username;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO username;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO username;
@@ -377,7 +377,7 @@ sudo systemctl start postgresql
 netstat -tlnp | grep 5432
 
 # Test connection
-psql -h localhost -U username -d neoshop_ultra
+psql -h localhost -U username -d zyra_ultra
 ```
 
 #### Problem: Authentication Failures
@@ -399,7 +399,7 @@ createuser -s username
 psql -c "ALTER USER username PASSWORD 'password';"
 
 # Test connection
-psql -h localhost -U username -d neoshop_ultra
+psql -h localhost -U username -d zyra_ultra
 ```
 
 ### Migration Issues
@@ -749,7 +749,7 @@ curl -X POST \
   -H "Authorization: Bearer $RESEND_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "from": "noreply@neoshop-ultra.com",
+    "from": "noreply@zyra-ultra.com",
     "to": "test@example.com",
     "subject": "Test Email",
     "html": "<h1>Test Email</h1>"
@@ -1070,13 +1070,13 @@ grep -i error /var/log/postgresql/postgresql.log
 
 ```bash
 # Check system logs
-journalctl -u neoshop-ultra -f
+journalctl -u zyra-ultra -f
 
 # Check for errors
-journalctl -u neoshop-ultra --priority=err
+journalctl -u zyra-ultra --priority=err
 
 # Check for warnings
-journalctl -u neoshop-ultra --priority=warning
+journalctl -u zyra-ultra --priority=warning
 ```
 
 #### Process Monitoring
@@ -1166,7 +1166,7 @@ When seeking help, provide:
 **Last Updated**: January 2024  
 **Version**: 1.0
 
-This troubleshooting guide should help you resolve most common issues with NEOSHOP ULTRA. If you're still having problems, don't hesitate to reach out for help! 🔧
+This troubleshooting guide should help you resolve most common issues with ZYRA Fashion. If you're still having problems, don't hesitate to reach out for help! 🔧
 
 
 

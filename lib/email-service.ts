@@ -3,9 +3,9 @@ import { logger } from './logger'
 
 // Email configuration
 const EMAIL_CONFIG = {
-  FROM_EMAIL: process.env.RESEND_FROM_EMAIL || 'noreply@neoshop-ultra.com',
-  FROM_NAME: process.env.RESEND_FROM_NAME || 'NEOSHOP ULTRA',
-  REPLY_TO: process.env.RESEND_REPLY_TO || 'support@neoshop-ultra.com',
+  FROM_EMAIL: process.env.RESEND_FROM_EMAIL || 'noreply@zyra-ultra.com',
+  FROM_NAME: process.env.RESEND_FROM_NAME || 'ZYRA Fashion',
+  REPLY_TO: process.env.RESEND_REPLY_TO || 'support@zyra-ultra.com',
   
   // Email templates
   TEMPLATES: {
@@ -308,12 +308,12 @@ export class EmailService {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Welcome to NEOSHOP ULTRA</title>
+          <title>Welcome to ZYRA Fashion</title>
         </head>
         <body>
-          <h1>Welcome to NEOSHOP ULTRA!</h1>
+          <h1>Welcome to ZYRA Fashion!</h1>
           <p>Hello ${data.name || 'there'},</p>
-          <p>Thank you for joining NEOSHOP ULTRA. We're excited to have you on board!</p>
+          <p>Thank you for joining ZYRA Fashion. We're excited to have you on board!</p>
           <p>Start shopping now and discover amazing products at great prices.</p>
           <a href="${data.shopUrl || '#'}">Start Shopping</a>
         </body>
@@ -323,11 +323,11 @@ export class EmailService {
 
   private async getWelcomeTemplateText(data: Record<string, any>): Promise<string> {
     return `
-      Welcome to NEOSHOP ULTRA!
+      Welcome to ZYRA Fashion!
       
       Hello ${data.name || 'there'},
       
-      Thank you for joining NEOSHOP ULTRA. We're excited to have you on board!
+      Thank you for joining ZYRA Fashion. We're excited to have you on board!
       
       Start shopping now and discover amazing products at great prices.
       

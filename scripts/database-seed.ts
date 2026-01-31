@@ -131,7 +131,7 @@ async function generateSeedData(): Promise<SeedData> {
 
   const adminUsers = [
     {
-      email: 'admin@neoshop-ultra.com',
+      email: 'admin@zyra-ultra.com',
       name: 'Admin User',
       password: 'admin123',
       emailVerified: new Date(),
@@ -139,7 +139,7 @@ async function generateSeedData(): Promise<SeedData> {
       role: 'ADMIN' as const,
     },
     {
-      email: 'superadmin@neoshop-ultra.com',
+      email: 'superadmin@zyra-ultra.com',
       name: 'Super Admin',
       password: 'superadmin123',
       emailVerified: new Date(),

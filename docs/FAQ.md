@@ -1,14 +1,14 @@
-# NEOSHOP ULTRA - Frequently Asked Questions (FAQ)
+# ZYRA Fashion - Frequently Asked Questions (FAQ)
 
 ## General Questions
 
-### What is NEOSHOP ULTRA?
+### What is ZYRA Fashion?
 
-NEOSHOP ULTRA is a modern, full-stack e-commerce platform built with Next.js 14, featuring advanced authentication, payment processing, inventory management, and comprehensive admin capabilities. It's designed to provide a seamless shopping experience for customers and powerful management tools for store administrators.
+ZYRA Fashion is a modern, full-stack e-commerce platform built with Next.js 14, featuring advanced authentication, payment processing, inventory management, and comprehensive admin capabilities. It's designed to provide a seamless shopping experience for customers and powerful management tools for store administrators.
 
-### What technologies does NEOSHOP ULTRA use?
+### What technologies does ZYRA Fashion use?
 
-NEOSHOP ULTRA is built with:
+ZYRA Fashion is built with:
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API routes, Prisma ORM
 - **Database**: PostgreSQL
@@ -18,13 +18,13 @@ NEOSHOP ULTRA is built with:
 - **Email**: Resend service
 - **Hosting**: Vercel
 
-### Is NEOSHOP ULTRA free to use?
+### Is ZYRA Fashion free to use?
 
-NEOSHOP ULTRA is open-source and free to use. However, you'll need to set up your own hosting, database, and third-party services (Stripe, Resend, etc.) which may have their own costs.
+ZYRA Fashion is open-source and free to use. However, you'll need to set up your own hosting, database, and third-party services (Stripe, Resend, etc.) which may have their own costs.
 
-### Can I customize NEOSHOP ULTRA?
+### Can I customize ZYRA Fashion?
 
-Yes! NEOSHOP ULTRA is highly customizable. You can:
+Yes! ZYRA Fashion is highly customizable. You can:
 - Modify the UI/UX with Tailwind CSS
 - Add new features and components
 - Customize the database schema
@@ -33,12 +33,12 @@ Yes! NEOSHOP ULTRA is highly customizable. You can:
 
 ## Getting Started
 
-### How do I set up NEOSHOP ULTRA?
+### How do I set up ZYRA Fashion?
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/neoshop-ultra.git
-   cd neoshop-ultra
+   git clone https://github.com/your-username/zyra-ultra.git
+   cd zyra-ultra
    ```
 
 2. **Install dependencies**
@@ -72,15 +72,15 @@ See the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for a complete list of requ
 - `STRIPE_SECRET_KEY` - Stripe API key
 - `RESEND_API_KEY` - Resend email service key
 
-### How do I deploy NEOSHOP ULTRA?
+### How do I deploy ZYRA Fashion?
 
-NEOSHOP ULTRA is optimized for Vercel deployment. See the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
+ZYRA Fashion is optimized for Vercel deployment. See the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
 ## Features
 
-### What e-commerce features does NEOSHOP ULTRA include?
+### What e-commerce features does ZYRA Fashion include?
 
-NEOSHOP ULTRA includes:
+ZYRA Fashion includes:
 - Product catalog with categories
 - Shopping cart and wishlist
 - User authentication and profiles
@@ -93,16 +93,16 @@ NEOSHOP ULTRA includes:
 - File uploads
 - Email notifications
 
-### Does NEOSHOP ULTRA support multiple payment methods?
+### Does ZYRA Fashion support multiple payment methods?
 
-Yes! NEOSHOP ULTRA supports:
+Yes! ZYRA Fashion supports:
 - Credit cards (Visa, MasterCard, American Express)
 - Digital wallets (PayPal, Apple Pay, Google Pay)
 - Bank transfers
 - Cryptocurrency (Bitcoin, etc.)
 - Buy now, pay later options
 
-### Can I manage inventory with NEOSHOP ULTRA?
+### Can I manage inventory with ZYRA Fashion?
 
 Yes! The admin dashboard includes comprehensive inventory management:
 - Track stock levels
@@ -111,7 +111,7 @@ Yes! The admin dashboard includes comprehensive inventory management:
 - Bulk inventory updates
 - Inventory reporting
 
-### Does NEOSHOP ULTRA have an admin dashboard?
+### Does ZYRA Fashion have an admin dashboard?
 
 Yes! The admin dashboard provides:
 - Sales analytics and reporting
@@ -123,18 +123,18 @@ Yes! The admin dashboard provides:
 
 ## Technical Questions
 
-### How does authentication work in NEOSHOP ULTRA?
+### How does authentication work in ZYRA Fashion?
 
-NEOSHOP ULTRA uses NextAuth.js for authentication with support for:
+ZYRA Fashion uses NextAuth.js for authentication with support for:
 - Email/password authentication
 - OAuth providers (Google, GitHub)
 - JWT tokens for API access
 - Session management with Redis
 - Role-based access control (RBAC)
 
-### How is data stored in NEOSHOP ULTRA?
+### How is data stored in ZYRA Fashion?
 
-NEOSHOP ULTRA uses:
+ZYRA Fashion uses:
 - **PostgreSQL** for primary data storage
 - **Prisma ORM** for database operations
 - **Redis** for session storage and caching
@@ -142,7 +142,7 @@ NEOSHOP ULTRA uses:
 
 ### How does payment processing work?
 
-NEOSHOP ULTRA integrates with Stripe for secure payment processing:
+ZYRA Fashion integrates with Stripe for secure payment processing:
 - Payment intents for secure transactions
 - Webhook handling for real-time updates
 - Support for multiple payment methods
@@ -151,7 +151,7 @@ NEOSHOP ULTRA integrates with Stripe for secure payment processing:
 
 ### How are images handled?
 
-NEOSHOP ULTRA includes:
+ZYRA Fashion includes:
 - Image upload to Vercel Blob Storage
 - Automatic image optimization with Sharp
 - Support for multiple formats (JPEG, PNG, WebP, AVIF)
@@ -173,7 +173,7 @@ NEOSHOP ULTRA includes:
 
 ### How do I customize the UI theme?
 
-NEOSHOP ULTRA uses Tailwind CSS for styling. You can:
+ZYRA Fashion uses Tailwind CSS for styling. You can:
 - Modify `tailwind.config.js` for custom colors and fonts
 - Update component styles in the `components` directory
 - Customize the design system in `lib/ui.ts`
@@ -190,7 +190,7 @@ NEOSHOP ULTRA uses Tailwind CSS for styling. You can:
 
 ### How do I integrate third-party services?
 
-NEOSHOP ULTRA is designed for easy integration:
+ZYRA Fashion is designed for easy integration:
 - Add service configuration to environment variables
 - Create service classes in `lib/services/`
 - Implement API routes for service endpoints
@@ -233,7 +233,7 @@ Common issues and solutions:
 
 ### How do I optimize performance?
 
-NEOSHOP ULTRA includes several optimization features:
+ZYRA Fashion includes several optimization features:
 - **Image optimization** with Next.js Image component
 - **Code splitting** with dynamic imports
 - **API response caching** with Redis
@@ -249,9 +249,9 @@ Performance monitoring includes:
 - **Error tracking** with Sentry
 - **Analytics** with Google Analytics
 
-### How do I scale NEOSHOP ULTRA?
+### How do I scale ZYRA Fashion?
 
-NEOSHOP ULTRA is designed for scalability:
+ZYRA Fashion is designed for scalability:
 - **Serverless architecture** with auto-scaling
 - **Database connection pooling**
 - **Redis caching layer**
@@ -260,9 +260,9 @@ NEOSHOP ULTRA is designed for scalability:
 
 ## Security
 
-### How secure is NEOSHOP ULTRA?
+### How secure is ZYRA Fashion?
 
-NEOSHOP ULTRA implements comprehensive security measures:
+ZYRA Fashion implements comprehensive security measures:
 - **Input validation** with Zod schemas
 - **SQL injection prevention** with Prisma ORM
 - **XSS protection** with input sanitization
@@ -295,7 +295,7 @@ Security auditing includes:
 - **Documentation**: Check the docs folder for comprehensive guides
 - **GitHub Issues**: Report bugs and request features
 - **Community Forum**: Get help from other users
-- **Email Support**: Contact support@neoshop-ultra.com
+- **Email Support**: Contact support@zyra-ultra.com
 
 ### How do I report bugs?
 
@@ -315,7 +315,7 @@ Security auditing includes:
 
 ## Contributing
 
-### How can I contribute to NEOSHOP ULTRA?
+### How can I contribute to ZYRA Fashion?
 
 Contributions are welcome! You can:
 - **Report bugs** and issues
@@ -343,9 +343,9 @@ Contributions are welcome! You can:
 
 ## License
 
-### What license does NEOSHOP ULTRA use?
+### What license does ZYRA Fashion use?
 
-NEOSHOP ULTRA is licensed under the MIT License. This means you can:
+ZYRA Fashion is licensed under the MIT License. This means you can:
 - Use it commercially
 - Modify and distribute
 - Include in proprietary software
@@ -357,9 +357,9 @@ The MIT License is very permissive. The only requirement is to include the origi
 
 ## Updates
 
-### How often is NEOSHOP ULTRA updated?
+### How often is ZYRA Fashion updated?
 
-NEOSHOP ULTRA is actively maintained with:
+ZYRA Fashion is actively maintained with:
 - **Regular updates** for security patches
 - **Feature releases** based on user feedback
 - **Bug fixes** as issues are reported
@@ -390,7 +390,7 @@ NEOSHOP ULTRA is actively maintained with:
 5. **Test the application** thoroughly
 6. **Deploy to production**
 
-This comprehensive FAQ covers the most common questions about NEOSHOP ULTRA. If you have additional questions, please don't hesitate to reach out through the support channels mentioned above.
+This comprehensive FAQ covers the most common questions about ZYRA Fashion. If you have additional questions, please don't hesitate to reach out through the support channels mentioned above.
 
 
 

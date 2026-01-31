@@ -1,4 +1,4 @@
-// E2E Test Configuration for NEOSHOP ULTRA
+// E2E Test Configuration for ZYRA Fashion
 export const testConfig = {
   // Base URLs
   baseUrl: process.env.E2E_BASE_URL || 'http://localhost:3000',
@@ -8,12 +8,12 @@ export const testConfig = {
   testData: {
     users: {
       admin: {
-        email: 'admin@neoshop.com',
+        email: 'admin@zyra.com',
         password: 'admin123',
         role: 'ADMIN'
       },
       customer: {
-        email: 'customer@neoshop.com',
+        email: 'customer@zyra.com',
         password: 'customer123',
         role: 'CUSTOMER'
       },

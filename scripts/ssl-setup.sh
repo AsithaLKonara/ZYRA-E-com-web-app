@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SSL Certificate Setup Script for NEOSHOP ULTRA
+# SSL Certificate Setup Script for ZYRA Fashion
 # This script sets up SSL certificates using Let's Encrypt
 
 set -e
@@ -13,12 +13,12 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-DOMAIN="neoshop-ultra.com"
-EMAIL="admin@neoshop-ultra.com"
+DOMAIN="zyra-ultra.com"
+EMAIL="admin@zyra-ultra.com"
 WEBROOT="/var/www/html"
 SSL_DIR="/etc/ssl/certs"
 SSL_KEY_DIR="/etc/ssl/private"
-NGINX_CONF="/etc/nginx/sites-available/neoshop-ultra"
+NGINX_CONF="/etc/nginx/sites-available/zyra-ultra"
 
 # Functions
 log() {

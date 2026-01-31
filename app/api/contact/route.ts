@@ -34,7 +34,7 @@ async function contactHandler(request: NextRequest) {
 
     // Send email to support team
     const result = await sendEmail({
-      to: { email: 'support@neoshop-ultra.com', name: 'Support Team' },
+      to: { email: 'support@zyra-ultra.com', name: 'Support Team' },
       subject: `Contact Form: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -66,14 +66,14 @@ async function contactHandler(request: NextRequest) {
     // Send confirmation email to user
     await sendEmail({
       to: { email, name },
-      subject: 'Thank you for contacting NEOSHOP ULTRA',
+      subject: 'Thank you for contacting ZYRA Fashion',
       html: `
         <h2>Thank you for contacting us!</h2>
         <p>Hello ${name},</p>
         <p>We have received your message and will get back to you as soon as possible.</p>
         <p><strong>Your message:</strong></p>
         <p>${message}</p>
-        <p>Best regards,<br>NEOSHOP ULTRA Team</p>
+        <p>Best regards,<br>ZYRA Fashion Team</p>
       `,
       text: `
         Thank you for contacting us!
@@ -85,7 +85,7 @@ async function contactHandler(request: NextRequest) {
         Your message: ${message}
         
         Best regards,
-        NEOSHOP ULTRA Team
+        ZYRA Fashion Team
       `,
     })
 

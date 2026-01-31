@@ -10,14 +10,14 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/neoshop_ultra_prod
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/zyra_ultra_prod
       - REDIS_URL=redis://redis:6379
     depends_on:
       - db
       - redis
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
     volumes:
       - ./uploads:/app/uploads
       - ./logs:/app/logs
@@ -32,7 +32,7 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_DB=neoshop_ultra_prod
+      - POSTGRES_DB=zyra_ultra_prod
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
@@ -42,7 +42,7 @@ services:
       - "5432:5432"
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 30s
@@ -59,7 +59,7 @@ services:
       - "6379:6379"
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 30s
@@ -80,7 +80,7 @@ services:
       - app
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
 
   # Backup Service
   backup:
@@ -88,7 +88,7 @@ services:
       context: .
       dockerfile: Dockerfile.backup
     environment:
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/neoshop_ultra_prod
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/zyra_ultra_prod
       - BACKUP_DIR=/backups
     volumes:
       - ./backups:/backups
@@ -96,7 +96,7 @@ services:
       - db
     restart: "no"
     networks:
-      - neoshop-network
+      - zyra-network
     command: ["sh", "-c", "while true; do sleep 86400; /app/backup.sh; done"]
 
   # Monitoring
@@ -116,7 +116,7 @@ services:
       - '--web.enable-lifecycle'
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
 
   # Grafana
   grafana:
@@ -132,7 +132,7 @@ services:
       - prometheus
     restart: unless-stopped
     networks:
-      - neoshop-network
+      - zyra-network
 
 volumes:
   postgres_data:
@@ -141,7 +141,7 @@ volumes:
   grafana_data:
 
 networks:
-  neoshop-network:
+  zyra-network:
     driver: bridge
 
 

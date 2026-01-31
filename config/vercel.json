@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "neoshop-ultra",
+  "name": "zyra-ultra",
   "builds": [
     {
       "src": "package.json",
@@ -56,7 +56,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://neoshop-ultra.vercel.app"
+          "value": "https://zyra-ultra.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",

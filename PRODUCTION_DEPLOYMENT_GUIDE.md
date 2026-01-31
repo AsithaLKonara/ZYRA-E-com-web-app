@@ -1,4 +1,4 @@
-# 🚀 NEOSHOP ULTRA - Complete Production Deployment Guide
+# 🚀 ZYRA Fashion - Complete Production Deployment Guide
 
 ## 📋 Table of Contents
 1. [Project Overview](#project-overview)
