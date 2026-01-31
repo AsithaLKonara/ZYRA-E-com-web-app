@@ -122,9 +122,9 @@ export class MonitoringService {
     latest: number;
   } {
     let metrics = this.getMetrics(name);
-    
+
     if (timeRange) {
-      metrics = metrics.filter(m => 
+      metrics = metrics.filter(m =>
         m.timestamp! >= timeRange.start && m.timestamp! <= timeRange.end
       );
     }
@@ -180,7 +180,7 @@ export class MonitoringService {
       }
 
       let shouldAlert = false;
-      
+
       switch (rule.condition) {
         case `${metric.name} > ${rule.threshold}`:
           shouldAlert = metric.value > rule.threshold;
@@ -237,7 +237,7 @@ export class MonitoringService {
     // - PagerDuty
     // - Discord webhooks
     // - SMS services
-    
+
     logger.error('Alert triggered', { alert });
   }
 
@@ -291,6 +291,15 @@ export class MonitoringService {
    * Collect performance metrics
    */
   private collectPerformanceMetrics(): void {
+    if (process.env.NEXT_RUNTIME === 'edge') {
+      return;
+    }
+
+    // Check if process.memoryUsage is available (Node.js environment)
+    if (typeof process.memoryUsage !== 'function' || typeof process.cpuUsage !== 'function') {
+      return;
+    }
+
     const memUsage = process.memoryUsage();
     const cpuUsage = process.cpuUsage();
 
@@ -303,7 +312,7 @@ export class MonitoringService {
     };
 
     this.performanceData.push(metrics);
-    
+
     // Keep only last 100 performance measurements
     if (this.performanceData.length > 100) {
       this.performanceData.splice(0, this.performanceData.length - 100);
@@ -340,7 +349,7 @@ export class MonitoringService {
     const activeAlerts = this.alerts.filter(rule => rule.enabled).length;
 
     let status: 'healthy' | 'warning' | 'critical' = 'healthy';
-    
+
     if (latest) {
       if (latest.memoryUsage > 0.9 || latest.cpuUsage > 0.8 || latest.errorRate > 0.05) {
         status = 'critical';
@@ -370,7 +379,7 @@ export class MonitoringService {
       for (const [name, metrics] of this.metrics) {
         const latest = metrics[metrics.length - 1];
         if (latest) {
-          const tags = latest.tags ? 
+          const tags = latest.tags ?
             Object.entries(latest.tags).map(([k, v]) => `${k}="${v}"`).join(',') : '';
           prometheus += `${name}{${tags}} ${latest.value}\n`;
         }
@@ -418,7 +427,7 @@ export class MonitoringService {
         Object.entries(data.properties).map(([k, v]) => [k, String(v)])
       )),
     };
-    
+
     this.recordCounter('analytics.event', 1, tags);
   }
 }
