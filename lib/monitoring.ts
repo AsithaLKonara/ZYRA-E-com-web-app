@@ -282,6 +282,15 @@ export class MonitoringService {
    * Start performance monitoring
    */
   private startPerformanceMonitoring(): void {
+    if (process.env.NEXT_RUNTIME === 'edge') {
+      return;
+    }
+
+    const proc = globalThis.process;
+    if (!proc || typeof proc.memoryUsage !== 'function' || typeof proc.cpuUsage !== 'function') {
+      return;
+    }
+
     setInterval(() => {
       this.collectPerformanceMetrics();
     }, 30000); // Collect every 30 seconds
@@ -296,12 +305,13 @@ export class MonitoringService {
     }
 
     // Check if process.memoryUsage is available (Node.js environment)
-    if (typeof process.memoryUsage !== 'function' || typeof process.cpuUsage !== 'function') {
+    const proc = globalThis.process;
+    if (!proc || typeof proc.memoryUsage !== 'function' || typeof proc.cpuUsage !== 'function') {
       return;
     }
 
-    const memUsage = process.memoryUsage();
-    const cpuUsage = process.cpuUsage();
+    const memUsage = proc.memoryUsage();
+    const cpuUsage = proc.cpuUsage();
 
     const metrics: PerformanceMetrics = {
       responseTime: 0, // This would be calculated from request timing
