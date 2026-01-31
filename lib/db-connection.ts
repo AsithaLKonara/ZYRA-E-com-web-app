@@ -21,15 +21,18 @@ class DatabaseConnection {
   private maxConnections = connectionConfig.maxConnections
 
   constructor() {
-    const connectionString = process.env.DATABASE_URL
-    
-    if (!connectionString) {
+    const connectionString = process.env.DATABASE_URL || process.env.VERCEL_URL;
+
+    if (!connectionString && process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
       throw new Error('DATABASE_URL environment variable is required')
     }
 
+    // During build or if missing, use a placeholder
+    const effectiveConnectionString = connectionString || 'postgresql://localhost:5432/placeholder'
+
     // Create connection pool
     this.pool = new Pool({
-      connectionString,
+      connectionString: effectiveConnectionString,
       max: connectionConfig.maxConnections,
       idleTimeoutMillis: connectionConfig.idleTimeout,
       connectionTimeoutMillis: connectionConfig.connectionTimeout,
