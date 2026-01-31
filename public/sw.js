@@ -1,8 +1,8 @@
-// Service Worker for NEOSHOP ULTRA
-const CACHE_NAME = 'neoshop-ultra-v1'
-const STATIC_CACHE = 'neoshop-static-v1'
-const DYNAMIC_CACHE = 'neoshop-dynamic-v1'
-const API_CACHE = 'neoshop-api-v1'
+// Service Worker for ZYRA Fashion
+const CACHE_NAME = 'zyra-ultra-v1'
+const STATIC_CACHE = 'zyra-static-v1'
+const DYNAMIC_CACHE = 'zyra-dynamic-v1'
+const API_CACHE = 'zyra-api-v1'
 
 // Cache strategies
 const CACHE_STRATEGIES = {
@@ -334,7 +334,7 @@ self.addEventListener('push', (event) => {
   console.log('Service Worker: Push notification received')
   
   const options = {
-    body: event.data ? event.data.text() : 'New notification from NEOSHOP ULTRA',
+    body: event.data ? event.data.text() : 'New notification from ZYRA Fashion',
     icon: '/icons/icon-192x192.png',
     badge: '/icons/badge-72x72.png',
     vibrate: [100, 50, 100],
@@ -357,7 +357,7 @@ self.addEventListener('push', (event) => {
   }
   
   event.waitUntil(
-    self.registration.showNotification('NEOSHOP ULTRA', options)
+    self.registration.showNotification('ZYRA Fashion', options)
   )
 })
 
@@ -398,7 +398,7 @@ self.addEventListener('message', (event) => {
 // Utility functions
 async function getStoredData(key) {
   try {
-    const cache = await caches.open('neoshop-data')
+    const cache = await caches.open('zyra-data')
     const response = await cache.match(`/data/${key}`)
     return response ? await response.json() : null
   } catch (error) {
@@ -409,7 +409,7 @@ async function getStoredData(key) {
 
 async function clearStoredData(key) {
   try {
-    const cache = await caches.open('neoshop-data')
+    const cache = await caches.open('zyra-data')
     await cache.delete(`/data/${key}`)
   } catch (error) {
     console.error('Service Worker: Error clearing stored data:', error)

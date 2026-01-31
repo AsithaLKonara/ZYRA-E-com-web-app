@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Testing Guide
+# ZYRA Fashion - Testing Guide
 
 ## Overview
 
-This guide covers comprehensive testing strategies for NEOSHOP ULTRA, including unit tests, integration tests, end-to-end tests, and performance testing.
+This guide covers comprehensive testing strategies for ZYRA Fashion, including unit tests, integration tests, end-to-end tests, and performance testing.
 
 ## Testing Philosophy
 
@@ -1220,7 +1220,7 @@ jobs:
           fi
 ```
 
-This comprehensive testing guide ensures that NEOSHOP ULTRA maintains high quality, reliability, and performance across all components and user interactions.
+This comprehensive testing guide ensures that ZYRA Fashion maintains high quality, reliability, and performance across all components and user interactions.
 
 
 

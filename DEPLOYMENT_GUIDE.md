@@ -1,6 +1,6 @@
-# NEOSHOP ULTRA - Deployment Guide
+# ZYRA Fashion - Deployment Guide
 
-This guide will help you deploy NEOSHOP ULTRA to Vercel and other platforms.
+This guide will help you deploy ZYRA Fashion to Vercel and other platforms.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Create a `.env.local` file in your project root with the following variables:
 
 ```bash
 # Database
-DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
 
 # NextAuth.js
 NEXTAUTH_SECRET="your-secret-key-here"
@@ -40,17 +40,17 @@ BLOB_READ_WRITE_TOKEN="vercel_blob_rw_your-token"
 
 # Resend Email
 RESEND_API_KEY="re_your-resend-api-key"
-RESEND_FROM_EMAIL="noreply@neoshop-ultra.com"
-RESEND_FROM_NAME="NEOSHOP ULTRA"
-RESEND_REPLY_TO="support@neoshop-ultra.com"
+RESEND_FROM_EMAIL="noreply@zyra-ultra.com"
+RESEND_FROM_NAME="ZYRA Fashion"
+RESEND_REPLY_TO="support@zyra-ultra.com"
 
 # App Configuration
-APP_NAME="NEOSHOP ULTRA"
-APP_URL="https://neoshop-ultra.vercel.app"
+APP_NAME="ZYRA Fashion"
+APP_URL="https://zyra-ultra.vercel.app"
 APP_DESCRIPTION="Ultimate e-commerce platform built with Next.js 14"
 
 # Admin Configuration
-ADMIN_EMAIL="admin@neoshop-ultra.com"
+ADMIN_EMAIL="admin@zyra-ultra.com"
 ADMIN_IP_WHITELIST="127.0.0.1,::1"
 
 # Security
@@ -344,7 +344,7 @@ vercel --prod
 ## Support
 
 For deployment support, please contact:
-- Email: support@neoshop-ultra.com
+- Email: support@zyra-ultra.com
 - Documentation: [Project Documentation](https://github.com/your-repo/docs)
 - Issues: [GitHub Issues](https://github.com/your-repo/issues)
 

@@ -1,4 +1,4 @@
-// CloudFlare Workers script for NEOSHOP ULTRA
+// CloudFlare Workers script for ZYRA Fashion
 // This script handles edge caching, security, and performance optimization
 
 addEventListener('fetch', event => {
@@ -21,7 +21,7 @@ async function handleRequest(request) {
   // CORS headers for API requests
   if (url.pathname.startsWith('/api/')) {
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://neoshop-ultra.com',
+      'Access-Control-Allow-Origin': 'https://zyra-ultra.com',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
       'Access-Control-Allow-Credentials': 'true',
@@ -95,7 +95,7 @@ async function handleRequest(request) {
 
   // Add CORS headers for API responses
   if (url.pathname.startsWith('/api/')) {
-    newHeaders.set('Access-Control-Allow-Origin', 'https://neoshop-ultra.com')
+    newHeaders.set('Access-Control-Allow-Origin', 'https://zyra-ultra.com')
     newHeaders.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     newHeaders.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
     newHeaders.set('Access-Control-Allow-Credentials', 'true')

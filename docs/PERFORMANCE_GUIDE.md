@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Performance Optimization Guide
+# ZYRA Fashion - Performance Optimization Guide
 
 ## Overview
 
-This guide covers comprehensive performance optimization strategies for NEOSHOP ULTRA, including frontend optimization, backend optimization, database optimization, and infrastructure optimization.
+This guide covers comprehensive performance optimization strategies for ZYRA Fashion, including frontend optimization, backend optimization, database optimization, and infrastructure optimization.
 
 ## Frontend Optimization
 
@@ -468,7 +468,7 @@ export class CDNOptimizer {
 
 ```typescript
 // public/sw.js
-const CACHE_NAME = 'neoshop-v1'
+const CACHE_NAME = 'zyra-v1'
 const urlsToCache = [
   '/',
   '/products',
@@ -604,7 +604,7 @@ export class PerformanceMetrics {
 - [ ] Implement load balancing
 - [ ] Monitor performance metrics
 
-This performance optimization guide ensures that NEOSHOP ULTRA delivers exceptional user experience with fast loading times and efficient resource utilization.
+This performance optimization guide ensures that ZYRA Fashion delivers exceptional user experience with fast loading times and efficient resource utilization.
 
 
 

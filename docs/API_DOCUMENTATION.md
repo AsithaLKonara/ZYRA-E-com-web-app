@@ -1,13 +1,13 @@
-# NEOSHOP ULTRA - API Documentation
+# ZYRA Fashion - API Documentation
 
 ## Overview
 
-NEOSHOP ULTRA provides a comprehensive RESTful API for managing e-commerce operations. The API is built with Next.js 14 API routes and follows RESTful conventions with proper HTTP status codes, error handling, and response formatting.
+ZYRA Fashion provides a comprehensive RESTful API for managing e-commerce operations. The API is built with Next.js 14 API routes and follows RESTful conventions with proper HTTP status codes, error handling, and response formatting.
 
 ## Base URL
 
 ```
-Production: https://neoshop-ultra.vercel.app/api
+Production: https://zyra-ultra.vercel.app/api
 Development: http://localhost:3000/api
 ```
 
@@ -1254,10 +1254,10 @@ POST /api/reviews
 ### JavaScript/TypeScript
 
 ```typescript
-import { NeoshopClient } from '@neoshop/sdk'
+import { NeoshopClient } from '@zyra/sdk'
 
 const client = new NeoshopClient({
-  baseUrl: 'https://neoshop-ultra.vercel.app/api',
+  baseUrl: 'https://zyra-ultra.vercel.app/api',
   apiKey: 'your-api-key'
 })
 
@@ -1278,10 +1278,10 @@ const order = await client.orders.create({
 ### Python
 
 ```python
-from neoshop import NeoshopClient
+from zyra import NeoshopClient
 
 client = NeoshopClient(
-    base_url='https://neoshop-ultra.vercel.app/api',
+    base_url='https://zyra-ultra.vercel.app/api',
     api_key='your-api-key'
 )
 
@@ -1331,21 +1331,21 @@ POST /api/webhooks/subscribe
 
 Import the Postman collection for easy API testing:
 
-[Download Postman Collection](./postman/neoshop-ultra-api.json)
+[Download Postman Collection](./postman/zyra-ultra-api.json)
 
 ### cURL Examples
 
 #### Get Products
 
 ```bash
-curl -X GET "https://neoshop-ultra.vercel.app/api/products?page=1&limit=20" \
+curl -X GET "https://zyra-ultra.vercel.app/api/products?page=1&limit=20" \
   -H "Authorization: Bearer your-jwt-token"
 ```
 
 #### Create Order
 
 ```bash
-curl -X POST "https://neoshop-ultra.vercel.app/api/orders" \
+curl -X POST "https://zyra-ultra.vercel.app/api/orders" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-jwt-token" \
   -d '{
@@ -1366,9 +1366,9 @@ curl -X POST "https://neoshop-ultra.vercel.app/api/orders" \
 
 For API support, please contact:
 
-- **Email**: api-support@neoshop-ultra.com
-- **Documentation**: [https://docs.neoshop-ultra.com](https://docs.neoshop-ultra.com)
-- **GitHub**: [https://github.com/neoshop-ultra/api](https://github.com/neoshop-ultra/api)
+- **Email**: api-support@zyra-ultra.com
+- **Documentation**: [https://docs.zyra-ultra.com](https://docs.zyra-ultra.com)
+- **GitHub**: [https://github.com/zyra-ultra/api](https://github.com/zyra-ultra/api)
 
 ---
 

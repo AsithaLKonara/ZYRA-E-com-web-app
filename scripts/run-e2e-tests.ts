@@ -65,7 +65,7 @@ class E2ETestRunner {
   private startTime: number = 0
 
   async runAllTests(): Promise<void> {
-    console.log('🚀 Starting Comprehensive E2E Test Suite for NEOSHOP ULTRA')
+    console.log('🚀 Starting Comprehensive E2E Test Suite for ZYRA Fashion')
     console.log('=' .repeat(60))
     
     this.startTime = Date.now()

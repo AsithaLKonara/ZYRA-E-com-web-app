@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up NEOSHOP ULTRA Database..."
+echo "🚀 Setting up ZYRA Fashion Database..."
 
 # Install dependencies
 echo "📦 Installing dependencies..."

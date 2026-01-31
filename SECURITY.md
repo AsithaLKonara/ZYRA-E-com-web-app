@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We provide security updates for the following versions of NEOSHOP ULTRA:
+We provide security updates for the following versions of ZYRA Fashion:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -24,8 +24,8 @@ We take security vulnerabilities seriously. If you discover a security vulnerabi
 
 Instead, please report them privately through one of the following channels:
 
-1. **Email**: security@neoshop-ultra.com
-2. **GitHub Security Advisories**: [Create a private security advisory](https://github.com/neoshop-ultra/neoshop-ultra/security/advisories/new)
+1. **Email**: security@zyra-ultra.com
+2. **GitHub Security Advisories**: [Create a private security advisory](https://github.com/zyra-ultra/zyra-ultra/security/advisories/new)
 3. **PGP Encrypted Email**: Use our PGP key for sensitive reports
 
 ### What to Include
@@ -321,14 +321,14 @@ We comply with:
 
 For security-related questions or concerns:
 
-- **Security Email**: security@neoshop-ultra.com
-- **GitHub Security**: [https://github.com/neoshop-ultra/neoshop-ultra/security](https://github.com/neoshop-ultra/neoshop-ultra/security)
+- **Security Email**: security@zyra-ultra.com
+- **GitHub Security**: [https://github.com/zyra-ultra/zyra-ultra/security](https://github.com/zyra-ultra/zyra-ultra/security)
 - **Emergency Contact**: +1 (555) 123-SECU (7328)
 - **PGP Key**: Available on request for sensitive communications
 
 ## Acknowledgments
 
-We thank the security researchers and community members who help us maintain the security of NEOSHOP ULTRA:
+We thank the security researchers and community members who help us maintain the security of ZYRA Fashion:
 
 - **Security Researchers** who responsibly disclose vulnerabilities
 - **Community Contributors** who help improve security
@@ -340,7 +340,7 @@ We thank the security researchers and community members who help us maintain the
 **Last Updated**: January 2024  
 **Version**: 1.0
 
-Thank you for helping us maintain the security of NEOSHOP ULTRA! 🔒
+Thank you for helping us maintain the security of ZYRA Fashion! 🔒
 
 
 

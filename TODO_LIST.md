@@ -1,4 +1,4 @@
-# NEOSHOP ULTRA — Complete Todo List
+# ZYRA Fashion — Complete Todo List
 
 ## Current Status: Phase A - Sprint 1 (In Progress)
 

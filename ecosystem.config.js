@@ -1,10 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: 'neoshop-ultra',
+      name: 'zyra-ultra',
       script: 'npm',
       args: 'start',
-      cwd: '/opt/neoshop-ultra',
+      cwd: '/opt/zyra-ultra',
       instances: 'max',
       exec_mode: 'cluster',
       env: {
@@ -44,9 +44,9 @@ module.exports = {
       max_memory_restart: '1G',
       
       // Logging
-      log_file: '/var/log/neoshop-ultra/combined.log',
-      out_file: '/var/log/neoshop-ultra/out.log',
-      error_file: '/var/log/neoshop-ultra/error.log',
+      log_file: '/var/log/zyra-ultra/combined.log',
+      out_file: '/var/log/zyra-ultra/out.log',
+      error_file: '/var/log/zyra-ultra/error.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       
       // Monitoring
@@ -82,8 +82,8 @@ module.exports = {
       user: 'deploy',
       host: ['your-server.com'],
       ref: 'origin/main',
-      repo: 'git@github.com:your-username/neoshop-ultra.git',
-      path: '/opt/neoshop-ultra',
+      repo: 'git@github.com:your-username/zyra-ultra.git',
+      path: '/opt/zyra-ultra',
       'pre-deploy-local': '',
       'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',
       'pre-setup': '',
@@ -92,8 +92,8 @@ module.exports = {
       user: 'deploy',
       host: ['staging-server.com'],
       ref: 'origin/staging',
-      repo: 'git@github.com:your-username/neoshop-ultra.git',
-      path: '/opt/neoshop-ultra-staging',
+      repo: 'git@github.com:your-username/zyra-ultra.git',
+      path: '/opt/zyra-ultra-staging',
       'pre-deploy-local': '',
       'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env staging',
       'pre-setup': '',

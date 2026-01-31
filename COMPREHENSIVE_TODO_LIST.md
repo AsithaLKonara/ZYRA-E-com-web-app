@@ -1,4 +1,4 @@
-# 📋 NEOSHOP ULTRA - Comprehensive Todo List
+# 📋 ZYRA Fashion - Comprehensive Todo List
 
 ## 🎯 Project Status: Frontend Prototype → Production E-commerce Platform
 

@@ -3,12 +3,12 @@ import { Product, Category } from '@prisma/client'
 
 // SEO configuration
 const seoConfig = {
-  siteName: 'NEOSHOP ULTRA',
-  siteUrl: process.env.NEXTAUTH_URL || 'https://neoshop-ultra.com',
-  defaultTitle: 'NEOSHOP ULTRA - Ultra-Modern E-commerce Platform',
-  defaultDescription: 'Discover the latest products with NEOSHOP ULTRA. Fast, secure, and modern e-commerce experience with cutting-edge technology.',
+  siteName: 'ZYRA Fashion',
+  siteUrl: process.env.NEXTAUTH_URL || 'https://zyra-ultra.com',
+  defaultTitle: 'ZYRA Fashion - Ultra-Modern E-commerce Platform',
+  defaultDescription: 'Discover the latest products with ZYRA Fashion. Fast, secure, and modern e-commerce experience with cutting-edge technology.',
   defaultKeywords: 'e-commerce, online shopping, modern, fast, secure, products, technology',
-  twitterHandle: '@neoshopultra',
+  twitterHandle: '@zyraultra',
   facebookAppId: process.env.FACEBOOK_APP_ID,
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
   googleTagManagerId: process.env.GOOGLE_TAG_MANAGER_ID,
@@ -93,9 +93,9 @@ export function generateOrganizationStructuredData() {
     url: seoConfig.siteUrl,
     logo: `${seoConfig.siteUrl}/images/logo.png`,
     sameAs: [
-      'https://twitter.com/neoshopultra',
-      'https://facebook.com/neoshopultra',
-      'https://instagram.com/neoshopultra',
+      'https://twitter.com/zyraultra',
+      'https://facebook.com/zyraultra',
+      'https://instagram.com/zyraultra',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

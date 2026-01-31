@@ -3,7 +3,7 @@ import { logger } from './logger'
 // CDN configuration
 const cdnConfig = {
   provider: process.env.CDN_PROVIDER || 'cloudflare',
-  baseUrl: process.env.CDN_URL || 'https://cdn.neoshop-ultra.com',
+  baseUrl: process.env.CDN_URL || 'https://cdn.zyra-ultra.com',
   apiKey: process.env.CDN_API_KEY,
   zoneId: process.env.CDN_ZONE_ID,
   cacheTTL: parseInt(process.env.CDN_CACHE_TTL || '31536000'), // 1 year

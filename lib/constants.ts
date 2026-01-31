@@ -1,7 +1,7 @@
 // Application constants
 export const APP_CONSTANTS = {
   // App information
-  NAME: 'NEOSHOP ULTRA',
+  NAME: 'ZYRA Fashion',
   VERSION: '1.0.0',
   DESCRIPTION: 'Ultra-modern e-commerce platform',
   

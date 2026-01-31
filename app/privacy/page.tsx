@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 leading-relaxed">
-              At NEOSHOP ULTRA, we are committed to protecting your privacy and ensuring the 
+              At ZYRA Fashion, we are committed to protecting your privacy and ensuring the 
               security of your personal information. This Privacy Policy explains how we 
               collect, use, disclose, and safeguard your information when you use our website 
               and services.
@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-600 leading-relaxed mt-4">
               By using our services, you agree to the collection and use of information in 
               accordance with this policy. If you have any questions about this Privacy Policy, 
-              please contact us at privacy@neoshop-ultra.com.
+              please contact us at privacy@zyra-ultra.com.
             </p>
           </CardContent>
         </Card>
@@ -218,7 +218,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="mt-4 space-y-2">
               <p className="text-gray-600">
-                <strong>Email:</strong> privacy@neoshop-ultra.com
+                <strong>Email:</strong> privacy@zyra-ultra.com
               </p>
               <p className="text-gray-600">
                 <strong>Phone:</strong> +1 (555) 123-4567

@@ -114,8 +114,8 @@ export default function PaymentCancelPage() {
         <div className="mt-8 text-center text-sm text-gray-600">
           <p>
             Need help? Contact our support team at{" "}
-            <a href="mailto:support@neoshop.com" className="text-primary hover:underline">
-              support@neoshop.com
+            <a href="mailto:support@zyra.com" className="text-primary hover:underline">
+              support@zyra.com
             </a>
           </p>
           <p className="mt-2">

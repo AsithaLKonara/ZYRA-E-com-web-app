@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Security Documentation
+# ZYRA Fashion - Security Documentation
 
 ## Overview
 
-This document outlines the comprehensive security measures implemented in NEOSHOP ULTRA, including authentication, authorization, data protection, API security, and compliance considerations.
+This document outlines the comprehensive security measures implemented in ZYRA Fashion, including authentication, authorization, data protection, API security, and compliance considerations.
 
 ## Security Architecture
 
@@ -445,8 +445,8 @@ import { logger } from './logger'
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://neoshop-ultra.vercel.app',
-  'https://www.neoshop-ultra.com',
+  'https://zyra-ultra.vercel.app',
+  'https://www.zyra-ultra.com',
 ]
 
 const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -1428,7 +1428,7 @@ export class IncidentResponse {
 - [ ] Test incident response procedures
 - [ ] Review compliance requirements
 
-This comprehensive security documentation ensures that NEOSHOP ULTRA maintains the highest security standards and protects user data and business operations.
+This comprehensive security documentation ensures that ZYRA Fashion maintains the highest security standards and protects user data and business operations.
 
 
 

@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test'
 
-test.describe('NEOSHOP ULTRA - Comprehensive E2E Tests', () => {
+test.describe('ZYRA Fashion - Comprehensive E2E Tests', () => {
   let page: Page
 
   test.beforeEach(async ({ page: testPage }) => {
@@ -11,7 +11,7 @@ test.describe('NEOSHOP ULTRA - Comprehensive E2E Tests', () => {
   test.describe('Homepage & Navigation', () => {
     test('should load homepage with all sections', async () => {
       // Check page title
-      await expect(page).toHaveTitle(/NEOSHOP ULTRA/)
+      await expect(page).toHaveTitle(/ZYRA Fashion/)
       
       // Check main navigation
       await expect(page.locator('nav')).toBeVisible()

@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test'
 
-test.describe('Accessibility Testing - NEOSHOP ULTRA', () => {
+test.describe('Accessibility Testing - ZYRA Fashion', () => {
   let page: Page
 
   test.beforeEach(async ({ page: testPage }) => {

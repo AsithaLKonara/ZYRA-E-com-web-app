@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# NEOSHOP ULTRA Deployment Script
+# ZYRA Fashion Deployment Script
 # This script handles the complete deployment process
 
 set -e
@@ -13,10 +13,10 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-APP_NAME="neoshop-ultra"
-APP_DIR="/opt/neoshop-ultra"
-BACKUP_DIR="/backups/neoshop-ultra"
-LOG_FILE="/var/log/neoshop-ultra/deploy.log"
+APP_NAME="zyra-ultra"
+APP_DIR="/opt/zyra-ultra"
+BACKUP_DIR="/backups/zyra-ultra"
+LOG_FILE="/var/log/zyra-ultra/deploy.log"
 ENVIRONMENT=${1:-production}
 
 # Functions

@@ -7,10 +7,10 @@ async function seed() {
   // Create admin user
   const adminPassword = await bcrypt.hash("admin123", 12)
   const admin = await db.user.upsert({
-    where: { email: "admin@neoshop.com" },
+    where: { email: "admin@zyra.com" },
     update: {},
     create: {
-      email: "admin@neoshop.com",
+      email: "admin@zyra.com",
       name: "Admin User",
       password: adminPassword,
       role: "ADMIN",
@@ -21,10 +21,10 @@ async function seed() {
   // Create test customer
   const customerPassword = await bcrypt.hash("password123", 12)
   const customer = await db.user.upsert({
-    where: { email: "customer@neoshop.com" },
+    where: { email: "customer@zyra.com" },
     update: {},
     create: {
-      email: "customer@neoshop.com",
+      email: "customer@zyra.com",
       name: "Test Customer",
       password: customerPassword,
       role: "CUSTOMER",

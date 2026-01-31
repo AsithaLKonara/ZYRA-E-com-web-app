@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Architecture Documentation
+# ZYRA Fashion - Architecture Documentation
 
 ## Overview
 
-NEOSHOP ULTRA is a modern, scalable e-commerce platform built with Next.js 14, featuring a microservices-inspired architecture with clear separation of concerns, comprehensive security, and production-ready features.
+ZYRA Fashion is a modern, scalable e-commerce platform built with Next.js 14, featuring a microservices-inspired architecture with clear separation of concerns, comprehensive security, and production-ready features.
 
 ## Architecture Principles
 

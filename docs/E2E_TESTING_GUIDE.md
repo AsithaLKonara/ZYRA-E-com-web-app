@@ -1,8 +1,8 @@
-# E2E Testing Guide - NEOSHOP ULTRA
+# E2E Testing Guide - ZYRA Fashion
 
 ## Overview
 
-This guide provides comprehensive information about the End-to-End (E2E) testing suite for NEOSHOP ULTRA. Our E2E tests ensure that all critical user journeys and system integrations work correctly across different browsers and devices.
+This guide provides comprehensive information about the End-to-End (E2E) testing suite for ZYRA Fashion. Our E2E tests ensure that all critical user journeys and system integrations work correctly across different browsers and devices.
 
 ## Test Structure
 
@@ -94,9 +94,9 @@ E2E_BASE_URL=http://localhost:3000
 E2E_API_BASE_URL=http://localhost:3000/api
 
 # Test data
-E2E_ADMIN_EMAIL=admin@neoshop.com
+E2E_ADMIN_EMAIL=admin@zyra.com
 E2E_ADMIN_PASSWORD=admin123
-E2E_CUSTOMER_EMAIL=customer@neoshop.com
+E2E_CUSTOMER_EMAIL=customer@zyra.com
 E2E_CUSTOMER_PASSWORD=customer123
 ```
 
@@ -115,8 +115,8 @@ Test data is managed through the `test-config.ts` file:
 export const testConfig = {
   testData: {
     users: {
-      admin: { email: 'admin@neoshop.com', password: 'admin123' },
-      customer: { email: 'customer@neoshop.com', password: 'customer123' }
+      admin: { email: 'admin@zyra.com', password: 'admin123' },
+      customer: { email: 'customer@zyra.com', password: 'customer123' }
     },
     products: {
       sample: { name: 'Test Product', price: 99.99 }

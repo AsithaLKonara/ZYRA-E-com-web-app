@@ -48,7 +48,7 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
 
 ### Admin Configuration
 ```env
-ADMIN_EMAIL="admin@neoshop.com"
+ADMIN_EMAIL="admin@zyra.com"
 ADMIN_PASSWORD="admin123"
 ```
 

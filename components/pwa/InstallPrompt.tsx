@@ -67,7 +67,7 @@ export default function InstallPrompt() {
                 <Download className="w-4 h-4 text-white" />
               </div>
               <div>
-                <CardTitle className="text-sm font-semibold">Install NEOSHOP ULTRA</CardTitle>
+                <CardTitle className="text-sm font-semibold">Install ZYRA Fashion</CardTitle>
                 <CardDescription className="text-xs text-gray-500">
                   Get the full app experience
                 </CardDescription>

@@ -67,7 +67,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">About NEOSHOP ULTRA</h1>
+          <h1 className="text-4xl font-bold mb-4">About ZYRA Fashion</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             We're passionate about providing the best online shopping experience with 
             high-quality products, exceptional customer service, and innovative technology.
@@ -95,7 +95,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="prose max-w-none">
               <p className="text-gray-600 leading-relaxed">
-                NEOSHOP ULTRA was founded in 2019 with a simple mission: to make online shopping 
+                ZYRA Fashion was founded in 2019 with a simple mission: to make online shopping 
                 more enjoyable, convenient, and accessible for everyone. What started as a small 
                 team of passionate individuals has grown into a thriving e-commerce platform 
                 serving customers worldwide.
@@ -177,7 +177,7 @@ export default function AboutPage() {
             <CardContent className="pt-8">
               <h2 className="text-2xl font-bold mb-4">Ready to Experience the Difference?</h2>
               <p className="text-gray-600 mb-6">
-                Join thousands of satisfied customers and discover why NEOSHOP ULTRA is the 
+                Join thousands of satisfied customers and discover why ZYRA Fashion is the 
                 preferred choice for online shopping.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -32,19 +32,19 @@ class BuildOptimizer {
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://neoshop.com/</loc>
+    <loc>https://zyra.com/</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://neoshop.com/products</loc>
+    <loc>https://zyra.com/products</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://neoshop.com/categories</loc>
+    <loc>https://zyra.com/categories</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -66,7 +66,7 @@ class BuildOptimizer {
       const robots = `User-agent: *
 Allow: /
 
-Sitemap: https://neoshop.com/sitemap.xml`
+Sitemap: https://zyra.com/sitemap.xml`
 
       fs.writeFileSync(path.join(this.publicDir, 'robots.txt'), robots)
       console.log('✅ Robots.txt generated')
@@ -93,7 +93,7 @@ Sitemap: https://neoshop.com/sitemap.xml`
     
     try {
       const manifest = {
-        name: 'NEOSHOP ULTRA',
+        name: 'ZYRA Fashion',
         short_name: 'NEOSHOP',
         description: 'Ultra-modern e-commerce platform',
         start_url: '/',

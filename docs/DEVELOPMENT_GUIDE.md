@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Development Guide
+# ZYRA Fashion - Development Guide
 
 ## Overview
 
-This comprehensive development guide provides detailed information for developers working on NEOSHOP ULTRA, including setup instructions, development workflows, coding standards, and best practices.
+This comprehensive development guide provides detailed information for developers working on ZYRA Fashion, including setup instructions, development workflows, coding standards, and best practices.
 
 ## Table of Contents
 
@@ -36,8 +36,8 @@ Before starting development, ensure you have:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/neoshop-ultra/neoshop-ultra.git
-   cd neoshop-ultra
+   git clone https://github.com/zyra-ultra/zyra-ultra.git
+   cd zyra-ultra
    ```
 
 2. **Install dependencies**:
@@ -116,7 +116,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/neoshop_ultra
+      - DATABASE_URL=postgresql://postgres:password@db:5432/zyra_ultra
       - REDIS_URL=redis://redis:6379
     depends_on:
       - db
@@ -125,7 +125,7 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: neoshop_ultra
+      POSTGRES_DB: zyra_ultra
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
@@ -163,7 +163,7 @@ docker-compose down
 ### Directory Layout
 
 ```
-neoshop-ultra/
+zyra-ultra/
 ├── app/                          # Next.js App Router
 │   ├── (auth)/                  # Route groups
 │   ├── (dashboard)/             # Dashboard routes
@@ -1460,13 +1460,13 @@ jobs:
 
 ```bash
 # .env.local (development)
-DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
 NEXTAUTH_SECRET="development-secret"
 STRIPE_SECRET_KEY="sk_test_..."
 RESEND_API_KEY="re_..."
 
 # .env.production (production)
-DATABASE_URL="postgresql://username:password@prod-host:5432/neoshop_ultra"
+DATABASE_URL="postgresql://username:password@prod-host:5432/zyra_ultra"
 NEXTAUTH_SECRET="production-secret"
 STRIPE_SECRET_KEY="sk_live_..."
 RESEND_API_KEY="re_..."
@@ -1497,7 +1497,7 @@ export const config = {
 **Last Updated**: January 2024  
 **Version**: 1.0
 
-This development guide provides comprehensive information for developers working on NEOSHOP ULTRA. Follow these guidelines to ensure consistent, high-quality code and smooth development workflows. 🚀
+This development guide provides comprehensive information for developers working on ZYRA Fashion. Follow these guidelines to ensure consistent, high-quality code and smooth development workflows. 🚀
 
 
 

@@ -9,7 +9,7 @@ export default function TermsOfServicePage() {
       title: 'Acceptance of Terms',
       icon: FileText,
       content: `
-        By accessing and using NEOSHOP ULTRA's website and services, you accept and agree to be 
+        By accessing and using ZYRA Fashion's website and services, you accept and agree to be 
         bound by the terms and provision of this agreement. If you do not agree to abide by the 
         above, please do not use this service.
       `,
@@ -18,7 +18,7 @@ export default function TermsOfServicePage() {
       title: 'Use License',
       icon: Scale,
       content: `
-        Permission is granted to temporarily download one copy of the materials on NEOSHOP ULTRA's 
+        Permission is granted to temporarily download one copy of the materials on ZYRA Fashion's 
         website for personal, non-commercial transitory viewing only. This is the grant of a license, 
         not a transfer of title, and under this license you may not:
         
@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 leading-relaxed">
-              Welcome to NEOSHOP ULTRA. These Terms of Service ("Terms") govern your use of our 
+              Welcome to ZYRA Fashion. These Terms of Service ("Terms") govern your use of our 
               website and services. By using our services, you agree to these terms and conditions.
             </p>
             <p className="text-gray-600 leading-relaxed mt-4">
@@ -164,7 +164,7 @@ export default function TermsOfServicePage() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 leading-relaxed">
-              In no event shall NEOSHOP ULTRA, nor its directors, employees, partners, agents, 
+              In no event shall ZYRA Fashion, nor its directors, employees, partners, agents, 
               suppliers, or affiliates, be liable for any indirect, incidental, special, 
               consequential, or punitive damages, including without limitation, loss of profits, 
               data, use, goodwill, or other intangible losses, resulting from your use of our services.
@@ -180,7 +180,7 @@ export default function TermsOfServicePage() {
           <CardContent>
             <p className="text-gray-600 leading-relaxed">
               The information on this website is provided on an "as is" basis. To the fullest extent 
-              permitted by law, NEOSHOP ULTRA excludes all representations, warranties, conditions 
+              permitted by law, ZYRA Fashion excludes all representations, warranties, conditions 
               and terms relating to our website and the use of this website.
             </p>
           </CardContent>
@@ -225,7 +225,7 @@ export default function TermsOfServicePage() {
             </p>
             <div className="mt-4 space-y-2">
               <p className="text-gray-600">
-                <strong>Email:</strong> legal@neoshop-ultra.com
+                <strong>Email:</strong> legal@zyra-ultra.com
               </p>
               <p className="text-gray-600">
                 <strong>Phone:</strong> +1 (555) 123-4567

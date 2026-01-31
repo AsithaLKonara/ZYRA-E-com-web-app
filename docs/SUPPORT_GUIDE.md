@@ -1,8 +1,8 @@
-# NEOSHOP ULTRA - Support Guide
+# ZYRA Fashion - Support Guide
 
 ## Overview
 
-This comprehensive support guide provides information on how to get help with NEOSHOP ULTRA, troubleshoot common issues, and access various support resources.
+This comprehensive support guide provides information on how to get help with ZYRA Fashion, troubleshoot common issues, and access various support resources.
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ When asking for help, please provide:
 
 **Best for**: Bug reports, feature requests, technical discussions
 
-- **Repository**: [https://github.com/neoshop-ultra/neoshop-ultra](https://github.com/neoshop-ultra/neoshop-ultra)
+- **Repository**: [https://github.com/zyra-ultra/zyra-ultra](https://github.com/zyra-ultra/zyra-ultra)
 - **Response Time**: 24-48 hours
 - **Public**: Yes (visible to everyone)
 - **Searchable**: Yes (use GitHub search)
@@ -60,7 +60,7 @@ When asking for help, please provide:
 
 **Best for**: General questions, community help, sharing solutions
 
-- **Link**: [https://github.com/neoshop-ultra/neoshop-ultra/discussions](https://github.com/neoshop-ultra/neoshop-ultra/discussions)
+- **Link**: [https://github.com/zyra-ultra/zyra-ultra/discussions](https://github.com/zyra-ultra/zyra-ultra/discussions)
 - **Response Time**: 12-24 hours
 - **Public**: Yes
 - **Searchable**: Yes
@@ -76,7 +76,7 @@ When asking for help, please provide:
 
 **Best for**: Real-time help, casual discussions, community support
 
-- **Invite Link**: [https://discord.gg/neoshop-ultra](https://discord.gg/neoshop-ultra)
+- **Invite Link**: [https://discord.gg/zyra-ultra](https://discord.gg/zyra-ultra)
 - **Response Time**: Immediate to few hours
 - **Public**: Yes
 - **Searchable**: Yes
@@ -92,7 +92,7 @@ When asking for help, please provide:
 
 **Best for**: Sensitive issues, detailed technical problems, business inquiries
 
-- **Email**: support@neoshop-ultra.com
+- **Email**: support@zyra-ultra.com
 - **Response Time**: 24-48 hours
 - **Public**: No (private communication)
 - **Searchable**: No
@@ -107,7 +107,7 @@ When asking for help, please provide:
 
 **Best for**: Detailed discussions, sharing knowledge, community help
 
-- **URL**: [https://community.neoshop-ultra.com](https://community.neoshop-ultra.com)
+- **URL**: [https://community.zyra-ultra.com](https://community.zyra-ultra.com)
 - **Response Time**: 12-24 hours
 - **Public**: Yes
 - **Searchable**: Yes
@@ -165,7 +165,7 @@ npm install --registry https://registry.npmjs.org/
 **Solution**:
 1. **Check database URL format**:
    ```bash
-   DATABASE_URL="postgresql://username:password@localhost:5432/neoshop_ultra"
+   DATABASE_URL="postgresql://username:password@localhost:5432/zyra_ultra"
    ```
 
 2. **Verify database is running**:
@@ -376,7 +376,7 @@ Enable debug mode for detailed logging:
 
 ```bash
 # Set debug environment variable
-export DEBUG=neoshop-ultra:*
+export DEBUG=zyra-ultra:*
 
 # Run application with debug logging
 npm run dev
@@ -394,7 +394,7 @@ npm run dev 2>&1 | tee logs/app.log
 tail -f /var/log/postgresql/postgresql.log
 
 # Check system logs
-journalctl -u neoshop-ultra -f
+journalctl -u zyra-ultra -f
 ```
 
 ### Performance Issues
@@ -459,7 +459,7 @@ htop
 
 **Q: What are the system requirements?**
 
-A: NEOSHOP ULTRA requires:
+A: ZYRA Fashion requires:
 - Node.js 18+
 - PostgreSQL 13+
 - Redis 6+ (optional)
@@ -468,7 +468,7 @@ A: NEOSHOP ULTRA requires:
 
 **Q: Can I use a different database?**
 
-A: Currently, NEOSHOP ULTRA only supports PostgreSQL. Support for other databases may be added in future versions.
+A: Currently, ZYRA Fashion only supports PostgreSQL. Support for other databases may be added in future versions.
 
 **Q: Is there a Docker setup?**
 
@@ -478,7 +478,7 @@ A: Yes, you can use Docker for development. Check the `docker-compose.yml` file 
 
 **Q: How do I update the application?**
 
-A: To update NEOSHOP ULTRA:
+A: To update ZYRA Fashion:
 ```bash
 git pull origin main
 npm install
@@ -508,7 +508,7 @@ A: See the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment 
 
 **Q: Can I use a different hosting provider?**
 
-A: Yes, NEOSHOP ULTRA can be deployed to any Node.js hosting provider that supports PostgreSQL.
+A: Yes, ZYRA Fashion can be deployed to any Node.js hosting provider that supports PostgreSQL.
 
 **Q: How do I set up SSL/HTTPS?**
 
@@ -535,16 +535,16 @@ Documentation is updated regularly. Check the repository for the latest versions
 
 ### Learning Resources
 
-- **Tutorials**: [https://tutorials.neoshop-ultra.com](https://tutorials.neoshop-ultra.com)
-- **Video Guides**: [https://youtube.com/neoshop-ultra](https://youtube.com/neoshop-ultra)
-- **Blog Posts**: [https://blog.neoshop-ultra.com](https://blog.neoshop-ultra.com)
-- **Webinars**: [https://webinars.neoshop-ultra.com](https://webinars.neoshop-ultra.com)
+- **Tutorials**: [https://tutorials.zyra-ultra.com](https://tutorials.zyra-ultra.com)
+- **Video Guides**: [https://youtube.com/zyra-ultra](https://youtube.com/zyra-ultra)
+- **Blog Posts**: [https://blog.zyra-ultra.com](https://blog.zyra-ultra.com)
+- **Webinars**: [https://webinars.zyra-ultra.com](https://webinars.zyra-ultra.com)
 
 ### Community Events
 
 - **Monthly Meetups**: Virtual meetups for users and developers
 - **Hackathons**: Regular coding challenges and competitions
-- **Conferences**: Annual NEOSHOP ULTRA conference
+- **Conferences**: Annual ZYRA Fashion conference
 - **Workshops**: Hands-on training sessions
 
 ### Contributing
@@ -580,10 +580,10 @@ Documentation is updated regularly. Check the repository for the latest versions
 
 ### Contact Information
 
-- **Community Support**: community@neoshop-ultra.com
-- **Professional Support**: support@neoshop-ultra.com
-- **Enterprise Sales**: sales@neoshop-ultra.com
-- **Partnership Inquiries**: partnerships@neoshop-ultra.com
+- **Community Support**: community@zyra-ultra.com
+- **Professional Support**: support@zyra-ultra.com
+- **Enterprise Sales**: sales@zyra-ultra.com
+- **Partnership Inquiries**: partnerships@zyra-ultra.com
 
 ### Support Hours
 
@@ -611,25 +611,25 @@ Documentation is updated regularly. Check the repository for the latest versions
 
 We value your feedback on our support services. Please share your experience:
 
-- **Support Survey**: [https://forms.neoshop-ultra.com/support](https://forms.neoshop-ultra.com/support)
-- **Feedback Email**: feedback@neoshop-ultra.com
-- **GitHub Discussions**: [https://github.com/neoshop-ultra/neoshop-ultra/discussions](https://github.com/neoshop-ultra/neoshop-ultra/discussions)
+- **Support Survey**: [https://forms.zyra-ultra.com/support](https://forms.zyra-ultra.com/support)
+- **Feedback Email**: feedback@zyra-ultra.com
+- **GitHub Discussions**: [https://github.com/zyra-ultra/zyra-ultra/discussions](https://github.com/zyra-ultra/zyra-ultra/discussions)
 
 ## Contact
 
 For general support inquiries:
 
-- **Email**: support@neoshop-ultra.com
-- **GitHub**: [https://github.com/neoshop-ultra](https://github.com/neoshop-ultra)
-- **Discord**: [https://discord.gg/neoshop-ultra](https://discord.gg/neoshop-ultra)
-- **Community Forum**: [https://community.neoshop-ultra.com](https://community.neoshop-ultra.com)
+- **Email**: support@zyra-ultra.com
+- **GitHub**: [https://github.com/zyra-ultra](https://github.com/zyra-ultra)
+- **Discord**: [https://discord.gg/zyra-ultra](https://discord.gg/zyra-ultra)
+- **Community Forum**: [https://community.zyra-ultra.com](https://community.zyra-ultra.com)
 
 ---
 
 **Last Updated**: January 2024  
 **Version**: 1.0
 
-Thank you for using NEOSHOP ULTRA! We're here to help you succeed. 🚀
+Thank you for using ZYRA Fashion! We're here to help you succeed. 🚀
 
 
 

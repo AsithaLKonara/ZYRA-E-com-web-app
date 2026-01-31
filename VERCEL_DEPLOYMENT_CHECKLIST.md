@@ -1,4 +1,4 @@
-# 🚀 Vercel Deployment Checklist for NEOSHOP ULTRA
+# 🚀 Vercel Deployment Checklist for ZYRA Fashion
 
 ## 📋 Pre-Deployment Requirements
 
@@ -273,7 +273,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendOrderConfirmation(email: string, order: any) {
   return await resend.emails.send({
-    from: 'orders@neoshop-ultra.com',
+    from: 'orders@zyra-ultra.com',
     to: email,
     subject: 'Order Confirmation',
     html: `<h1>Thank you for your order!</h1>...`,
@@ -504,7 +504,7 @@ vercel env pull .env.local
 
 ---
 
-*This checklist ensures a smooth deployment process for NEOSHOP ULTRA to Vercel. Follow each step carefully and test thoroughly before going live.*
+*This checklist ensures a smooth deployment process for ZYRA Fashion to Vercel. Follow each step carefully and test thoroughly before going live.*
 
 
 
