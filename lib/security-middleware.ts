@@ -26,7 +26,7 @@ class SecurityMiddleware {
   // Generate Content Security Policy
   private generateCSP(): string {
     const isDevelopment = process.env.NODE_ENV === 'development';
-    
+
     const directives = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com",
@@ -224,7 +224,7 @@ class SecurityMiddleware {
   applySecurityHeaders(response: NextResponse): NextResponse {
     let securedResponse = this.setSecurityHeaders(response);
     securedResponse = this.removeDangerousHeaders(securedResponse);
-    
+
     return securedResponse;
   }
 }
@@ -235,13 +235,13 @@ export const securityMiddleware = new SecurityMiddleware();
 // Security middleware factory
 export function createSecurityMiddleware(customHeaders?: SecurityHeaders) {
   const middleware = new SecurityMiddleware();
-  
+
   if (customHeaders) {
     middleware.setCustomHeaders = (response: NextResponse) => {
       return middleware.setCustomHeaders(response, customHeaders);
     };
   }
-  
+
   return middleware;
 }
 
@@ -283,8 +283,12 @@ export function sanitizeInput(input: string): string {
 }
 
 export function generateCSRFToken(): string {
-  const crypto = require('crypto');
-  return crypto.randomBytes(32).toString('hex');
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    const array = new Uint8Array(32);
+    crypto.getRandomValues(array);
+    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+  }
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 export function validateCSRFToken(token: string, sessionToken: string): boolean {
@@ -294,7 +298,7 @@ export function validateCSRFToken(token: string, sessionToken: string): boolean 
 export function isSecureRequest(request: NextRequest): boolean {
   const protocol = request.nextUrl.protocol;
   const host = request.headers.get('host');
-  
+
   return protocol === 'https:' || (host ? host.includes('localhost') : false);
 }
 
