@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { logger } from "@/lib/logger"
@@ -26,7 +26,7 @@ const getReviewsSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     logger.error("Review creation error", { error: error instanceof Error ? error.message : String(error) }, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid input data",
@@ -194,7 +194,7 @@ export async function GET(req: NextRequest) {
 
   } catch (error) {
     logger.error("Reviews fetch error", { error: error instanceof Error ? error.message : String(error) }, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid parameters",

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from "@/lib/auth";
 import { logger } from '@/lib/logger';
 import { monitoring } from '@/lib/monitoring';
 import { withApiVersioning } from '@/lib/api-versioning';
@@ -13,15 +13,15 @@ import { db as prisma } from '@/lib/database';
 // Logout user
 const POSTHandler = async (request: NextRequest): Promise<NextResponse> => {
   const startTime = Date.now();
-  
+
   try {
     // Get current session
     const session = await getServerSession(authOptions);
-    
+
     if (!session?.user) {
       logger.warn('Logout attempt without active session');
       monitoring.recordCounter('auth.logout.no_session', 1);
-      
+
       return NextResponse.json(
         { message: 'No active session found' },
         { status: 200 }

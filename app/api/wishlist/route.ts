@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { logger } from "@/lib/logger"
@@ -14,7 +14,7 @@ const wishlistItemSchema = z.object({
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     logger.error("Wishlist add error", {}, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid input data",
@@ -148,7 +148,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -177,7 +177,7 @@ export async function DELETE(req: NextRequest) {
 
   } catch (error) {
     logger.error("Wishlist remove error", {}, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid input data",

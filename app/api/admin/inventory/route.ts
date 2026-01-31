@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { UserRole } from "@prisma/client"
 import { z } from "zod"
 import { logger } from "@/lib/logger"
@@ -27,7 +27,7 @@ const bulkUpdateSchema = z.object({
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -43,18 +43,18 @@ export async function GET(req: NextRequest) {
 
     // Build where clause
     const where: any = {}
-    
+
     if (search) {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
         { sku: { contains: search, mode: 'insensitive' } }
       ]
     }
-    
+
     if (category) {
       where.category = { name: { equals: category, mode: 'insensitive' } }
     }
-    
+
     if (lowStock) {
       where.stock = { lte: 10 } // Low stock threshold
     }
@@ -125,7 +125,7 @@ export async function GET(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -172,8 +172,8 @@ export async function PATCH(req: NextRequest) {
       productId,
       userId: session.user.id,
       action: action.toUpperCase(),
-      quantityChange: action === 'set' ? quantity - product.stock : 
-                     action === 'add' ? quantity : -quantity,
+      quantityChange: action === 'set' ? quantity - product.stock :
+        action === 'add' ? quantity : -quantity,
       previousQuantity: product.stock,
       newQuantity,
       reason,
@@ -187,7 +187,7 @@ export async function PATCH(req: NextRequest) {
 
   } catch (error) {
     logger.error("Inventory update error", {}, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid input data",
@@ -204,7 +204,7 @@ export async function PATCH(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -255,8 +255,8 @@ export async function PUT(req: NextRequest) {
           productId: update.productId,
           userId: session.user.id,
           action: update.action.toUpperCase(),
-          quantityChange: update.action === 'set' ? update.quantity - product.stock : 
-                         update.action === 'add' ? update.quantity : -update.quantity,
+          quantityChange: update.action === 'set' ? update.quantity - product.stock :
+            update.action === 'add' ? update.quantity : -update.quantity,
           previousQuantity: product.stock,
           newQuantity,
           reason,
@@ -289,7 +289,7 @@ export async function PUT(req: NextRequest) {
 
   } catch (error) {
     logger.error("Bulk inventory update error", {}, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid input data",

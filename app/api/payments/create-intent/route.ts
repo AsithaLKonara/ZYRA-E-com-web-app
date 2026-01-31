@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { stripe } from "@/lib/stripe"
 import { paymentSecurity } from "@/lib/payment-security"
 import { logger } from "@/lib/logger"
@@ -8,7 +8,7 @@ import { logger } from "@/lib/logger"
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
 
     // Security validation
     const securityResult = await paymentSecurity.validatePaymentRequest(
-      request, 
-      amount, 
+      request,
+      amount,
       currency.toUpperCase()
     )
 
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
         { amount, currency, reason: securityResult.error },
         securityResult.riskScore || 0
       )
-      
+
       return NextResponse.json(
         { error: securityResult.error },
         { status: 403 }
