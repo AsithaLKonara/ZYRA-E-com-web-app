@@ -16,6 +16,7 @@ import { CartProvider } from "@/components/providers/cart-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
   title: "ZYRA - Premium Women's Fashion | Elegant Clothing & Accessories",
   description: "Discover ZYRA's curated collection of premium women's fashion. From elegant dresses to everyday essentials, find your perfect style with quality clothing and accessories.",
   keywords: "women's fashion, women's clothing, dresses, tops, bottoms, fashion accessories, online boutique, premium fashion",
