@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { logger } from './logger';
+
 
 // Environment validation schema
 const envSchema = z.object({
@@ -84,7 +84,7 @@ function validateEnv() {
     if (error instanceof z.ZodError) {
       // Only log errors in non-test environments
       if (!isTest) {
-        logger.error('Environment validation failed', {
+        console.error('Environment validation failed:', {
           errors: error.errors.map((err) => ({
             path: err.path.join('.'),
             message: err.message
@@ -95,7 +95,7 @@ function validateEnv() {
       // Return default values instead of exiting
       const testSecret = 'test-secret-key-for-testing-purposes-only-minimum-32-characters-long';
       const defaultSecret = isTest ? testSecret : 'development-secret-change-in-production-minimum-32-characters-long';
-      
+
       return envSchema.parse({
         ...process.env,
         NODE_ENV: process.env.NODE_ENV || 'development',
