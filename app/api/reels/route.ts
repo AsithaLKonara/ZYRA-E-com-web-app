@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+export const dynamic = 'force-dynamic'
 import { db } from '@/lib/database'
 import { logger } from '@/lib/logger'
 import { ReelStatus } from '@prisma/client'
@@ -115,9 +116,9 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     logger.error('Failed to get reels:', { error: error instanceof Error ? error.message : String(error) })
-    
+
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to get reels',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
