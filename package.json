@@ -137,7 +137,6 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@next/swc-darwin-x64": "^16.1.6",
     "@playwright/test": "^1.55.1",
     "@prisma/client": "^7.2.0",
     "@testing-library/jest-dom": "^6.6.3",
