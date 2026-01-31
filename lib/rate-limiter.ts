@@ -58,7 +58,7 @@ export class RateLimiter {
   private checkLimit(key: string): { allowed: boolean; remaining: number; resetTime: number } {
     const now = Date.now();
     const windowStart = now - this.config.window;
-    
+
     // Clean up expired entries
     Object.keys(this.store).forEach(storeKey => {
       const entry = this.store[storeKey];
@@ -76,7 +76,7 @@ export class RateLimiter {
     }
 
     const entry = this.store[key];
-    
+
     // Reset if window has passed
     if (entry.resetTime < now) {
       entry.count = 0;
@@ -102,7 +102,7 @@ export class RateLimiter {
         resetTime: Date.now() + this.config.window,
       };
     }
-    
+
     this.store[key].count++;
   }
 
@@ -137,7 +137,7 @@ export class RateLimiter {
             retryAfter: Math.ceil((resetTime - Date.now()) / 1000),
           },
         },
-        { 
+        {
           status: 429,
           headers,
         }
@@ -275,12 +275,14 @@ export function withRateLimit(limiter: RateLimiter = rateLimiter) {
 }
 
 // Cleanup expired entries every 5 minutes
-setInterval(() => {
-  rateLimiter.cleanup();
-  apiRateLimiter.cleanup();
-  authRateLimiter.cleanup();
-  uploadRateLimiter.cleanup();
-  searchRateLimiter.cleanup();
-}, 5 * 60 * 1000);
+if (process.env.NEXT_RUNTIME !== 'edge') {
+  setInterval(() => {
+    rateLimiter.cleanup();
+    apiRateLimiter.cleanup();
+    authRateLimiter.cleanup();
+    uploadRateLimiter.cleanup();
+    searchRateLimiter.cleanup();
+  }, 5 * 60 * 1000);
+}
 
 export default rateLimiter;
