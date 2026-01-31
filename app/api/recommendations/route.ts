@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+export const dynamic = 'force-dynamic'
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { logger } from "@/lib/logger"
@@ -40,7 +41,7 @@ export async function GET(req: NextRequest) {
 
   } catch (error) {
     logger.error("Recommendations error", {}, error instanceof Error ? error : undefined)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         error: "Invalid parameters",
@@ -70,7 +71,7 @@ async function getRecommendations(params: z.infer<typeof recommendationSchema>) 
       if (!productId) {
         throw new Error('Product ID required for similar recommendations')
       }
-      
+
       // Get the target product to find similar ones
       const targetProduct = await prisma.product.findUnique({
         where: { id: productId },
@@ -90,7 +91,7 @@ async function getRecommendations(params: z.infer<typeof recommendationSchema>) 
           { tags: { hasSome: targetProduct.tags } }
         ]
       }
-      
+
       // Order by similarity (same category first, then brand, then price proximity)
       orderBy = [
         { category: 'asc' },
@@ -132,14 +133,14 @@ async function getRecommendations(params: z.infer<typeof recommendationSchema>) 
         })
 
         // Extract user preferences
-        const categories = userOrders.flatMap(order => 
+        const categories = userOrders.flatMap(order =>
           order.items.map(item => item.product.category)
         )
         // Note: Brand field doesn't exist in Product model
         // const brands = userOrders.flatMap(order =>
         //   order.items.map(item => item.product.brand)
         // )
-        const tags = userOrders.flatMap(order => 
+        const tags = userOrders.flatMap(order =>
           order.items.flatMap(item => item.product.tags)
         )
 
@@ -157,7 +158,7 @@ async function getRecommendations(params: z.infer<typeof recommendationSchema>) 
         // }, {} as Record<string, number>)
 
         const topCategories = Object.entries(categoryCounts)
-          .sort(([,a], [,b]) => b - a)
+          .sort(([, a], [, b]) => b - a)
           .slice(0, 3)
           .map(([cat]) => cat)
 
